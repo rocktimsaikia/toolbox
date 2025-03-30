@@ -1,4 +1,5 @@
 "use client";
+import { TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import jsonToTs from "json-to-ts";
@@ -75,49 +76,53 @@ export default function ObjectToTypescript() {
   }, [isCopied]);
 
   return (
-    <div className="flex gap-x-6 justify-center mt-20">
-      <div className="flex flex-col items-start">
-        <h2 className="mb-2 text-lg font-semibold">Object</h2>
-        <textarea
-          cols={60}
-          rows={25}
-          className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
-          onChange={(e) => setJsObjectString(e.target.value)}
-          value={jsObjectString}
-          spellCheck={false}
-          placeholder="Paste your JavaScript object here..."
-        ></textarea>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
-      </div>
-      <div className="flex flex-col items-start">
-        <div className="flex justify-between w-full">
-          <h2 className="text-lg font-semibold">Typescript</h2>
-          <button
-            onClick={() => {
-              copyToClipboard(tsTypeString);
-              setIsCopied(true);
-            }}
-            className="cursor-pointer border border-b-0 border-gray-300 rounded p-2 hover:bg-gray-100 text-sm"
-          >
-            {isCopied ? (
-              <div className="text-green-600">
-                Copied <CheckIcon className="inline-block" />
-              </div>
-            ) : (
-              <>
-                Copy to clipboard <CopyIcon className="inline-block" />
-              </>
-            )}
-          </button>
+    <div>
+      <h1 className="text-center text-3xl">{TOOLS[0].name}</h1>
+      <h2 className="text-center text-lg mt-2">{TOOLS[0].description}</h2>
+      <div className="flex gap-x-6 justify-center mt-20">
+        <div className="flex flex-col items-start">
+          <h2 className="mb-2 text-lg font-semibold">Object</h2>
+          <textarea
+            cols={60}
+            rows={23}
+            className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            onChange={(e) => setJsObjectString(e.target.value)}
+            value={jsObjectString}
+            spellCheck={false}
+            placeholder="Paste your JavaScript object here..."
+          ></textarea>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
-        <textarea
-          cols={60}
-          rows={25}
-          className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
-          value={tsTypeString}
-          readOnly
-          placeholder="TypeScript type will appear here..."
-        ></textarea>
+        <div className="flex flex-col items-start">
+          <div className="flex justify-between w-full">
+            <h2 className="text-lg font-semibold">Typescript</h2>
+            <button
+              onClick={() => {
+                copyToClipboard(tsTypeString);
+                setIsCopied(true);
+              }}
+              className="cursor-pointer border border-b-0 border-gray-300 rounded p-2 hover:bg-gray-100 text-sm"
+            >
+              {isCopied ? (
+                <div className="text-green-600">
+                  Copied <CheckIcon className="inline-block" />
+                </div>
+              ) : (
+                <>
+                  Copy to clipboard <CopyIcon className="inline-block" />
+                </>
+              )}
+            </button>
+          </div>
+          <textarea
+            cols={60}
+            rows={23}
+            className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            value={tsTypeString}
+            readOnly
+            placeholder="TypeScript type will appear here..."
+          ></textarea>
+        </div>
       </div>
     </div>
   );
