@@ -1,2 +1,2 @@
-# Tools
+# Toolbox
 https://tools.rocktimsaikia.dev
