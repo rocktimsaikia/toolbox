@@ -27,7 +27,7 @@ export default function Home() {
         {TOOLS.map((tool) => (
           <li className="mb-3 tracking-[-.01em]" key={tool.name}>
             <Link href={tool.path}>
-              <code className="bg-black/[.05] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
+              <code className="bg-black/[.05] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold text-base">
                 {tool.name} <Link1Icon className="inline-block" />
               </code>
             </Link>

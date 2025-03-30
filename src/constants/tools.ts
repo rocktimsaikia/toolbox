@@ -9,4 +9,9 @@ export const TOOLS = [
     description: "Convert JSON to javascript object",
     path: "/json-to-javascript",
   },
+  {
+    name: "Numbers to Words",
+    description: "Convert numbers to human readable words",
+    path: "/numbers-to-words",
+  },
 ];
