@@ -23,14 +23,15 @@ export default function Home() {
           A Collection of essential tools to make our life easier.
         </h1>
       </div>
-      <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
+      <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)] space-y-8">
         {TOOLS.map((tool) => (
-          <li className="mb-3 tracking-[-.01em]" key={tool.name}>
+          <li className="tracking-[-.01em]" key={tool.name}>
             <Link href={tool.path}>
               <code className="bg-black/[.05] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold text-base">
                 {tool.name} <Link1Icon className="inline-block" />
               </code>
             </Link>
+            <p className="mt-1">{tool.description}</p>
           </li>
         ))}
       </ol>
