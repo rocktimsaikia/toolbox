@@ -21,6 +21,14 @@ export default function NumbersToWords() {
     }
   }, [numbers]);
 
+  useEffect(() => {
+    if (isCopied) {
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    }
+  }, [isCopied]);
+
   return (
     <div>
       <h1 className="text-center text-3xl">{TOOLS[2].name}</h1>
