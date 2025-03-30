@@ -45,7 +45,7 @@ export default function NumbersToWords() {
             onChange={(e) => setNumbers(Number.parseInt(e.target.value))}
             value={numbers}
             spellCheck={false}
-            placeholder="Paste your JavaScript object here..."
+            placeholder="Add numbers here..."
           ></textarea>
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
@@ -102,7 +102,7 @@ export default function NumbersToWords() {
             className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
             value={words}
             readOnly
-            placeholder="TypeScript type will appear here..."
+            placeholder="Words will appear here..."
           ></textarea>
         </div>
       </div>

@@ -74,7 +74,7 @@ export default function JSONToJavascript() {
             onChange={(e) => setJsonString(e.target.value)}
             value={jsonString}
             spellCheck={false}
-            placeholder="Paste your JavaScript object here..."
+            placeholder="Paste your JSON data here..."
           ></textarea>
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
@@ -105,7 +105,7 @@ export default function JSONToJavascript() {
             className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
             value={javascriptObject}
             readOnly
-            placeholder="TypeScript type will appear here..."
+            placeholder="Javascript object will appear here..."
           ></textarea>
         </div>
       </div>
