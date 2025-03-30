@@ -25,8 +25,8 @@ export default function Home() {
       </div>
       <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
         {TOOLS.map((tool) => (
-          <li className="mb-3 tracking-[-.01em]">
-            <Link href={tool.path} key={tool.name} className="">
+          <li className="mb-3 tracking-[-.01em]" key={tool.name}>
+            <Link href={tool.path}>
               <code className="bg-black/[.05] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
                 {tool.name} <Link1Icon className="inline-block" />
               </code>
