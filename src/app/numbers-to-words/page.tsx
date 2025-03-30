@@ -1,5 +1,5 @@
 "use client";
-import { TOOLS } from "@/constants/tools";
+import { LANGUAGE_OPTIONS, TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
@@ -10,16 +10,18 @@ export default function NumbersToWords() {
   const [words, setWords] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const [error, setError] = useState("");
+  const [localeCode, setLocaleCode] = useState("en-US");
+  const [currency, setCurrency] = useState(false);
 
   useEffect(() => {
     try {
-      const toWords = new ToWords();
+      const toWords = new ToWords({ localeCode, converterOptions: { currency } });
       const words = toWords.convert(numbers);
       setWords(words);
     } catch (err) {
       setError("Invalid number syntax");
     }
-  }, [numbers]);
+  }, [numbers, localeCode, currency]);
 
   useEffect(() => {
     if (isCopied) {
@@ -33,12 +35,12 @@ export default function NumbersToWords() {
     <div>
       <h1 className="text-center text-3xl">{TOOLS[2].name}</h1>
       <h2 className="text-center text-lg mt-2">{TOOLS[2].description}</h2>
-      <div className="flex gap-x-6 justify-center mt-20">
+      <div className="flex gap-x-6 justify-end items-end mt-20">
         <div className="flex flex-col items-start">
-          <h2 className="mb-2 text-lg font-semibold">Numbers</h2>
+          <h2 className="text-lg font-semibold">Numbers</h2>
           <textarea
             cols={60}
-            rows={10}
+            rows={8}
             className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
             onChange={(e) => setNumbers(Number.parseInt(e.target.value))}
             value={numbers}
@@ -49,7 +51,33 @@ export default function NumbersToWords() {
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
-            <h2 className="text-lg font-semibold">Words</h2>
+            <div className="flex items-center gap-x-2 text-sm border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100">
+              <input
+                type="checkbox"
+                id="currency"
+                name="currency"
+                checked={currency}
+                onChange={() => setCurrency(!currency)}
+              />
+              <label htmlFor="currency">Show Currency</label>
+            </div>
+            <select
+              className="cursor-pointer border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100 text-sm"
+              onChange={(e) => setLocaleCode(e.target.value)}
+              value={localeCode}
+            >
+              <option value="" disabled>
+                Select a currency locale
+              </option>
+              <option value="" disabled>
+                Country | Language | Locale
+              </option>
+              {LANGUAGE_OPTIONS.map((lang) => (
+                <option key={lang.locale} value={lang.locale}>
+                  {lang.country} | {lang.language} | {lang.locale}
+                </option>
+              ))}
+            </select>
             <button
               onClick={() => {
                 copyToClipboard(words);
@@ -69,8 +97,8 @@ export default function NumbersToWords() {
             </button>
           </div>
           <textarea
-            cols={60}
-            rows={10}
+            cols={70}
+            rows={8}
             className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
             value={words}
             readOnly
