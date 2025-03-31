@@ -1,4 +1,13 @@
 "use client";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { LANGUAGE_OPTIONS, TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
@@ -22,7 +31,10 @@ export default function NumbersToWords() {
     }
 
     try {
-      const toWords = new ToWords({ localeCode, converterOptions: { currency } });
+      const toWords = new ToWords({
+        localeCode,
+        converterOptions: { currency, doNotAddOnly: true },
+      });
       const words = toWords.convert(numbers as number);
       setWords(words);
     } catch (err) {
@@ -71,23 +83,25 @@ export default function NumbersToWords() {
               />
               <label htmlFor="currency">Show Currency</label>
             </div>
-            <select
-              className="cursor-pointer border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100 text-sm"
-              onChange={(e) => setLocaleCode(e.target.value)}
-              value={localeCode}
-            >
-              <option value="" disabled>
-                Select a currency locale
-              </option>
-              <option value="" disabled>
-                Country | Language | Locale
-              </option>
-              {LANGUAGE_OPTIONS.map((lang) => (
-                <option key={lang.locale} value={lang.locale}>
-                  {lang.country} | {lang.language} | {lang.locale}
-                </option>
-              ))}
-            </select>
+            <Select onValueChange={setLocaleCode} value={localeCode}>
+              <SelectTrigger className="w-[200px] border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100 text-sm">
+                <SelectValue placeholder="Select Locale" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup className="font-[family-name:var(--font-geist-sans)]">
+                  <SelectLabel className="text-sm">Select a Locale</SelectLabel>
+                  {LANGUAGE_OPTIONS.map((lang) => (
+                    <SelectItem key={lang.locale} value={lang.locale}>
+                      {lang.country}{" "}
+                      <span className="text-gray-600">
+                        ({lang.language}, {lang.locale})
+                      </span>
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
             <button
               onClick={() => {
                 copyToClipboard(words);

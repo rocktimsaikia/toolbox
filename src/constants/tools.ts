@@ -11,7 +11,7 @@ export const TOOLS = [
   },
   {
     name: "Numbers to Words",
-    description: "Convert numbers to human readable words",
+    description: "Convert numbers to human readable words (Currency supported)",
     path: "/numbers-to-words",
   },
 ];

@@ -10,13 +10,19 @@
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/react-select": "^2.1.6",
     "browser-util-inspect": "^0.2.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "json-schema-to-typescript": "^15.0.4",
     "json-to-ts": "^2.1.0",
+    "lucide-react": "^0.485.0",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2",
     "to-words": "^4.4.0",
+    "tw-animate-css": "^1.2.5",
     "util-inspect": "^0.1.8"
   },
   "devDependencies": {
