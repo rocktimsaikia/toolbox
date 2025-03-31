@@ -36,6 +36,7 @@ export default function JSONToJavascript() {
   useEffect(() => {
     if (!jsonString.trim()) {
       setError("");
+      setJavascriptObject("");
       return;
     }
 

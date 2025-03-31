@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { ToWords } from "to-words";
 
 export default function NumbersToWords() {
-  const [numbers, setNumbers] = useState(12345);
+  const [numbers, setNumbers] = useState<string | number>(12345);
   const [words, setWords] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const [error, setError] = useState("");
@@ -14,9 +14,16 @@ export default function NumbersToWords() {
   const [currency, setCurrency] = useState(false);
 
   useEffect(() => {
+    // Reset all states when number is empty
+    if (!numbers && numbers !== 0) {
+      setWords("");
+      setError("");
+      return;
+    }
+
     try {
       const toWords = new ToWords({ localeCode, converterOptions: { currency } });
-      const words = toWords.convert(numbers);
+      const words = toWords.convert(numbers as number);
       setWords(words);
     } catch (err) {
       setError("Invalid number syntax");
@@ -42,7 +49,10 @@ export default function NumbersToWords() {
             cols={60}
             rows={8}
             className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
-            onChange={(e) => setNumbers(Number.parseInt(e.target.value))}
+            onChange={(e) => {
+              const value = e.target.value;
+              setNumbers(value === "" ? "" : Number.parseInt(e.target.value));
+            }}
             value={numbers}
             spellCheck={false}
             placeholder="Add numbers here..."
