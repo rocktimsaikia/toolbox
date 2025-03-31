@@ -14,6 +14,11 @@ export const TOOLS = [
     description: "Convert numbers to human readable words (Currency supported)",
     path: "/numbers-to-words",
   },
+  {
+    name: "Password Generator",
+    description: "Generate a random password",
+    path: "/password-generator",
+  },
 ];
 
 export const LANGUAGE_OPTIONS = [
