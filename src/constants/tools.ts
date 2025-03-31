@@ -29,6 +29,11 @@ export const TOOLS: Tool[] = [
     description: "Encode text to base64 and vice versa",
     path: "/base64-converter",
   },
+  {
+    name: "URL Encoder/Decoder",
+    description: "Encode and decode URLs",
+    path: "/url-encoder-decoder",
+  },
 ];
 
 export const LANGUAGE_OPTIONS = [
