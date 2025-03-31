@@ -26,7 +26,7 @@ export const TOOLS: Tool[] = [
   },
   {
     name: "Base64 Converter",
-    description: "Encode and Decode base64 strings",
+    description: "Encode text to base64 and vice versa",
     path: "/base64-converter",
   },
 ];
