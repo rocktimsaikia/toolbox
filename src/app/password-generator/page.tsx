@@ -1,10 +1,11 @@
 "use client";
+import Clipboard from "@/components/clipboard";
+import ToolsHeader from "@/components/tools-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
-import { copyToClipboard } from "@/libs/common";
-import { CheckIcon, CopyIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import generator, { type GenerateOptions } from "generate-password-browser";
 import { useEffect, useState } from "react";
 
@@ -15,15 +16,6 @@ export default function JSONToJavascript() {
   const [lowercase, setLowercase] = useState(true);
   const [numbers, setNumbers] = useState(true);
   const [symbols, setSymbols] = useState(true);
-  const [isCopied, setIsCopied] = useState(false);
-
-  useEffect(() => {
-    if (isCopied) {
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    }
-  }, [isCopied]);
 
   function handleGeneratePassword() {
     const generateConfig: GenerateOptions = {
@@ -43,33 +35,12 @@ export default function JSONToJavascript() {
     handleGeneratePassword();
   }, []);
 
-  function handleCopyPassword() {
-    copyToClipboard(password);
-    setIsCopied(true);
-  }
-
   return (
     <div>
-      <h1 className="text-center text-3xl">{TOOLS[3].name}</h1>
-      <h2 className="text-center text-lg mt-2">{TOOLS[3].description}</h2>
+      <ToolsHeader tool={TOOLS[3]} />
       <div className="flex gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start">
-          <div className="flex justify-end w-full">
-            <button
-              onClick={handleCopyPassword}
-              className="cursor-pointer border border-b-0 border-gray-300 rounded p-2 hover:bg-gray-100 text-sm"
-            >
-              {isCopied ? (
-                <div className="text-green-600">
-                  Copied <CheckIcon className="inline-block" />
-                </div>
-              ) : (
-                <>
-                  Copy to clipboard <CopyIcon className="inline-block" />
-                </>
-              )}
-            </button>
-          </div>
+          <Clipboard text={password} />
           <textarea
             cols={65}
             rows={5}

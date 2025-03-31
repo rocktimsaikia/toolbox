@@ -1,4 +1,9 @@
-export const TOOLS = [
+export type Tool = {
+  name: string;
+  description: string;
+  path: string;
+};
+export const TOOLS: Tool[] = [
   {
     name: "Javascript Object to Typescript Types",
     description: "Extract typescript types from a javascript object",
@@ -18,6 +23,11 @@ export const TOOLS = [
     name: "Password Generator",
     description: "Generate a random password",
     path: "/password-generator",
+  },
+  {
+    name: "Base64 Converter",
+    description: "Encode and Decode base64 strings",
+    path: "/base64-converter",
   },
 ];
 
