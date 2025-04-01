@@ -5,33 +5,33 @@ export type Tool = {
 };
 export const TOOLS: Tool[] = [
   {
-    name: "Javascript Object to Typescript Types",
-    description: "Extract typescript types from a javascript object",
+    name: "Convert JavaScript/JSON to TypeScript Types",
+    description: "Generate TypeScript types from JavaScript objects or JSON data.",
     path: "/object-to-typescript",
   },
   {
     name: "JSON to Javascript Object",
-    description: "Convert JSON to javascript object",
+    description: "Convert JSON data into a JavaScript object.",
     path: "/json-to-javascript",
   },
   {
     name: "Numbers to Words",
-    description: "Convert numbers to human readable words (Currency supported)",
+    description: "Convert numbers to readable words (supports currency).",
     path: "/numbers-to-words",
   },
   {
     name: "Password Generator",
-    description: "Generate a random password",
+    description: "Generate a secure random password.",
     path: "/password-generator",
   },
   {
     name: "Base64 Converter",
-    description: "Encode text to base64 and vice versa",
+    description: "Convert text to Base64 encoding and vice versa.",
     path: "/base64-converter",
   },
   {
     name: "URL Encoder/Decoder",
-    description: "Encode and decode URLs",
+    description: "Encode and decode URLs.",
     path: "/url-encoder-decoder",
   },
 ];
