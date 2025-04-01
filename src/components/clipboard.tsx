@@ -1,3 +1,4 @@
+"use client";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
