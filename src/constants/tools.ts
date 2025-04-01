@@ -3,12 +3,14 @@ type Slug =
   | "numbers-to-words"
   | "password-generator"
   | "base64-converter"
-  | "url-encoder-decoder";
+  | "url-encoder-decoder"
+  | "whats-my-ip";
 
 export type Tool = {
   name: string;
   description: string;
   slug: Slug;
+  hide?: boolean;
 };
 
 export const TOOLS: Record<Slug, Tool> = {
@@ -36,6 +38,12 @@ export const TOOLS: Record<Slug, Tool> = {
     name: "URL Encoder/Decoder",
     description: "Encode and decode URLs.",
     slug: "url-encoder-decoder",
+  },
+  "whats-my-ip": {
+    name: "What's My IP",
+    description: "Get your public IP address.",
+    slug: "whats-my-ip",
+    hide: true,
   },
 };
 

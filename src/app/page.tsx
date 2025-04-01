@@ -24,16 +24,18 @@ export default function Home() {
         </h1>
       </div>
       <ol className="grid lg:grid-cols-2 gap-5 list-inside list-decimal text-sm/6 font-[family-name:var(--font-geist-mono)]">
-        {Object.entries(TOOLS).map(([_, tool]) => (
-          <li className="tracking-[-.01em] border lg:p-4 p-2" key={tool.name}>
-            <Link href={`/${tool.slug}`}>
-              <code className="bg-black/[.05] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold lg:text-base">
-                {tool.name} <Link1Icon className="inline-block" />
-              </code>
-            </Link>
-            <p className="mt-1 lg:ml-7">{tool.description}</p>
-          </li>
-        ))}
+        {Object.entries(TOOLS)
+          .filter(([_, tool]) => !tool.hide)
+          .map(([_, tool]) => (
+            <li className="tracking-[-.01em] border lg:p-4 p-2" key={tool.name}>
+              <Link href={`/${tool.slug}`}>
+                <code className="bg-black/[.05] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold lg:text-base">
+                  {tool.name} <Link1Icon className="inline-block" />
+                </code>
+              </Link>
+              <p className="mt-1 lg:ml-7">{tool.description}</p>
+            </li>
+          ))}
       </ol>
     </div>
   );
