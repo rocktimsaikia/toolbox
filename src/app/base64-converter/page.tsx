@@ -38,7 +38,7 @@ export default function Base64Converter() {
 
   return (
     <div>
-      <ToolsHeader tool={TOOLS[4]} />
+      <ToolsHeader tool={TOOLS["base64-converter"]} />
       <div className="flex gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start">
           <h2 className="mb-2 text-lg font-semibold">

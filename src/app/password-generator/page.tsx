@@ -37,7 +37,7 @@ export default function JSONToJavascript() {
 
   return (
     <div>
-      <ToolsHeader tool={TOOLS[3]} />
+      <ToolsHeader tool={TOOLS["password-generator"]} />
       <div className="flex gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start">
           <Clipboard text={password} />

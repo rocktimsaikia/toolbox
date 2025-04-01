@@ -1,9 +1,11 @@
 import { TOOLS } from "@/constants/tools";
 import type { Metadata } from "next";
 
+const tool = TOOLS["base64-converter"];
+
 export const metadata: Metadata = {
-  title: TOOLS[4].name,
-  description: TOOLS[4].description,
+  title: tool.name,
+  description: tool.description,
 };
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -24,9 +24,9 @@ export default function Home() {
         </h1>
       </div>
       <ol className="grid lg:grid-cols-2 gap-5 list-inside list-decimal text-sm/6 font-[family-name:var(--font-geist-mono)]">
-        {TOOLS.map((tool) => (
+        {Object.entries(TOOLS).map(([_, tool]) => (
           <li className="tracking-[-.01em] border lg:p-4 p-2" key={tool.name}>
-            <Link href={tool.path}>
+            <Link href={`/${tool.slug}`}>
               <code className="bg-black/[.05] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold lg:text-base">
                 {tool.name} <Link1Icon className="inline-block" />
               </code>

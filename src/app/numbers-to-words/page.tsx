@@ -1,4 +1,5 @@
 "use client";
+import ToolsHeader from "@/components/tools-header";
 import {
   Select,
   SelectContent,
@@ -71,8 +72,7 @@ export default function NumbersToWords() {
 
   return (
     <div>
-      <h1 className="text-center text-3xl">{TOOLS[2].name}</h1>
-      <h2 className="text-center text-lg mt-2">{TOOLS[2].description}</h2>
+      <ToolsHeader tool={TOOLS["numbers-to-words"]} />
       <div className="flex gap-x-6 justify-end items-end mt-20">
         <div className="flex flex-col items-start">
           <h2 className="text-lg font-semibold">Numbers</h2>

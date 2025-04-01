@@ -1,9 +1,11 @@
 import { TOOLS } from "@/constants/tools";
 import type { Metadata } from "next";
 
+const tool = TOOLS["object-to-typescript"];
+
 export const metadata: Metadata = {
-  title: TOOLS[0].name,
-  description: TOOLS[0].description,
+  title: tool.name,
+  description: tool.description,
 };
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {

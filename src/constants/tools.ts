@@ -1,35 +1,43 @@
+type Slug =
+  | "object-to-typescript"
+  | "numbers-to-words"
+  | "password-generator"
+  | "base64-converter"
+  | "url-encoder-decoder";
+
 export type Tool = {
   name: string;
   description: string;
-  path: string;
+  slug: Slug;
 };
-export const TOOLS: Tool[] = [
-  {
+
+export const TOOLS: Record<Slug, Tool> = {
+  "object-to-typescript": {
     name: "Convert JavaScript/JSON to TypeScript Types",
     description: "Generate TypeScript types from JavaScript objects or JSON data.",
-    path: "/object-to-typescript",
+    slug: "object-to-typescript",
   },
-  {
+  "numbers-to-words": {
     name: "Numbers to Words",
     description: "Convert numbers to readable words (supports currency).",
-    path: "/numbers-to-words",
+    slug: "numbers-to-words",
   },
-  {
+  "password-generator": {
     name: "Password Generator",
     description: "Generate a secure random password.",
-    path: "/password-generator",
+    slug: "password-generator",
   },
-  {
+  "base64-converter": {
     name: "Base64 Converter",
     description: "Convert text to Base64 encoding and vice versa.",
-    path: "/base64-converter",
+    slug: "base64-converter",
   },
-  {
+  "url-encoder-decoder": {
     name: "URL Encoder/Decoder",
     description: "Encode and decode URLs.",
-    path: "/url-encoder-decoder",
+    slug: "url-encoder-decoder",
   },
-];
+};
 
 export const LANGUAGE_OPTIONS = [
   { country: "Estonia", language: "Estonian", locale: "ee-EE" },

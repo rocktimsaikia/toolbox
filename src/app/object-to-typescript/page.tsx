@@ -1,5 +1,6 @@
 "use client";
 import TextAreaCodeEditor from "@/components/code-editor";
+import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
@@ -78,8 +79,7 @@ export default function ObjectToTypescript() {
 
   return (
     <div>
-      <h1 className="text-center text-3xl">{TOOLS[0].name}</h1>
-      <h2 className="text-center text-lg mt-2">{TOOLS[0].description}</h2>
+      <ToolsHeader tool={TOOLS["object-to-typescript"]} />
       <div className="flex gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start">
           <h2 className="mb-2 text-lg font-semibold">Object</h2>

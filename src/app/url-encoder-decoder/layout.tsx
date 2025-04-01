@@ -1,9 +1,11 @@
 import { TOOLS } from "@/constants/tools";
 import type { Metadata } from "next";
 
+const tool = TOOLS["url-encoder-decoder"];
+
 export const metadata: Metadata = {
-  title: TOOLS[5].name,
-  description: TOOLS[5].description,
+  title: tool.name,
+  description: tool.description,
 };
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {

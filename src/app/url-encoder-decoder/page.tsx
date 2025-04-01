@@ -38,7 +38,7 @@ export default function UrlEncoder() {
 
   return (
     <div>
-      <ToolsHeader tool={TOOLS[5]} />
+      <ToolsHeader tool={TOOLS["url-encoder-decoder"]} />
       <div className="flex gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start">
           <h2 className="mb-2 text-lg font-semibold">Input</h2>
