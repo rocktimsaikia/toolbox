@@ -6,13 +6,14 @@ export default async function WhatsMyIp() {
   const headersList = await headers();
   //const userAgent = headersList.get("user-agent");
   const ipAddress = headersList.get("x-forwarded-for") || headersList.get("x-real-ip");
+  const ipv4 = ipAddress?.split(",")[0];
 
   return (
     <div>
       <ToolsHeader tool={TOOLS["whats-my-ip"]} />
       <div className="flex gap-x-6 justify-center mt-20">
         <div className="bg-gray-100 text-green-600 tracking-wider mb-2 text-2xl font-semibold p-4 border-1 border-gray-500 border-dotted">
-          {ipAddress}
+          {ipv4}
         </div>
       </div>
     </div>

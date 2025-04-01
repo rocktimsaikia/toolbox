@@ -43,7 +43,6 @@ export const TOOLS: Record<Slug, Tool> = {
     name: "What's My IP",
     description: "Get your public IP address.",
     slug: "whats-my-ip",
-    hide: true,
   },
 };
 
