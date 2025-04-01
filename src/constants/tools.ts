@@ -10,11 +10,6 @@ export const TOOLS: Tool[] = [
     path: "/object-to-typescript",
   },
   {
-    name: "JSON to Javascript Object",
-    description: "Convert JSON data into a JavaScript object.",
-    path: "/json-to-javascript",
-  },
-  {
     name: "Numbers to Words",
     description: "Convert numbers to readable words (supports currency).",
     path: "/numbers-to-words",
@@ -43,7 +38,7 @@ export const LANGUAGE_OPTIONS = [
   { country: "UK", language: "English", locale: "en-GB" },
   { country: "Ghana", language: "English", locale: "en-GH" },
   { country: "Ireland", language: "English", locale: "en-IE" },
-  { country: "India", language: "English", locale: "en-IN" }, // (default)
+  { country: "India", language: "English", locale: "en-IN" },
   { country: "Myanmar", language: "English", locale: "en-MM" },
   { country: "Mauritius", language: "English", locale: "en-MU" },
   { country: "Nigeria", language: "English", locale: "en-NG" },

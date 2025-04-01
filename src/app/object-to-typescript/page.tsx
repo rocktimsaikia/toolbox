@@ -1,4 +1,5 @@
 "use client";
+import TextAreaCodeEditor from "@/components/code-editor";
 import { TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
@@ -62,8 +63,8 @@ export default function ObjectToTypescript() {
       setTsTypeString(tsTypes.join("\n\n"));
       setError("");
     } catch (err) {
+      setTsTypeString(String(err));
       setError("Invalid JavaScript object syntax");
-      setTsTypeString("");
     }
   }, [jsObjectString]);
 
@@ -82,15 +83,12 @@ export default function ObjectToTypescript() {
       <div className="flex gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start">
           <h2 className="mb-2 text-lg font-semibold">Object</h2>
-          <textarea
-            cols={60}
-            rows={23}
-            className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
-            onChange={(e) => setJsObjectString(e.target.value)}
+          <TextAreaCodeEditor
             value={jsObjectString}
-            spellCheck={false}
+            onChange={setJsObjectString}
+            language="javascript"
             placeholder="Paste your JavaScript object here..."
-          ></textarea>
+          />
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
         <div className="flex flex-col items-start">
@@ -117,7 +115,7 @@ export default function ObjectToTypescript() {
           <textarea
             cols={60}
             rows={23}
-            className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="border border-gray-300 outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
             value={tsTypeString}
             readOnly
             placeholder="TypeScript type will appear here..."

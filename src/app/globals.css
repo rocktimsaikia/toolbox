@@ -127,3 +127,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+.cm-editor {
+  height: 485px !important;
+  width: 529px !important;
+  font-size: 14px !important;
+  outline: 1px solid #d1d5db;
+}
+.cm-editor:focus {
+  outline: 1px solid #212121;
+}
