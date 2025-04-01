@@ -89,34 +89,36 @@ export default function NumbersToWords() {
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
-            <div className="flex items-center gap-x-2 text-sm border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100">
-              <input
-                type="checkbox"
-                id="currency"
-                name="currency"
-                checked={currency}
-                onChange={() => setCurrency(!currency)}
-              />
-              <label htmlFor="currency">Show Currency</label>
+            <div className="flex gap-x-4">
+              <div className="flex items-center gap-x-2 text-sm border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100">
+                <input
+                  type="checkbox"
+                  id="currency"
+                  name="currency"
+                  checked={currency}
+                  onChange={() => setCurrency(!currency)}
+                />
+                <label htmlFor="currency">Show Currency</label>
+              </div>
+              <Select onValueChange={setLocaleCode} value={localeCode}>
+                <SelectTrigger className="w-[200px] border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100 text-sm">
+                  <SelectValue placeholder="Select Locale" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup className="font-[family-name:var(--font-geist-sans)]">
+                    <SelectLabel className="text-sm">Select a Locale</SelectLabel>
+                    {LANGUAGE_OPTIONS.map((lang) => (
+                      <SelectItem key={lang.locale} value={lang.locale}>
+                        {lang.country}{" "}
+                        <span className="text-gray-600">
+                          ({lang.language}, {lang.locale})
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
-            <Select onValueChange={setLocaleCode} value={localeCode}>
-              <SelectTrigger className="w-[200px] border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100 text-sm">
-                <SelectValue placeholder="Select Locale" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup className="font-[family-name:var(--font-geist-sans)]">
-                  <SelectLabel className="text-sm">Select a Locale</SelectLabel>
-                  {LANGUAGE_OPTIONS.map((lang) => (
-                    <SelectItem key={lang.locale} value={lang.locale}>
-                      {lang.country}{" "}
-                      <span className="text-gray-600">
-                        ({lang.language}, {lang.locale})
-                      </span>
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
 
             <button
               onClick={() => {
