@@ -50,6 +50,25 @@ export default function NumbersToWords() {
     }
   }, [isCopied]);
 
+  const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value === "") {
+      setError("");
+      setNumbers("");
+      return;
+    }
+
+    // Check for NaN value and show error
+    const valueAsNumber = Number.parseInt(value);
+    if (Number.isNaN(valueAsNumber)) {
+      return;
+    }
+
+    // Else reset error and set number
+    setError("");
+    setNumbers(valueAsNumber);
+  };
+
   return (
     <div>
       <h1 className="text-center text-3xl">{TOOLS[2].name}</h1>
@@ -61,10 +80,7 @@ export default function NumbersToWords() {
             cols={60}
             rows={8}
             className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
-            onChange={(e) => {
-              const value = e.target.value;
-              setNumbers(value === "" ? "" : Number.parseInt(e.target.value));
-            }}
+            onChange={handleOnChange}
             value={numbers}
             spellCheck={false}
             placeholder="Add numbers here..."
