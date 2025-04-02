@@ -1,5 +1,5 @@
 export type Slug =
-  | "object-to-typescript"
+  | "json-to-types"
   | "numbers-to-words"
   | "password-generator"
   | "base64-converter"
@@ -14,10 +14,10 @@ export type Tool = {
 };
 
 export const TOOLS: Record<Slug, Tool> = {
-  "object-to-typescript": {
+  "json-to-types": {
     name: "Convert JavaScript/JSON to TypeScript Types",
     description: "Generate TypeScript types from JavaScript objects or JSON data.",
-    slug: "object-to-typescript",
+    slug: "json-to-types",
   },
   "numbers-to-words": {
     name: "Numbers to Words",

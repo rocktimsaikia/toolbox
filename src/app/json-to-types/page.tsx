@@ -25,15 +25,15 @@ const defaultObject = `const User = {
     lastLogin: null
   };`;
 
-export default function ObjectToTypescript() {
-  const [jsObjectString, setJsObjectString] = useState(defaultObject);
-  const [tsTypeString, setTsTypeString] = useState("");
+export default function JsonToTypes() {
+  const [inputString, setInputString] = useState(defaultObject);
+  const [outputString, setOutputString] = useState("");
   const [error, setError] = useState("");
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
-    if (!jsObjectString.trim()) {
-      setTsTypeString("");
+    if (!inputString.trim()) {
+      setOutputString("");
       setError("");
       return;
     }
@@ -41,12 +41,12 @@ export default function ObjectToTypescript() {
     try {
       // Extract variable name if it exists and clean the input
       let variableName = "Object";
-      let cleanedInput = jsObjectString.trim();
+      let cleanedInput = inputString.trim();
 
-      const variableMatch = jsObjectString.match(/^(const|var|let)\s+(\w+)\s*=/);
+      const variableMatch = inputString.match(/^(const|var|let)\s+(\w+)\s*=/);
       if (variableMatch) {
         variableName = variableMatch[2];
-        cleanedInput = jsObjectString
+        cleanedInput = inputString
           .replace(/^(const|var|let)\s+\w+\s*=\s*/, "")
           .replace(/;$/, "")
           .trim();
@@ -61,13 +61,13 @@ export default function ObjectToTypescript() {
         rootName: typeName,
       });
 
-      setTsTypeString(tsTypes.join("\n\n"));
+      setOutputString(tsTypes.join("\n\n"));
       setError("");
     } catch (err) {
-      setTsTypeString(String(err));
+      setOutputString(String(err));
       setError("Invalid JavaScript object syntax");
     }
-  }, [jsObjectString]);
+  }, [inputString]);
 
   useEffect(() => {
     if (isCopied) {
@@ -79,13 +79,13 @@ export default function ObjectToTypescript() {
 
   return (
     <div>
-      <ToolsHeader tool={TOOLS["object-to-typescript"]} />
+      <ToolsHeader tool={TOOLS["json-to-types"]} />
       <div className="flex gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start">
           <h2 className="mb-2 text-lg font-semibold">Object</h2>
           <TextAreaCodeEditor
-            value={jsObjectString}
-            onChange={setJsObjectString}
+            value={inputString}
+            onChange={setInputString}
             language="javascript"
             placeholder="Paste your JavaScript object here..."
           />
@@ -96,7 +96,7 @@ export default function ObjectToTypescript() {
             <h2 className="text-lg font-semibold">Typescript</h2>
             <button
               onClick={() => {
-                copyToClipboard(tsTypeString);
+                copyToClipboard(outputString);
                 setIsCopied(true);
               }}
               className="cursor-pointer border border-b-0 border-gray-300 rounded p-2 hover:bg-gray-100 text-sm"
@@ -116,7 +116,7 @@ export default function ObjectToTypescript() {
             cols={60}
             rows={23}
             className="border border-gray-300 outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
-            value={tsTypeString}
+            value={outputString}
             readOnly
             placeholder="TypeScript type will appear here..."
           ></textarea>

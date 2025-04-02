@@ -3,7 +3,7 @@ import { Faqs } from "@/constants/faq";
 import { TOOLS } from "@/constants/tools";
 import type { Metadata } from "next";
 
-const slug = "numbers-to-words";
+const slug = "json-to-types";
 
 const tool = TOOLS[slug];
 const faq = Faqs[slug];
