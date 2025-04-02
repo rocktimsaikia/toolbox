@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import { ToWords } from "to-words";
 
 export default function NumbersToWords() {
-  const [numbers, setNumbers] = useState<string | number>(12345);
+  const [numbers, setNumbers] = useState<string>("12345");
   const [words, setWords] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const [error, setError] = useState("");
@@ -24,20 +24,15 @@ export default function NumbersToWords() {
   const [currency, setCurrency] = useState(false);
 
   useEffect(() => {
-    // Reset all states when number is empty
-    if (!numbers && numbers !== 0) {
-      setWords("");
-      setError("");
-      return;
-    }
-
     try {
       const toWords = new ToWords({
         localeCode,
         converterOptions: { currency, doNotAddOnly: true },
       });
-      const words = toWords.convert(numbers as number);
+      const valueAsNumber = Number.parseFloat(numbers);
+      const words = toWords.convert(valueAsNumber);
       setWords(words);
+      setError("");
     } catch (err) {
       setError("Invalid number syntax");
     }
@@ -53,21 +48,12 @@ export default function NumbersToWords() {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
+    setNumbers(value);
     if (value === "") {
+      console.log("Empty value", value);
       setError("");
-      setNumbers("");
-      return;
+      setWords("");
     }
-
-    // Check for NaN value and show error
-    const valueAsNumber = Number.parseInt(value);
-    if (Number.isNaN(valueAsNumber)) {
-      return;
-    }
-
-    // Else reset error and set number
-    setError("");
-    setNumbers(valueAsNumber);
   };
 
   return (
