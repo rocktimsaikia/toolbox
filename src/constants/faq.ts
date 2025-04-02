@@ -148,6 +148,29 @@ const JSON_TO_TYPES_FAQ: Faq[] = [
   },
 ];
 
+export const HOME_PAGE_FAQ: Faq[] = [
+  {
+    question: "What tools are available on Tool Box?",
+    answer:
+      "Tool Box offers essential tools like JavaScript/JSON to TypeScript Types, Numbers to Words, Password Generator, Base64 Converter, URL Encoder/Decoder, and What's My IP for various tasks.",
+  },
+  {
+    question: "How can Tool Box make my life easier?",
+    answer:
+      "Tool Box provides quick solutions for coding, data conversion, and security tasks, such as generating passwords, encoding URLs, or converting numbers to words, all in one place.",
+  },
+  {
+    question: "Are the tools on Tool Box free to use?",
+    answer:
+      "Yes, all tools on Tool Box, including the Password Generator, Base64 Converter, and more, are completely free to use with no sign-up required.",
+  },
+  {
+    question: "Who can benefit from using Tool Box?",
+    answer:
+      "Developers, students, and professionals can benefit from Tool Box. It simplifies tasks like TypeScript type generation, IP lookup, and secure password creation for everyone.",
+  },
+];
+
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,

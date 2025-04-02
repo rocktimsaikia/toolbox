@@ -1,3 +1,5 @@
+import Faq from "@/components/faq";
+import { HOME_PAGE_FAQ } from "@/constants/faq";
 import { TOOLS } from "@/constants/tools";
 import { Link1Icon } from "@radix-ui/react-icons";
 import Image from "next/image";
@@ -37,6 +39,9 @@ export default function Home() {
             </li>
           ))}
       </ol>
+      <div className="w-sm mx-auto mt-30">
+        <Faq faq={HOME_PAGE_FAQ} />
+      </div>
     </div>
   );
 }
