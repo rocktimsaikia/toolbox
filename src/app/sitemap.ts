@@ -10,7 +10,7 @@ const tools = SLUGS.map((slug) => ({
   priority: 0.8,
 }));
 
-export default function sitemap() {
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: BASE_URL,
@@ -18,5 +18,6 @@ export default function sitemap() {
       changeFrequency: "yearly" as const,
       priority: 1,
     },
+    ...tools,
   ];
 }
