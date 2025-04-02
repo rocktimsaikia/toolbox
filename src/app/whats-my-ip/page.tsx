@@ -14,7 +14,7 @@ export default async function WhatsMyIp() {
       <ToolsHeader tool={TOOLS["whats-my-ip"]} />
       <div className="flex flex-col w-[240px] mx-auto">
         <Clipboard text={ipv4} />
-        <div className="bg-gray-100 text-green-600 tracking-wider text-2xl font-semibold p-4 border-1 border-gray-500 border-dotted">
+        <div className="bg-gray-100 text-green-600 tracking-wider text-2xl font-semibold p-4 border-1 border-gray-500 border-dotted text-center">
           {ipv4}
         </div>
       </div>
