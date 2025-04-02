@@ -37,22 +37,22 @@ const PASSWORD_GENERATOR_FAQ: Faq[] = [
   {
     question: "What makes a password secure?",
     answer:
-      "A secure password is long, random, and includes a mix of uppercase letters, lowercase letters, numbers, and special characters. Our Password Generator creates strong passwords to keep your accounts safe.",
+      "A secure password is long, random, and includes a mix of uppercase, lowercase, numbers, and symbols. Our Password Generator creates strong passwords to protect your accounts.",
   },
   {
-    question: "How does the Password Generator work?",
+    question: "How do I customize my password?",
     answer:
-      "The Password Generator uses a random algorithm to create unique passwords based on your preferences, ensuring they’re unpredictable and resistant to hacking attempts.",
+      "Use the toggles for uppercase, lowercase, numbers, and symbols, and adjust the length slider. Our tool generates a random password based on your settings.",
   },
   {
-    question: "Can I customize the passwords generated?",
+    question: "Why use a random password generator?",
     answer:
-      "Yes, our Password Generator allows you to set parameters like length and character types (letters, numbers, symbols) to create a secure random password tailored to your needs.",
+      "Random passwords are harder to guess or crack than simple ones like 'password123.' Our tool helps you create secure passwords effortlessly.",
   },
   {
-    question: "Why should I use a random password generator?",
+    question: "How do I save my generated password?",
     answer:
-      "Random passwords are harder to guess or crack compared to predictable ones like 'password123.' Use our tool to enhance your online security effortlessly.",
+      "After generating, click 'Copy to clipboard' to save your password. Store it securely, as the tool doesn’t save it for you.",
   },
 ];
 
