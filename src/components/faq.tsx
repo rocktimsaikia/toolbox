@@ -4,29 +4,50 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import type { Faq } from "@/constants/faq";
+import type { FAQPage, WithContext } from "schema-dts";
 
-export default function Faq() {
+type Props = {
+  faq: Faq[];
+};
+
+function generateFaqSchema(faqs: Faq[]) {
+  const mainEntity = faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  }));
+  const jsonLd: WithContext<FAQPage> = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    // @ts-ignore
+    mainEntity,
+  };
+  return jsonLd;
+}
+
+export default function Faq({ faq }: Props) {
+  const jsonLd = generateFaqSchema(faq);
+
   return (
-    <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It adheres to the WAI-ARIA design pattern.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2">
-        <AccordionTrigger>Is it styled?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It comes with default styles that matches the other components&apos;
-          aesthetic.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-3">
-        <AccordionTrigger>Is it animated?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It's animated by default, but you can disable it if you prefer.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
+    <article>
+      {/* Schema.org FAQ markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      <Accordion type="single" collapsible className="w-full">
+        {faq.map(({ question, answer }, idx) => (
+          <AccordionItem value={`question-${idx}`} key={idx}>
+            <AccordionTrigger className="cursor-pointer">{question}</AccordionTrigger>
+            <AccordionContent>{answer}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </article>
   );
 }
