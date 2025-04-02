@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Sitemap: https://tools.rocktimsaikia.com/sitemap.xml
+
+User-agent: BadBot
+Disallow: /
+
+User-agent: Googlebot
+Allow: /json-to-types/
+Allow: /numbers-to-words/
+Allow: /password-generator/
+Allow: /base64-converter/
+Allow: /url-encoder-decoder/
+Allow: /whats-my-ip/

@@ -1,10 +1,13 @@
-export type Slug =
-  | "json-to-types"
-  | "numbers-to-words"
-  | "password-generator"
-  | "base64-converter"
-  | "url-encoder-decoder"
-  | "whats-my-ip";
+export const SLUGS = [
+  "json-to-types",
+  "numbers-to-words",
+  "password-generator",
+  "base64-converter",
+  "url-encoder-decoder",
+  "whats-my-ip",
+] as const;
+
+export type Slug = (typeof SLUGS)[number];
 
 export type Tool = {
   name: string;
