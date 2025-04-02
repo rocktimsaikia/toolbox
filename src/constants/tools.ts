@@ -1,4 +1,4 @@
-type Slug =
+export type Slug =
   | "object-to-typescript"
   | "numbers-to-words"
   | "password-generator"

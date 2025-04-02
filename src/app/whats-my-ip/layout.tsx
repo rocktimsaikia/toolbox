@@ -1,3 +1,4 @@
+import Faq from "@/components/faq";
 import { TOOLS } from "@/constants/tools";
 import type { Metadata } from "next";
 
@@ -9,5 +10,12 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <div>{children}</div>;
+  return (
+    <div>
+      {children}
+      <div className="w-sm mx-auto mt-30">
+        <Faq />
+      </div>
+    </div>
+  );
 }
