@@ -15,7 +15,7 @@ export type Tool = {
 
 export const TOOLS: Record<Slug, Tool> = {
   "json-to-types": {
-    name: "Convert JavaScript/JSON to TypeScript Types",
+    name: "JavaScript/JSON to TypeScript Types",
     description: "Generate TypeScript types from JavaScript objects or JSON data.",
     slug: "json-to-types",
   },
