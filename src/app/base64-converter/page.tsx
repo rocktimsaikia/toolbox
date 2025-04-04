@@ -39,16 +39,15 @@ export default function Base64Converter() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["base64-converter"]} />
-      <div className="flex gap-x-6 justify-center mt-20">
-        <div className="flex flex-col items-start">
-          <h2 className="mb-2 text-lg font-semibold">
+      <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center mt-20">
+        <div className="flex flex-col items-start w-full">
+          <h2 className="mb-2 lg:text-lg font-semibold">
             Input <span className="text-gray-500">({encode ? "Text" : "Base64"})</span>
           </h2>
           <textarea
-            cols={60}
-            rows={5}
-            className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
             value={inputString}
+            spellCheck={false}
             placeholder="Type your text here..."
             onChange={(e) => setInputString(e.target.value)}
           ></textarea>
@@ -63,10 +62,9 @@ export default function Base64Converter() {
             <Clipboard text={outputString} />
           </div>
           <textarea
-            cols={60}
-            rows={5}
-            className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
             value={outputString}
+            spellCheck={false}
             readOnly
             placeholder="Output will appear here..."
           ></textarea>
