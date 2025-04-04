@@ -39,9 +39,7 @@ export default function Home() {
             </li>
           ))}
       </ol>
-      <div className="w-sm mx-auto mt-30">
-        <Faq faq={HOME_PAGE_FAQ} />
-      </div>
+      <Faq faq={HOME_PAGE_FAQ} />
     </div>
   );
 }

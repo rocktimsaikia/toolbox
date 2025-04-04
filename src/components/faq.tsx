@@ -33,7 +33,7 @@ export default function Faq({ faq }: Props) {
   const jsonLd = generateFaqSchema(faq);
 
   return (
-    <article>
+    <article className="lg:w-sm lg:mx-auto mt-30">
       {/* Schema.org FAQ markup */}
       <script
         type="application/ld+json"

@@ -59,7 +59,7 @@ export default function NumbersToWords() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["numbers-to-words"]} />
-      <div className="flex gap-x-6 justify-end items-end mt-20">
+      <div className="flex flex-col lg:flex-row gap-x-0 lg:gap-x-6 justify-end items-end mt-20">
         <div className="flex flex-col items-start">
           <h2 className="text-lg font-semibold">Numbers</h2>
           <textarea

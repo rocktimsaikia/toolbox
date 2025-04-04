@@ -80,8 +80,8 @@ export default function JsonToTypes() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["json-to-types"]} />
-      <div className="flex gap-x-6 justify-center mt-20">
-        <div className="flex flex-col items-start">
+      <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
+        <div className="flex flex-col lg:items-start">
           <h2 className="mb-2 text-lg font-semibold">Object</h2>
           <TextAreaCodeEditor
             value={inputString}
@@ -113,9 +113,7 @@ export default function JsonToTypes() {
             </button>
           </div>
           <textarea
-            cols={60}
-            rows={23}
-            className="border border-gray-300 outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="border border-gray-300 outline-none p-3 bg-[#eeeeee] cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
             value={outputString}
             readOnly
             placeholder="TypeScript type will appear here..."

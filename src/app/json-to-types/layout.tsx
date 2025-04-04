@@ -17,9 +17,7 @@ export default function Layout({ children }: Readonly<{ children: React.ReactNod
   return (
     <div>
       {children}
-      <div className="w-sm mx-auto mt-30">
-        <Faq faq={faq} />
-      </div>
+      <Faq faq={faq} />
     </div>
   );
 }

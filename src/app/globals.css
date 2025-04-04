@@ -137,3 +137,9 @@
 .cm-editor:focus {
   outline: 1px solid #212121;
 }
+@media (max-width: 640px) {
+  .cm-editor {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
