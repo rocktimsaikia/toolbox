@@ -59,13 +59,11 @@ export default function NumbersToWords() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["numbers-to-words"]} />
-      <div className="flex flex-col lg:flex-row gap-x-0 lg:gap-x-6 justify-end items-end mt-20">
-        <div className="flex flex-col items-start">
+      <div className="flex flex-col lg:flex-row gap-x-0 lg:gap-x-6 gap-y-5 justify-end items-end mt-20">
+        <div className="flex flex-col items-start w-full">
           <h2 className="text-lg font-semibold">Numbers</h2>
           <textarea
-            cols={60}
-            rows={8}
-            className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full lg:w-[614px] lg:h-[185px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
             onChange={handleOnChange}
             value={numbers}
             spellCheck={false}
@@ -75,8 +73,8 @@ export default function NumbersToWords() {
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
-            <div className="flex gap-x-4">
-              <div className="flex items-center gap-x-2 text-sm border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100">
+            <div className="flex flex-col lg:flex-row lg:gap-x-4">
+              <div className="flex py-2 lg:py-0 items-center gap-x-2 text-sm border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100">
                 <input
                   type="checkbox"
                   id="currency"
@@ -125,9 +123,7 @@ export default function NumbersToWords() {
             </button>
           </div>
           <textarea
-            cols={70}
-            rows={8}
-            className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full lg:w-[614px] lg:h-[185px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
             value={words}
             readOnly
             placeholder="Words will appear here..."
