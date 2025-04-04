@@ -39,13 +39,12 @@ export default function UrlEncoder() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["url-encoder-decoder"]} />
-      <div className="flex gap-x-6 justify-center mt-20">
-        <div className="flex flex-col items-start">
-          <h2 className="mb-2 text-lg font-semibold">Input</h2>
+      <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center mt-20">
+        <div className="flex flex-col items-start w-full">
+          <h2 className="mb-2 lg:text-lg font-semibold">Input</h2>
           <textarea
-            cols={60}
-            rows={5}
-            className="border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            spellCheck={false}
             value={inputString}
             placeholder={`Add your${encode ? "" : " encoded"} URL here...`}
             onChange={(e) => setInputString(e.target.value)}
@@ -54,18 +53,17 @@ export default function UrlEncoder() {
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
-            <h2 className="text-lg font-semibold flex gap-x-1">
+            <h2 className="lg:text-lg font-semibold flex gap-x-1">
               <span>Output</span>
               <span className="text-gray-500">({encode ? "Encoded" : "Decoded"})</span>
             </h2>
             <Clipboard text={outputString} />
           </div>
           <textarea
-            cols={60}
-            rows={5}
-            className="border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
             value={outputString}
             readOnly
+            spellCheck={false}
             placeholder={`Your ${encode ? "encoded" : "decoded"} URL will appear here...`}
           ></textarea>
         </div>
