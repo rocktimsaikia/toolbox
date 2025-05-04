@@ -47,12 +47,18 @@ importers:
       generate-password-browser:
         specifier: ^1.1.0
         version: 1.1.0
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
       json-schema-to-typescript:
         specifier: ^15.0.4
         version: 15.0.4
       json-to-ts:
         specifier: ^2.1.0
         version: 2.1.0
+      json2toml:
+        specifier: ^6.1.1
+        version: 6.1.1
       lucide-react:
         specifier: ^0.485.0
         version: 0.485.0(react@19.1.0)
@@ -80,6 +86,9 @@ importers:
       to-words:
         specifier: ^4.4.0
         version: 4.4.0
+      toml:
+        specifier: ^3.0.0
+        version: 3.0.0
       tw-animate-css:
         specifier: ^1.2.5
         version: 1.2.5
@@ -96,6 +105,9 @@ importers:
       '@types/browser-util-inspect':
         specifier: ^0.2.4
         version: 0.2.4
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
       '@types/node':
         specifier: ^20
         version: 20.17.28
@@ -892,6 +904,9 @@ packages:
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
 
+  '@types/js-yaml@4.0.9':
+    resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
+
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
@@ -1599,6 +1614,10 @@ packages:
   json-to-ts@2.1.0:
     resolution: {integrity: sha512-JeScjtIGYAxQVxEYgQUKROU0329eS+rsTSviGtuKiwKuXpcIU7DxhDYm2tey0vcBetwc9kD0+YHDI5KvEexMew==}
 
+  json2toml@6.1.1:
+    resolution: {integrity: sha512-kv8qBrRbdK7TVUdQuMcyJxw6pmDCYS5WNco23kcZ9foh+Jp4Q/up65wCOizRMT5EoAhcAHD15jDI0dbKEglzEQ==}
+    engines: {node: 18 || >=20}
+
   json3@3.3.0:
     resolution: {integrity: sha512-hnDfaNSF22HqmIIySa1LkNo3p5NMJwcKyTsnprqKZIZI1ECmalTtFYTmi5rtb9UiULuQnjNqSjwYFwtxbTH1Dw==}
     deprecated: Please use the native JSON object instead of JSON 3
@@ -1679,6 +1698,15 @@ packages:
   locate-path@7.2.0:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  lodash.isdate@4.0.1:
+    resolution: {integrity: sha512-hg5B1GD+R9egsBgMwmAhk+V53Us03TVvXT4dnyKugEfsD4QKuG9Wlyvxq8OGy2nu7qVGsh4DRSnMk33hoWBq/Q==}
+
+  lodash.isempty@4.4.0:
+    resolution: {integrity: sha512-oKMuF3xEeqDltrGMfDxAPGIVMSSRv8tbRSODbrs4KGsRRLEhrW8N8Rd4DRgB2+621hY8A8XwwrTVhXWpxFvMzg==}
+
+  lodash.isplainobject@4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
 
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
@@ -2020,6 +2048,10 @@ packages:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
 
+  strftime@0.10.3:
+    resolution: {integrity: sha512-DZrDUeIF73eKJ4/GgGuv8UHWcUQPYDYfDeQFj3jrx+JZl6GQE656MbHIpvbo4mEG9a5DgS8GRCc5DxJXD2udDQ==}
+    engines: {node: '>=0.2.0'}
+
   string-at@1.1.0:
     resolution: {integrity: sha512-jCpPowWKBn0NFdvtmK2qxK40Ol4jPcgCt8qYnKpPx6B5eDwHMDhRvq9MCsDEgsOTNtbXY6beAMHMRT2qPJXllA==}
     engines: {node: '>= 0.4'}
@@ -2114,6 +2146,9 @@ packages:
   to-words@4.4.0:
     resolution: {integrity: sha512-QJBzzPT4mNZ5xnHgcbR5LiQfLUYDc7HvughfzwAPhgd6QljoqE4wKbQIHmAUf5UybQbjJyI/Iz+HYM9Rv05Tmw==}
     engines: {node: '>=12.0.0'}
+
+  toml@3.0.0:
+    resolution: {integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==}
 
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
@@ -3016,6 +3051,8 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
+  '@types/js-yaml@4.0.9': {}
+
   '@types/json-schema@7.0.15': {}
 
   '@types/lodash@4.17.16': {}
@@ -3864,6 +3901,13 @@ snapshots:
       hash.js: 1.1.7
       pluralize: 3.1.0
 
+  json2toml@6.1.1:
+    dependencies:
+      lodash.isdate: 4.0.1
+      lodash.isempty: 4.4.0
+      lodash.isplainobject: 4.0.6
+      strftime: 0.10.3
+
   json3@3.3.0: {}
 
   json5@2.2.3: {}
@@ -3918,6 +3962,12 @@ snapshots:
   locate-path@7.2.0:
     dependencies:
       p-locate: 6.0.0
+
+  lodash.isdate@4.0.1: {}
+
+  lodash.isempty@4.4.0: {}
+
+  lodash.isplainobject@4.0.6: {}
 
   lodash@4.17.21: {}
 
@@ -4348,6 +4398,8 @@ snapshots:
 
   streamsearch@1.1.0: {}
 
+  strftime@0.10.3: {}
+
   string-at@1.1.0:
     dependencies:
       define-properties: 1.2.1
@@ -4449,6 +4501,8 @@ snapshots:
       picomatch: 4.0.2
 
   to-words@4.4.0: {}
+
+  toml@3.0.0: {}
 
   trim-lines@3.0.1: {}
 

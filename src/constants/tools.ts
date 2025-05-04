@@ -5,6 +5,7 @@ export const SLUGS = [
   "base64-converter",
   "url-encoder-decoder",
   "whats-my-ip",
+  "yamlc",
 ] as const;
 
 export type Slug = (typeof SLUGS)[number];
@@ -47,6 +48,11 @@ export const TOOLS: Record<Slug, Tool> = {
     description: "Get your public IP address.",
     slug: "whats-my-ip",
   },
+  "yamlc": {
+    name: "Yet another markup language converter",
+    description: "convert data from data from different markup languages like json and yaml into another",
+    slug: "yamlc",
+  }
 };
 
 export const LANGUAGE_OPTIONS = [
