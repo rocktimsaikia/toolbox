@@ -175,9 +175,9 @@ export const YAMLC_FAQ: Faq[] = [
   {
     question: "why",
     answer:
-        "sometimes you just get data in the wrong format. but this tool makes it easy to convert from one to anotehr",
-  }
-]
+      "sometimes you just get data in the wrong format. but this tool makes it easy to convert from one to anotehr",
+  },
+];
 
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
@@ -186,5 +186,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "numbers-to-words": NUMBERS_TO_WORDS_FAQ,
   "base64-converter": BASE64_CONVERTER_FAQ,
   "url-encoder-decoder": URL_ENCODER_DECODER_FAQ,
-  "yamlc": YAMLC_FAQ,
+  yamlc: YAMLC_FAQ,
 };

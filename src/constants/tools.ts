@@ -48,11 +48,12 @@ export const TOOLS: Record<Slug, Tool> = {
     description: "Get your public IP address.",
     slug: "whats-my-ip",
   },
-  "yamlc": {
+  yamlc: {
     name: "Yet another markup language converter",
-    description: "convert data from data from different markup languages like json and yaml into another",
+    description:
+      "convert data from data from different markup languages like json and yaml into another",
     slug: "yamlc",
-  }
+  },
 };
 
 export const LANGUAGE_OPTIONS = [

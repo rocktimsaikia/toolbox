@@ -22,6 +22,8 @@
     "browser-util-inspect": "^0.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "csv": "^6.3.11",
+    "fast-xml-parser": "^5.2.2",
     "generate-password-browser": "^1.1.0",
     "js-yaml": "^4.1.0",
     "json-schema-to-typescript": "^15.0.4",
