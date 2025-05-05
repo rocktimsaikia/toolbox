@@ -9,12 +9,13 @@ import {CheckIcon, CopyIcon} from "@radix-ui/react-icons";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {parse as tomlParse} from "toml"
 import json2toml from "json2toml";
+import {XMLParser} from "fast-xml-parser";
+import {toXML} from "jstoxml";
 const converters = [
   "json",
   "yaml",
   "toml",
   "xml",
-  "csv"
 ] as const;
 
 const defaultInput = `{
@@ -46,6 +47,8 @@ export default function Yamlc() {
       return;
     }
     let data: unknown;
+
+    // input parser
     switch (inputFormat.toLowerCase()) {
       case "json": {
         try {
@@ -83,6 +86,21 @@ export default function Yamlc() {
         }
         break;
       }
+
+      case "xml": {
+        try {
+          const parser = new XMLParser();
+          const converted = parser.parse(input);
+          console.log(converted);
+          data = converted;
+        } catch (e) {
+          // @ts-expect-error its unknown and i dont care
+          setError(e.toString());
+          console.error(e);
+        }
+        break;
+      }
+
     }
 
 
@@ -120,6 +138,20 @@ export default function Yamlc() {
           // @ts-ignore
           setError(e.toString());
         }
+        break;
+      }
+
+      case "xml": {
+        try {
+          // @ts-ignore
+          const converted = toXML(data, {header: false, indent: "  "});
+          setOutput(converted);
+        } catch (e) {
+          console.log(e)
+          // @ts-ignore
+          setError(e.toString());
+        }
+
         break;
       }
     }
