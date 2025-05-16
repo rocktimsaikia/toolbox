@@ -5,6 +5,7 @@ export const SLUGS = [
   "base64-converter",
   "url-encoder-decoder",
   "whats-my-ip",
+  "html-escape",
 ] as const;
 
 export type Slug = (typeof SLUGS)[number];
@@ -46,6 +47,11 @@ export const TOOLS: Record<Slug, Tool> = {
     name: "What's My IP",
     description: "Get your public IP address.",
     slug: "whats-my-ip",
+  },
+  "html-escape": {
+    name: "HTML Escape",
+    description: "Escape special characters in text for safe use in HTML.",
+    slug: "html-escape",
   },
 };
 
