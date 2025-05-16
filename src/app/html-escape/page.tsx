@@ -23,9 +23,7 @@ export default function HtmlEscape() {
       }
 
       if (escape) {
-        setOutputString(
-          encode(inputString, { level: "html5", mode: "specialChars" }),
-        );
+        setOutputString(encode(inputString, { level: "html5", mode: "specialChars" }));
       } else {
         setOutputString(decode(inputString));
       }
@@ -63,9 +61,7 @@ export default function HtmlEscape() {
           <div className="flex justify-between w-full">
             <h2 className="lg:text-lg font-semibold flex gap-x-1">
               <span>Output</span>
-              <span className="text-gray-500">
-                ({escape ? "Escaped" : "Unescaped"})
-              </span>
+              <span className="text-gray-500">({escape ? "Escaped" : "Unescaped"})</span>
             </h2>
             <Clipboard text={outputString} />
           </div>

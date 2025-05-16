@@ -17,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Tool Box - Essential Developer Tools",
-  description: "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make our life easier",
+  description:
+    "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make our life easier",
 };
 
 export default function RootLayout({
