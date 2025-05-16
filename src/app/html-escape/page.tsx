@@ -16,6 +16,12 @@ export default function HtmlEscape() {
   function handleConversion() {
     setError("");
     try {
+      // Skip processing if input is empty
+      if (!inputString) {
+        setOutputString("");
+        return;
+      }
+
       if (escape) {
         setOutputString(
           encode(inputString, { level: "html5", mode: "specialChars" }),
@@ -35,7 +41,6 @@ export default function HtmlEscape() {
   }
 
   useEffect(() => {
-    // Handle conversion when the input changes
     handleConversion();
   }, [inputString, escape]);
 
@@ -99,4 +104,3 @@ export default function HtmlEscape() {
     </div>
   );
 }
-
