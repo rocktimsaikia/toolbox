@@ -148,11 +148,34 @@ const JSON_TO_TYPES_FAQ: Faq[] = [
   },
 ];
 
+const HTML_ESCAPE_FAQ: Faq[] = [
+  {
+    question: "What does the HTML Escape tool do?",
+    answer:
+      "The HTML Escape tool converts special characters (like <, >, &, ', and \") in text to their corresponding HTML entities, making the text safe to include in HTML without breaking the page structure.",
+  },
+  {
+    question: "Why do I need to escape HTML characters?",
+    answer:
+      "Escaping HTML characters prevents text from being interpreted as code when displayed on a website. It's essential for safely displaying user-generated content, code snippets, or any text containing special characters.",
+  },
+  {
+    question: "How do I use the HTML Escape tool?",
+    answer:
+      "Enter your text in the input field, and the tool will automatically escape the special characters. Toggle between 'Escape' and 'Unescape' to convert in either direction, and use 'Copy to Clipboard' for the result.",
+  },
+  {
+    question: "What characters does HTML escaping convert?",
+    answer:
+      "HTML escaping typically converts characters like < (less than), > (greater than), & (ampersand), ' (single quote), and \" (double quote) to their corresponding HTML entities (&lt;, &gt;, &amp;, &#39;, and &quot;).",
+  },
+];
+
 export const HOME_PAGE_FAQ: Faq[] = [
   {
     question: "What tools are available on Tool Box?",
     answer:
-      "Tool Box offers essential tools like JavaScript/JSON to TypeScript Types, Numbers to Words, Password Generator, Base64 Converter, URL Encoder/Decoder, and What's My IP for various tasks.",
+      "Tool Box offers essential tools like JavaScript/JSON to TypeScript Types, Numbers to Words, Password Generator, Base64 Converter, URL Encoder/Decoder, HTML Escape, and What's My IP for various tasks.",
   },
   {
     question: "How can Tool Box make my life easier?",
@@ -186,5 +209,6 @@ export const Faqs: Record<Slug, Faq[]> = {
   "numbers-to-words": NUMBERS_TO_WORDS_FAQ,
   "base64-converter": BASE64_CONVERTER_FAQ,
   "url-encoder-decoder": URL_ENCODER_DECODER_FAQ,
+  "html-escape": HTML_ESCAPE_FAQ,
   yamlc: YAMLC_FAQ,
 };

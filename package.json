@@ -25,6 +25,7 @@
     "csv": "^6.3.11",
     "fast-xml-parser": "^5.2.2",
     "generate-password-browser": "^1.1.0",
+    "html-entities": "^2.6.0",
     "js-yaml": "^4.1.0",
     "json-schema-to-typescript": "^15.0.4",
     "json-to-ts": "^2.1.0",
