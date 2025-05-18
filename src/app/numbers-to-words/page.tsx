@@ -24,17 +24,38 @@ export default function NumbersToWords() {
   const [currency, setCurrency] = useState(false);
 
   useEffect(() => {
+    if (!numbers) {
+      setWords("");
+      return;
+    }
+
+    const { sanitized, hasInvalidChars } = sanitizeNumber(numbers);
+
+    if (hasInvalidChars) {
+      setError("Invalid characters in number");
+      setWords("");
+      return;
+    }
+
     try {
+      const valueAsNumber = Number.parseFloat(sanitized);
+
+      if (Number.isNaN(valueAsNumber)) {
+        setError("Invalid number");
+        setWords("");
+        return;
+      }
+
       const toWords = new ToWords({
         localeCode,
         converterOptions: { currency, doNotAddOnly: true },
       });
-      const valueAsNumber = Number.parseFloat(numbers);
       const words = toWords.convert(valueAsNumber);
       setWords(words);
       setError("");
     } catch (err) {
-      setError("Invalid number syntax");
+      setError("Invalid number format");
+      setWords("");
     }
   }, [numbers, localeCode, currency]);
 
@@ -46,12 +67,64 @@ export default function NumbersToWords() {
     }
   }, [isCopied]);
 
+  const sanitizeNumber = (
+    input: string,
+  ): { sanitized: string; hasInvalidChars: boolean } => {
+    // Check if input contains any non-numeric characters except for one decimal point and minus sign
+    const hasInvalidChars =
+      /[^0-9.,-]/.test(input) || // Any character that's not a digit, comma, dot, or minus
+      (input.match(/\./g) || []).length > 1 || // More than one decimal point
+      (input.match(/-/g) || []).length > 1 || // More than one minus
+      (input.includes("-") && !input.startsWith("-")); // Minus not at the start
+
+    // Allow numbers, one decimal point, and negative sign at the start
+    const sanitized = input
+      .replace(/[^0-9.-]/g, "") // Remove all non-numeric characters except . and -
+      .replace(/(\..*)\./g, "$1") // Remove all but the first decimal point
+      .replace(/(?!^)-/g, ""); // Remove all hyphens that are not at the start
+
+    // If there's a negative sign not at the start, remove it
+    if (sanitized.indexOf("-") > 0) {
+      return { sanitized: sanitized.replace(/-/g, ""), hasInvalidChars };
+    }
+    return { sanitized, hasInvalidChars };
+  };
+
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setNumbers(value);
+
     if (value === "") {
-      console.log("Empty value", value);
       setError("");
+      setWords("");
+      return;
+    }
+
+    const { sanitized, hasInvalidChars } = sanitizeNumber(value);
+
+    if (hasInvalidChars) {
+      setError("Invalid characters in number");
+      setWords("");
+      return;
+    }
+
+    try {
+      const valueAsNumber = Number.parseFloat(sanitized);
+      if (Number.isNaN(valueAsNumber)) {
+        setError("Invalid number");
+        setWords("");
+        return;
+      }
+
+      const toWords = new ToWords({
+        localeCode,
+        converterOptions: { currency, doNotAddOnly: true },
+      });
+      const words = toWords.convert(valueAsNumber);
+      setWords(words);
+      setError("");
+    } catch (err) {
+      setError("Invalid number format");
       setWords("");
     }
   };
@@ -68,7 +141,7 @@ export default function NumbersToWords() {
             value={numbers}
             spellCheck={false}
             placeholder="Add numbers here..."
-          ></textarea>
+          />
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
         <div className="flex flex-col items-start">
@@ -109,6 +182,7 @@ export default function NumbersToWords() {
                 copyToClipboard(words);
                 setIsCopied(true);
               }}
+              type="button"
               className="cursor-pointer border border-b-0 border-gray-300 rounded p-2 hover:bg-gray-100 text-sm"
             >
               {isCopied ? (
@@ -127,7 +201,7 @@ export default function NumbersToWords() {
             value={words}
             readOnly
             placeholder="Words will appear here..."
-          ></textarea>
+          />
         </div>
       </div>
     </div>
