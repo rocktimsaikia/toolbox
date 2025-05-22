@@ -1,6 +1,7 @@
 import "./globals.css";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import { StructuredData } from "@/components/structured-data";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
@@ -15,11 +16,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Tool Box - Essential Developer Tools",
-  description:
-    "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make our life easier",
-};
+const title = "Tool Box - Essential Developer Tools";
+const description =
+  "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make your development workflow more efficient.";
+const url = "https://tools.rocktim.dev";
+
+// Import the SEO utility
+import { generateSeo } from "@/lib/seo";
+
+// Generate metadata using our SEO utility
+export const metadata = generateSeo();
 
 export default function RootLayout({
   children,
@@ -29,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <StructuredData />
         <Script
           defer
           src="https://cloud.umami.is/script.js"

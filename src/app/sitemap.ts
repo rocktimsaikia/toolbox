@@ -1,23 +1,39 @@
 import { SLUGS } from "@/constants/tools";
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://tools.rocktimsaikia.dev";
+const BASE_URL = "https://tools.rocktim.dev";
 
-const tools = SLUGS.map((slug) => ({
-  url: `${BASE_URL}/${slug}`,
-  lastModified: new Date(),
-  changeFrequency: "monthly" as const,
-  priority: 0.8,
-}));
+// Get current date in YYYY-MM-DD format
+const getCurrentDate = () => new Date().toISOString().split("T")[0];
 
+// Main sitemap configuration
 export default function sitemap(): MetadataRoute.Sitemap {
+  const currentDate = getCurrentDate();
+
+  // Generate entries for all tools
+  const toolEntries = SLUGS.map((slug) => ({
+    url: `${BASE_URL}/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   return [
+    // Homepage
     {
       url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: "yearly" as const,
+      lastModified: currentDate,
+      changeFrequency: "daily" as const,
       priority: 1,
     },
-    ...tools,
+    // Tools pages
+    ...toolEntries,
+    // About page
+    {
+      url: `${BASE_URL}/about`,
+      lastModified: currentDate,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    },
   ];
 }
