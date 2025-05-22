@@ -3,7 +3,7 @@ import { Faqs } from "@/constants/faq";
 import { TOOLS } from "@/constants/tools";
 import { generateSeo } from "@/lib/seo";
 
-const slug = "json-to-types";
+const slug = "json-to-ts";
 
 const tool = TOOLS[slug];
 const faq = Faqs[slug];

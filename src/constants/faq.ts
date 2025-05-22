@@ -197,7 +197,7 @@ export const HOME_PAGE_FAQ: Faq[] = [
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,
-  "json-to-types": JSON_TO_TYPES_FAQ,
+  "json-to-ts": JSON_TO_TYPES_FAQ,
   "numbers-to-words": NUMBERS_TO_WORDS_FAQ,
   "base64-converter": BASE64_CONVERTER_FAQ,
   "url-encoder-decoder": URL_ENCODER_DECODER_FAQ,
