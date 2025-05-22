@@ -1,8 +1,6 @@
 import type { WebPage, WithContext } from "schema-dts";
-import Head from "next/head";
 
-// This component adds structured data in a way that's safe from XSS
-// and works well with Next.js
+// This function creates the JSON-LD structured data
 const createJsonLd = (): WithContext<WebPage> => ({
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -56,16 +54,16 @@ const createJsonLd = (): WithContext<WebPage> => ({
 });
 
 export function StructuredData() {
+  const jsonLd = createJsonLd();
+  const jsonLdString = JSON.stringify(jsonLd);
+
   return (
-    <Head>
-      <script
-        id="structured-data"
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(createJsonLd()),
-        }}
-      />
-    </Head>
+    <script
+      type="application/ld+json"
+      key="structured-data"
+      suppressHydrationWarning
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD requires this
+      dangerouslySetInnerHTML={{ __html: jsonLdString }}
+    />
   );
 }
