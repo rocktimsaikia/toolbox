@@ -1,4 +1,5 @@
 import type { WebPage, WithContext } from "schema-dts";
+import { siteConfig } from "@/constants/site";
 
 // This function creates the JSON-LD structured data
 const createJsonLd = (): WithContext<WebPage> => ({
@@ -7,13 +8,15 @@ const createJsonLd = (): WithContext<WebPage> => ({
   name: "Tool Box - Essential Developer Tools",
   description:
     "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make your development workflow more efficient.",
-  url: "https://tools.rocktim.dev",
+  url: siteConfig.url,
   publisher: {
     "@type": "Organization",
     name: "Rocktim Saikia",
     logo: {
       "@type": "ImageObject",
-      url: "https://tools.rocktim.dev/logo.png",
+      url: `${siteConfig.url}/toolbox.png`,
+      width: "60px",
+      height: "60px",
     },
   },
   mainEntity: [

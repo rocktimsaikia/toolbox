@@ -1,17 +1,9 @@
 import Faq from "@/components/faq";
 import { HOME_PAGE_FAQ } from "@/constants/faq";
+import { siteConfig } from "@/constants/site";
 import { tools, type Tool } from "@/constants/tools";
 import { Icons } from "@/components/ui/icons";
-import {
-  ArrowRight,
-  Zap,
-  Lock,
-  CheckCircle,
-  Clock,
-  Code,
-  Key,
-  Link as LinkIcon,
-} from "lucide-react";
+import { ArrowRight, Zap, Lock, CheckCircle, Code } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -35,7 +27,7 @@ export const metadata = {
     description:
       "A collection of free, fast, and easy-to-use developer tools to streamline your development workflow.",
     type: "website",
-    url: "https://tools.rocktim.dev",
+    url: siteConfig.url,
     siteName: "Tool Box - Essential Developer Tools",
   },
 };

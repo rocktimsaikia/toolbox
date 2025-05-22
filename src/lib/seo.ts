@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/constants/site";
 
 type SeoProps = {
   title?: string;
@@ -13,7 +14,7 @@ export function generateSeo({
   path = "/",
   noIndex = false,
 }: SeoProps = {}): Metadata {
-  const baseUrl = "https://tools.rocktim.dev";
+  const baseUrl = siteConfig.url;
   const url = `${baseUrl}${path}`;
   const siteName = "Tool Box - Essential Developer Tools";
 
