@@ -1,14 +1,17 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
-Sitemap: https://tools.rocktimsaikia.com/sitemap.xml
+Disallow: /api/*
+Disallow: /_next/*
+Disallow: /*/$
+Disallow: /*?
 
-User-agent: BadBot
+# Sitemap
+Sitemap: https://tools.rocktim.dev/sitemap.xml
+
+# Block common bad bots
+User-agent: AhrefsBot
 Disallow: /
 
-User-agent: Googlebot
-Allow: /json-to-types/
-Allow: /numbers-to-words/
-Allow: /password-generator/
-Allow: /base64-converter/
-Allow: /url-encoder-decoder/
-Allow: /whats-my-ip/
+User-agent: SemrushBot
+Disallow: /

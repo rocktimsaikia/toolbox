@@ -4,7 +4,7 @@
 
 A collection of essential web developer tools to make your workflow more efficient. Built with Next.js, TypeScript, and Tailwind CSS.
 
-🔗 Live Demo: [tools.rocktimsaikia.dev](https://tools.rocktimsaikia.dev)
+🔗 Live Demo: [tools.rocktim.dev](https://tools.rocktim.dev)
 
 ## 🛠️ Available Tools
 

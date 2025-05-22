@@ -53,6 +53,7 @@ export default function JsonToTypes() {
       }
 
       // Evaluate the string to convert it to an actual JS object
+      // biome-ignore lint/security/noGlobalEval: <explanation>
       const jsObject = eval(`(${cleanedInput})`);
 
       // Convert to TypeScript types using variableName + "Type"
@@ -79,7 +80,7 @@ export default function JsonToTypes() {
 
   return (
     <div>
-      <ToolsHeader tool={TOOLS["json-to-types"]} />
+      <ToolsHeader tool={TOOLS["json-to-ts"]} />
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
         <div className="flex flex-col lg:items-start">
           <h2 className="mb-2 text-lg font-semibold">Object</h2>
@@ -95,6 +96,7 @@ export default function JsonToTypes() {
           <div className="flex justify-between w-full">
             <h2 className="text-lg font-semibold">Typescript</h2>
             <button
+              type="button"
               onClick={() => {
                 copyToClipboard(outputString);
                 setIsCopied(true);
@@ -117,7 +119,7 @@ export default function JsonToTypes() {
             value={outputString}
             readOnly
             placeholder="TypeScript type will appear here..."
-          ></textarea>
+          />
         </div>
       </div>
     </div>
