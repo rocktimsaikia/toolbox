@@ -1,60 +1,44 @@
 import type { WebPage, WithContext } from "schema-dts";
+import { TOOLS } from "@/constants/tools";
 import { siteConfig } from "@/constants/site";
 
 // This function creates the JSON-LD structured data
-const createJsonLd = (): WithContext<WebPage> => ({
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  name: "Tool Box - Essential Developer Tools",
-  description:
-    "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make your development workflow more efficient.",
-  url: siteConfig.url,
-  publisher: {
-    "@type": "Organization",
-    name: "Rocktim Saikia",
-    logo: {
-      "@type": "ImageObject",
-      url: `${siteConfig.url}/toolbox.png`,
-      width: "60px",
-      height: "60px",
+const createJsonLd = (): WithContext<WebPage> => {
+  // Generate software applications from TOOLS
+  const softwareApplications = Object.values(TOOLS).map((tool) => ({
+    "@type": "SoftwareApplication" as const,
+    name: tool.name,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Web Browser",
+    url: `${siteConfig.url}/${tool.slug}`,
+    description: tool.description,
+    offers: {
+      "@type": "Offer" as const,
+      price: "0",
+      priceCurrency: "USD",
     },
-  },
-  mainEntity: [
-    {
-      "@type": "SoftwareApplication",
-      name: "JSON to TypeScript",
-      applicationCategory: "DeveloperApplication",
-      operatingSystem: "Web Browser",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Tool Box - Essential Developer Tools",
+    description:
+      "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make your development workflow more efficient.",
+    url: siteConfig.url,
+    publisher: {
+      "@type": "Organization",
+      name: "Rocktim Saikia",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/toolbox.png`,
+        width: "60px",
+        height: "60px",
       },
     },
-    {
-      "@type": "SoftwareApplication",
-      name: "Password Generator",
-      applicationCategory: "DeveloperApplication",
-      operatingSystem: "Web Browser",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-    },
-    {
-      "@type": "SoftwareApplication",
-      name: "Base64 Converter",
-      applicationCategory: "DeveloperApplication",
-      operatingSystem: "Web Browser",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-    },
-  ],
-});
+    mainEntity: softwareApplications,
+  };
+};
 
 export function StructuredData() {
   const jsonLd = createJsonLd();
