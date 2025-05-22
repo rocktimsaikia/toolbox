@@ -2,9 +2,9 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { StructuredData } from "@/components/structured-data";
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { generateSeo } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,14 +15,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-const title = "Tool Box - Essential Developer Tools";
-const description =
-  "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make your development workflow more efficient.";
-const url = "https://tools.rocktim.dev";
-
-// Import the SEO utility
-import { generateSeo } from "@/lib/seo";
 
 // Generate metadata using our SEO utility
 export const metadata = generateSeo();
