@@ -17,7 +17,7 @@ export default function Footer() {
         Built with &hearts; by{" "}
         <a
           className="bg-black/[.05] font-semibold"
-          href="https://rocktimsaikia.dev"
+          href="https://rocktim.dev"
           target="_blank"
           rel="noopener noreferrer"
         >

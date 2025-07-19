@@ -37,7 +37,9 @@ export default function RootLayout({
           <div className="px-4 py-6 sm:px-8 sm:py-8">
             <Navbar />
           </div>
-          <main className="flex-1 w-full flex flex-col items-center px-4 sm:px-8">{children}</main>
+          <main className="flex-1 w-full flex flex-col items-center px-4 sm:px-8">
+            {children}
+          </main>
           <div className="px-4 py-8 sm:px-8 pb-20">
             <Footer />
           </div>
