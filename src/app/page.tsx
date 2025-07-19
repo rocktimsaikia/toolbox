@@ -133,7 +133,7 @@ export default function Home() {
           ].map((feature) => (
             <div
               key={feature.id}
-              className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-100 dark:border-gray-800"
             >
               <div
                 className={`w-12 h-12 ${feature.color} bg-opacity-10 dark:bg-opacity-20 rounded-full flex items-center justify-center mb-4 mx-auto`}
