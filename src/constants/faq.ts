@@ -171,6 +171,29 @@ const HTML_ESCAPE_FAQ: Faq[] = [
   },
 ];
 
+const LINE_BREAK_REMOVER_FAQ: Faq[] = [
+  {
+    question: "What does the Line Break Remover tool do?",
+    answer:
+      "The Line Break Remover tool automatically removes unwanted single line breaks from text while preserving paragraph structure. It converts text with line breaks into flowing paragraphs.",
+  },
+  {
+    question: "How does it preserve paragraphs?",
+    answer:
+      "The tool treats double line breaks (or more) as paragraph separators and keeps them intact. Only single line breaks within paragraphs are removed and replaced with spaces.",
+  },
+  {
+    question: "When would I use this tool?",
+    answer:
+      "This tool is useful when copying text from PDFs, emails, or documents that have unwanted line breaks, or when preparing text for web content, emails, or documents that need clean formatting.",
+  },
+  {
+    question: "Does it remove all line breaks?",
+    answer:
+      "No, the tool intelligently preserves paragraph breaks (double line breaks) while only removing single line breaks that interrupt the flow of text within paragraphs.",
+  },
+];
+
 export const HOME_PAGE_FAQ: Faq[] = [
   {
     question: "What tools are available on Tool Box?",
@@ -202,4 +225,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "base64-converter": BASE64_CONVERTER_FAQ,
   "url-encoder-decoder": URL_ENCODER_DECODER_FAQ,
   "html-escape": HTML_ESCAPE_FAQ,
+  "line-break-remover": LINE_BREAK_REMOVER_FAQ,
 };

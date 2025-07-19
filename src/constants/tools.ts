@@ -53,6 +53,12 @@ export const TOOLS = {
     slug: "html-escape",
     icon: "code",
   },
+  "line-break-remover": {
+    name: "Line Break Remover",
+    description: "Remove line breaks from text",
+    slug: "line-break-remover",
+    icon: "alignLeft",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);
