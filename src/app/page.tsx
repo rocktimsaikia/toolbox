@@ -55,38 +55,34 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="mb-16">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Our Tools</h2>
-        <ol className="grid md:grid-cols-2 gap-6">
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4 text-center">Our Tools</h2>
+        <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {tools.map((tool: Tool) => (
             <li
               key={tool.name}
-              className="group relative overflow-hidden bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 dark:hover:border-blue-800/50"
+              className="group bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-all duration-300 hover:border-blue-200 dark:hover:border-blue-800/50"
               itemScope
               itemType="https://schema.org/SoftwareApplication"
             >
-              <div className="absolute top-4 right-4 text-gray-200 dark:text-gray-700 group-hover:text-blue-400 transition-colors">
-                <Code className="h-6 w-6" />
-              </div>
               <Link
                 href={`/${tool.slug}`}
-                className="block hover:no-underline h-full"
+                className="block hover:no-underline"
                 itemProp="url"
               >
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-blue-600 dark:text-blue-400">
-                    {Icons[tool.icon] || <Code className="h-5 w-5" />}
+                <div className="flex items-center space-x-3">
+                  <div className="flex-shrink-0 p-1.5 bg-blue-50 dark:bg-blue-900/30 rounded text-blue-600 dark:text-blue-400">
+                    {Icons[tool.icon] || <Code className="h-4 w-4" />}
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <h3
-                      className="text-lg font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex items-center"
+                      className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate"
                       itemProp="name"
                     >
                       {tool.name}
-                      <ArrowRight className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0" />
                     </h3>
                     <p
-                      className="text-gray-600 dark:text-gray-300"
+                      className="text-xs text-gray-600 dark:text-gray-300 line-clamp-2"
                       itemProp="description"
                     >
                       {tool.description}
