@@ -2,14 +2,18 @@
 
 import { useEffect, useRef } from "react";
 
-export default function Utterances() {
+interface UtterancesProps {
+  path?: string;
+}
+
+export default function Utterances({ path }: UtterancesProps) {
   const commentNodeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const scriptElement = document.createElement("script");
     scriptElement.src = "https://utteranc.es/client.js";
     scriptElement.setAttribute("repo", "rocktimsaikia/toolbox");
-    scriptElement.setAttribute("issue-term", "pathname");
+    scriptElement.setAttribute("issue-term", path ? `pathname:${path}` : "pathname");
     scriptElement.setAttribute("theme", "github-light");
     scriptElement.setAttribute("crossorigin", "anonymous");
     scriptElement.async = true;
@@ -21,7 +25,7 @@ export default function Utterances() {
         commentNodeRef.current.innerHTML = "";
       }
     };
-  }, []);
+  }, [path]);
 
   return <div ref={commentNodeRef} className="mt-16" />;
 }

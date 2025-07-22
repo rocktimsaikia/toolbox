@@ -2,7 +2,6 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { StructuredData } from "@/components/structured-data";
-import Utterances from "@/components/utterances";
 import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import Script from "next/script";
 import { generateSeo } from "@/lib/seo";
@@ -51,9 +50,6 @@ export default function RootLayout({
           </main>
           <div className="px-4 py-8 sm:px-8 pb-20">
             <Footer />
-            <div className="mt-8">
-              <Utterances />
-            </div>
           </div>
         </div>
       </body>
