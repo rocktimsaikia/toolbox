@@ -2,7 +2,8 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { StructuredData } from "@/components/structured-data";
-import { Geist, Geist_Mono } from "next/font/google";
+import Utterances from "@/components/utterances";
+import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import Script from "next/script";
 import { generateSeo } from "@/lib/seo";
 
@@ -16,6 +17,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 // Generate metadata using our SEO utility
 export const metadata = generateSeo();
 
@@ -26,7 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSans.variable} antialiased`}
+      >
         <StructuredData />
         <Script
           defer
@@ -42,6 +51,9 @@ export default function RootLayout({
           </main>
           <div className="px-4 py-8 sm:px-8 pb-20">
             <Footer />
+            <div className="mt-8">
+              <Utterances />
+            </div>
           </div>
         </div>
       </body>
