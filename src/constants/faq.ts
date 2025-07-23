@@ -194,6 +194,29 @@ const LINE_BREAK_REMOVER_FAQ: Faq[] = [
   },
 ];
 
+const LOREM_IPSUM_FAQ: Faq[] = [
+  {
+    question: "What is Lorem Ipsum?",
+    answer:
+      "Lorem Ipsum is placeholder text commonly used in the printing and typesetting industry. Our generator creates customizable Lorem Ipsum text for your designs, layouts, and mockups.",
+  },
+  {
+    question: "How do I customize the generated text?",
+    answer:
+      "Use the controls to set the number of paragraphs, sentences per paragraph, and words per sentence. Toggle 'Start with Lorem ipsum' to begin with the traditional opening or generate completely random text.",
+  },
+  {
+    question: "Why use Lorem Ipsum instead of regular text?",
+    answer:
+      "Lorem Ipsum prevents viewers from being distracted by readable content when focusing on design elements. It's the industry standard for placeholder text in web design and print layouts.",
+  },
+  {
+    question: "Can I generate different amounts of text?",
+    answer:
+      "Yes! Adjust the paragraphs (1-20), sentences per paragraph (1-20), and words per sentence (3-30) to create the perfect amount of placeholder text for your project needs.",
+  },
+];
+
 export const HOME_PAGE_FAQ: Faq[] = [
   {
     question: "What tools are available on Tool Box?",
@@ -226,4 +249,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "url-encoder-decoder": URL_ENCODER_DECODER_FAQ,
   "html-escape": HTML_ESCAPE_FAQ,
   "line-break-remover": LINE_BREAK_REMOVER_FAQ,
+  "lorem-ipsum": LOREM_IPSUM_FAQ,
 };
