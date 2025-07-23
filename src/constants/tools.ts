@@ -59,6 +59,12 @@ export const TOOLS = {
     slug: "line-break-remover",
     icon: "alignLeft",
   },
+  "lorem-ipsum": {
+    name: "Lorem Ipsum Generator",
+    description: "Generate Lorem Ipsum placeholder text",
+    slug: "lorem-ipsum",
+    icon: "fileText",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);
