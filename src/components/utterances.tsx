@@ -14,6 +14,7 @@ export default function Utterances({ path }: UtterancesProps) {
     scriptElement.src = "https://utteranc.es/client.js";
     scriptElement.setAttribute("repo", "rocktimsaikia/toolbox");
     scriptElement.setAttribute("issue-term", path ? `pathname:${path}` : "pathname");
+    scriptElement.setAttribute("label", "comment");
     scriptElement.setAttribute("theme", "github-light");
     scriptElement.setAttribute("crossorigin", "anonymous");
     scriptElement.async = true;
