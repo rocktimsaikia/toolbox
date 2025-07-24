@@ -5,6 +5,7 @@ import { StructuredData } from "@/components/structured-data";
 import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import Script from "next/script";
 import { generateSeo } from "@/lib/seo";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +36,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoSans.variable} antialiased`}
       >
+        <GoogleAnalytics gaId="G-HMXMKZ0LGM" />
         <StructuredData />
-        <Script
-          defer
-          src="https://cloud.umami.is/script.js"
-          data-website-id="0d4f34b3-2799-42a6-b815-77c36e45aae8"
-        />
         <div className="min-h-screen flex flex-col font-sans text-foreground antialiased">
           <div className="px-4 py-6 sm:px-8 sm:py-8">
             <Navbar />
