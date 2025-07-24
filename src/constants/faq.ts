@@ -217,6 +217,29 @@ const LOREM_IPSUM_FAQ: Faq[] = [
   },
 ];
 
+const BLANK_CHARACTER_FAQ: Faq[] = [
+  {
+    question: "What are blank characters and why would I need them?",
+    answer:
+      "Blank characters are invisible Unicode characters used for fine-tuning text spacing, creating invisible separators, or fixing layout issues. They're useful for designers, developers, and content creators who need precise text control.",
+  },
+  {
+    question: "What's the difference between the various space characters?",
+    answer:
+      "Different spaces have different widths: En Space (width of 'N'), Em Space (width of 'M'), Thin Space (1/6 em), Hair Space (thinnest), Figure Space (width of digits), and Punctuation Space (width of period). Choose based on your spacing needs.",
+  },
+  {
+    question: "When should I use zero-width characters?",
+    answer:
+      "Zero-width characters are invisible and useful for: Zero Width Space (line break opportunities), Zero Width Non-Joiner (preventing character joining), Zero Width Joiner (forcing character joining), and Word Joiner (invisible non-breaking space).",
+  },
+  {
+    question: "Are these characters safe to use in all applications?",
+    answer:
+      "Most modern applications support Unicode characters, but some older systems might not display them correctly. Test in your target environment first, especially for zero-width characters which can affect text selection and copying.",
+  },
+];
+
 export const HOME_PAGE_FAQ: Faq[] = [
   {
     question: "What tools are available on Tool Box?",
@@ -250,4 +273,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "html-escape": HTML_ESCAPE_FAQ,
   "line-break-remover": LINE_BREAK_REMOVER_FAQ,
   "lorem-ipsum": LOREM_IPSUM_FAQ,
+  "blank-character": BLANK_CHARACTER_FAQ,
 };

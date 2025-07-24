@@ -65,6 +65,12 @@ export const TOOLS = {
     slug: "lorem-ipsum",
     icon: "fileText",
   },
+  "blank-character": {
+    name: "Blank Character Copy",
+    description: "Copy invisible blank characters",
+    slug: "blank-character",
+    icon: "copy",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);
