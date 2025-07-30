@@ -145,7 +145,9 @@ export default function Yamlc() {
             const converted = csvStringify(data, { header: true });
             setOutput(converted);
           } else {
-            setError("CSV output requires array data. Please convert from a format that produces arrays.");
+            setError(
+              "CSV output requires array data. Please convert from a format that produces arrays.",
+            );
           }
         } catch (e: unknown) {
           setError(e instanceof Error ? e.message : String(e));
@@ -165,7 +167,10 @@ export default function Yamlc() {
           <div className="flex justify-between w-full">
             <h2 className="mb-2 text-lg font-semibold">Input</h2>
 
-            <Select defaultValue={inputFormat} onValueChange={(value) => setInputFormat(value as typeof inputFormat)}>
+            <Select
+              defaultValue={inputFormat}
+              onValueChange={(value) => setInputFormat(value as typeof inputFormat)}
+            >
               <SelectTrigger className={"rounded-none border-neutral-800"}>
                 <SelectValue />
               </SelectTrigger>
@@ -190,7 +195,10 @@ export default function Yamlc() {
           <div className="flex justify-between w-full">
             <h2 className="text-lg font-semibold">Output</h2>
             <div className="flex">
-              <Select defaultValue={outputFormat} onValueChange={(value) => setOutputFormat(value as typeof outputFormat)}>
+              <Select
+                defaultValue={outputFormat}
+                onValueChange={(value) => setOutputFormat(value as typeof outputFormat)}
+              >
                 <SelectTrigger className={"rounded-none border-neutral-800"}>
                   <SelectValue />
                 </SelectTrigger>
