@@ -234,7 +234,7 @@ export default function Yamlc() {
             className="border border-gray-300 outline-none p-3 bg-[#eeeeee] cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
             value={output}
             readOnly
-            placeholder="TypeScript type will appear here..."
+            placeholder="Converted data will appear here..."
           />
         </div>
       </div>
