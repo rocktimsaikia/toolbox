@@ -14,7 +14,7 @@ A collection of essential web developer tools to make your workflow more efficie
 - **[What's My IP](https://tools.rocktim.dev/whats-my-ip)**: Quickly find your public IP address
 - **[HTML Escape](https://tools.rocktim.dev/html-escape)**: Escape special characters for safe HTML usage
 - **[Line Break Remover](https://tools.rocktim.dev/line-break-remover)**: Remove line breaks from text
-- **[Data Format Converter](https://tools.rocktim.dev/data-format-converter)**: Convert data between JSON, YAML, TOML, XML, and CSV formats
+- **[Data Format Converter](https://tools.rocktim.dev/yamlc)**: Convert data between JSON, YAML, TOML, XML, and CSV formats
 
 ## Getting Started
 
