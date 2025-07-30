@@ -16,7 +16,7 @@ import {
 import { parse as tomlParse } from "toml";
 import json2toml from "json2toml";
 import { XMLParser } from "fast-xml-parser";
-import { toXML } from "jstoxml";
+import { toXML, type XmlElement } from "jstoxml";
 import { parse as csvParse, stringify as csvStringify } from "csv/sync";
 
 const converters = ["json", "yaml", "toml", "xml", "csv"] as const;
@@ -51,7 +51,7 @@ export default function Yamlc() {
       setError("");
       return;
     }
-    
+
     // Clear any previous errors at the start of conversion
     setError("");
     let data: unknown;
@@ -137,7 +137,7 @@ export default function Yamlc() {
 
       case "xml": {
         try {
-          const converted = toXML(data as object, { header: false, indent: "  " });
+          const converted = toXML(data as XmlElement, { header: false, indent: "  " });
           setOutput(converted);
         } catch (e: unknown) {
           setError(e instanceof Error ? e.message : String(e));
@@ -190,7 +190,7 @@ export default function Yamlc() {
           <TextAreaCodeEditor
             value={input}
             onChange={setInput}
-            language={inputFormat === "json" ? "javascript" : inputFormat}
+            language={inputFormat === "json" ? "javascript" : "json"}
             placeholder={`Paste your ${inputFormat.toUpperCase()} here...`}
           />
           {error && <p className="text-red-500 mt-2">{error}</p>}
