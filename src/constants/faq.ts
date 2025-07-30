@@ -240,6 +240,29 @@ const BLANK_CHARACTER_FAQ: Faq[] = [
   },
 ];
 
+const CRON_EXPRESSION_GENERATOR_FAQ: Faq[] = [
+  {
+    question: "What is a cron expression?",
+    answer:
+      "A cron expression is a time-based job scheduler format used in Unix-like systems. It consists of five fields: minute, hour, day-of-month, month, and day-of-week.",
+  },
+  {
+    question: "How do I read a cron expression?",
+    answer:
+      "Read from left to right: minute (0-59), hour (0-23), day-of-month (1-31), month (1-12), day-of-week (0-7). For example, '0 9 * * 1-5' runs at 9:00 AM on weekdays.",
+  },
+  {
+    question: "What do the special characters mean?",
+    answer:
+      "Common characters: * (any value), - (range like 1-5), , (list like 1,3,5), / (step values like */5), and L (last day of month). These create flexible scheduling patterns.",
+  },
+  {
+    question: "How can I validate my cron expression?",
+    answer:
+      "Enter your expression in the tool above to see its human-readable translation. This helps verify the schedule matches your intended timing before implementation.",
+  },
+];
+
 export const HOME_PAGE_FAQ: Faq[] = [
   {
     question: "What tools are available on Tool Box?",
@@ -274,4 +297,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "line-break-remover": LINE_BREAK_REMOVER_FAQ,
   "lorem-ipsum": LOREM_IPSUM_FAQ,
   "blank-character": BLANK_CHARACTER_FAQ,
+  "cron-expression-generator": CRON_EXPRESSION_GENERATOR_FAQ,
 };
