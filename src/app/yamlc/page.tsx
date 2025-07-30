@@ -186,8 +186,8 @@ export default function Yamlc() {
           <TextAreaCodeEditor
             value={input}
             onChange={setInput}
-            language="javascript"
-            placeholder="Paste your JavaScript object here..."
+            language={inputFormat === "json" ? "javascript" : inputFormat}
+            placeholder={`Paste your ${inputFormat.toUpperCase()} here...`}
           />
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
