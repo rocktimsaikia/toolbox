@@ -48,8 +48,12 @@ export default function Yamlc() {
     }
     if (inputFormat === outputFormat) {
       setOutput(input);
+      setError("");
       return;
     }
+    
+    // Clear any previous errors at the start of conversion
+    setError("");
     let data: unknown;
 
     // input parser
@@ -157,8 +161,6 @@ export default function Yamlc() {
         break;
       }
     }
-    setError("");
-    return;
   }, [inputFormat, outputFormat, input]);
 
   return (
