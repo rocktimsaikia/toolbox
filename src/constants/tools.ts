@@ -71,6 +71,12 @@ export const TOOLS = {
     slug: "blank-character",
     icon: "copy",
   },
+  "cron-expression-generator": {
+    name: "Cron Expression Generator",
+    description: "Generate and understand cron expressions (the human way)",
+    slug: "cron-expression-generator",
+    icon: "clock",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);
