@@ -41,7 +41,9 @@ export default function Yamlc() {
   useEffect(() => {
     if (!input.trim()) {
       setError("");
-      setInput("");
+      if (input !== "") {
+        setInput("");
+      }
       return;
     }
     if (inputFormat === outputFormat) {
