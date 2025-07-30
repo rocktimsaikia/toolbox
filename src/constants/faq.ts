@@ -196,9 +196,29 @@ export const HOME_PAGE_FAQ: Faq[] = [
 
 export const YAMLC_FAQ: Faq[] = [
   {
-    question: "why",
+    question: "What formats does the Data Format Converter support?",
     answer:
-      "sometimes you just get data in the wrong format. but this tool makes it easy to convert from one to anotehr",
+      "The Data Format Converter supports JSON, YAML, TOML, XML, and CSV formats. You can convert between any of these formats seamlessly using the dropdown selectors.",
+  },
+  {
+    question: "How do I use the Data Format Converter?",
+    answer:
+      "Select your input format from the left dropdown, paste your data in the input field, then choose your desired output format from the right dropdown. The conversion happens automatically as you type.",
+  },
+  {
+    question: "Can I convert CSV data to other formats?",
+    answer:
+      "Yes! You can convert CSV data to JSON, YAML, TOML, or XML. When converting TO CSV, note that the input data should be in array format for proper CSV generation.",
+  },
+  {
+    question: "What should I do if I get a conversion error?",
+    answer:
+      "Check that your input data is valid for the selected format. Common issues include malformed JSON, incorrect YAML indentation, or invalid XML structure. The error message will help identify the specific issue.",
+  },
+  {
+    question: "Is my data secure when using this converter?",
+    answer:
+      "Yes, all conversions happen entirely in your browser. No data is sent to any server, ensuring your information remains private and secure.",
   },
 ];
 

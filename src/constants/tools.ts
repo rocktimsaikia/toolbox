@@ -55,9 +55,9 @@ export const TOOLS: Record<Slug, Tool> = {
     slug: "html-escape",
   },
   yamlc: {
-    name: "Yet another markup language converter",
+    name: "Data Format Converter",
     description:
-      "convert data from data from different markup languages like json and yaml into another",
+      "Convert data between different formats including JSON, YAML, TOML, XML, and CSV",
     slug: "yamlc",
   },
 };

@@ -17,9 +17,9 @@ import { parse as tomlParse } from "toml";
 import json2toml from "json2toml";
 import { XMLParser } from "fast-xml-parser";
 import { toXML } from "jstoxml";
-import { parse as csvParse } from "csv/sync";
+import { parse as csvParse, stringify as csvStringify } from "csv/sync";
 
-const converters = ["json", "yaml", "toml", "xml"] as const;
+const converters = ["json", "yaml", "toml", "xml", "csv"] as const;
 
 const defaultInput = `{
     "firstName": "John",
@@ -56,34 +56,24 @@ export default function Yamlc() {
         try {
           data = JSON.parse(input);
         } catch (e: unknown) {
-          console.error(e);
-          // @ts-ignore
-          setError(e.toString());
+          setError(e instanceof Error ? e.message : String(e));
         }
         break;
       }
       case "yaml": {
         try {
-          const converted = yaml.load(input);
-          data = converted;
-          console.log(converted);
-        } catch (e) {
-          console.log(e);
-          // @ts-ignore
-          setError(e.toString());
+          data = yaml.load(input);
+        } catch (e: unknown) {
+          setError(e instanceof Error ? e.message : String(e));
         }
         break;
       }
 
       case "toml": {
         try {
-          const converted = tomlParse(input);
-          data = converted;
-          console.log(converted);
-        } catch (e) {
-          console.log(e);
-          // @ts-ignore
-          setError(e.toString());
+          data = tomlParse(input);
+        } catch (e: unknown) {
+          setError(e instanceof Error ? e.message : String(e));
         }
         break;
       }
@@ -91,29 +81,24 @@ export default function Yamlc() {
       case "xml": {
         try {
           const parser = new XMLParser();
-          const converted = parser.parse(input);
-          console.log(converted);
-          data = converted;
-        } catch (e) {
-          // @ts-expect-error its unknown and i dont care
-          setError(e.toString());
-          console.error(e);
+          data = parser.parse(input);
+        } catch (e: unknown) {
+          setError(e instanceof Error ? e.message : String(e));
         }
         break;
       }
 
       case "csv": {
         try {
-          console.log("befoe parsing csv data");
-          const converted = { hello: "world" };
-          console.log(converted);
+          const converted = csvParse(input, {
+            columns: true,
+            skip_empty_lines: true,
+          });
           data = converted;
-        } catch (e) {
-          console.error(e);
-
-          // @ts-ignore
-          setError(e);
+        } catch (e: unknown) {
+          setError(e instanceof Error ? e.message : String(e));
         }
+        break;
       }
     }
 
@@ -127,15 +112,9 @@ export default function Yamlc() {
       case "json": {
         try {
           const converted = JSON.stringify(data, null, 2);
-          // replace /n with \n
-          const formatted = converted.replace(/\\n/g, "\r\n");
-          console.log(formatted);
-          console.log(converted);
-          setOutput(formatted);
+          setOutput(converted);
         } catch (e: unknown) {
-          console.error(e);
-          // @ts-ignore
-          setError(e.toString());
+          setError(e instanceof Error ? e.message : String(e));
         }
         break;
       }
@@ -144,26 +123,33 @@ export default function Yamlc() {
         try {
           const converted = json2toml(data as object, { indent: 0 });
           setOutput(converted);
-          break;
-        } catch (e) {
-          console.error(e);
-          // @ts-ignore
-          setError(e.toString());
+        } catch (e: unknown) {
+          setError(e instanceof Error ? e.message : String(e));
         }
         break;
       }
 
       case "xml": {
         try {
-          // @ts-ignore
-          const converted = toXML(data, { header: false, indent: "  " });
+          const converted = toXML(data as object, { header: false, indent: "  " });
           setOutput(converted);
-        } catch (e) {
-          console.log(e);
-          // @ts-ignore
-          setError(e.toString());
+        } catch (e: unknown) {
+          setError(e instanceof Error ? e.message : String(e));
         }
+        break;
+      }
 
+      case "csv": {
+        try {
+          if (Array.isArray(data)) {
+            const converted = csvStringify(data, { header: true });
+            setOutput(converted);
+          } else {
+            setError("CSV output requires array data. Please convert from a format that produces arrays.");
+          }
+        } catch (e: unknown) {
+          setError(e instanceof Error ? e.message : String(e));
+        }
         break;
       }
     }
@@ -179,8 +165,7 @@ export default function Yamlc() {
           <div className="flex justify-between w-full">
             <h2 className="mb-2 text-lg font-semibold">Input</h2>
 
-            {/* @ts-expect-error due to being lazy and whole lotta not my problem, we expect the user not to add their own values to the select */}
-            <Select defaultValue={inputFormat} onValueChange={setInputFormat}>
+            <Select defaultValue={inputFormat} onValueChange={(value) => setInputFormat(value as typeof inputFormat)}>
               <SelectTrigger className={"rounded-none border-neutral-800"}>
                 <SelectValue />
               </SelectTrigger>
@@ -205,8 +190,7 @@ export default function Yamlc() {
           <div className="flex justify-between w-full">
             <h2 className="text-lg font-semibold">Output</h2>
             <div className="flex">
-              {/* @ts-ignore */}
-              <Select defaultValue={outputFormat} onValueChange={setOutputFormat}>
+              <Select defaultValue={outputFormat} onValueChange={(value) => setOutputFormat(value as typeof outputFormat)}>
                 <SelectTrigger className={"rounded-none border-neutral-800"}>
                   <SelectValue />
                 </SelectTrigger>

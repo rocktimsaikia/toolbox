@@ -15,6 +15,7 @@ A collection of essential web developer tools to make your workflow more efficie
 - **URL Encoder/Decoder**: Encode and decode URL components
 - **What's My IP**: Quickly find your public IP address
 - **HTML Escape**: Escape special characters for safe HTML usage
+- **Data Format Converter**: Convert data between JSON, YAML, TOML, XML, and CSV formats
 
 ## 🚀 Getting Started
 
