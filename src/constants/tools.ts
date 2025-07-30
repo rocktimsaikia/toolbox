@@ -1,66 +1,92 @@
-export const SLUGS = [
-  "json-to-types",
-  "numbers-to-words",
-  "password-generator",
-  "base64-converter",
-  "url-encoder-decoder",
-  "whats-my-ip",
-  "html-escape",
-  "yamlc",
-] as const;
+import type { Icons } from "@/components/ui/icons";
 
-export type Slug = (typeof SLUGS)[number];
+export type Slug = keyof typeof TOOLS;
 
-export type Tool = {
+export interface Tool {
   name: string;
   description: string;
   slug: Slug;
   hide?: boolean;
-};
+  icon: keyof typeof Icons;
+}
 
-export const TOOLS: Record<Slug, Tool> = {
-  "json-to-types": {
+export const TOOLS = {
+  "json-to-ts": {
     name: "JavaScript/JSON to TypeScript Types",
-    description: "Generate TypeScript types from JavaScript objects or JSON data.",
-    slug: "json-to-types",
+    description: "Convert JavaScript/JSON to TypeScript types",
+    slug: "json-to-ts",
+    icon: "type",
   },
   "numbers-to-words": {
     name: "Numbers to Words",
-    description: "Convert numbers to readable words (supports currency).",
+    description: "Convert numbers to words",
     slug: "numbers-to-words",
+    icon: "hash",
   },
   "password-generator": {
     name: "Password Generator",
-    description: "Generate a secure random password.",
+    description: "Generate secure passwords",
     slug: "password-generator",
+    icon: "key",
   },
   "base64-converter": {
     name: "Base64 Converter",
-    description: "Convert text to Base64 encoding and vice versa.",
+    description: "Encode and decode Base64 strings",
     slug: "base64-converter",
+    icon: "arrowUpDown",
   },
   "url-encoder-decoder": {
     name: "URL Encoder/Decoder",
-    description: "Encode and decode URLs.",
+    description: "Encode and decode URLs",
     slug: "url-encoder-decoder",
+    icon: "link",
   },
   "whats-my-ip": {
     name: "What's My IP",
-    description: "Get your public IP address.",
+    description: "Get your public IP address",
     slug: "whats-my-ip",
+    icon: "wifi",
   },
   "html-escape": {
     name: "HTML Escape",
-    description: "Escape special characters in text for safe use in HTML.",
+    description: "Escape HTML entities",
     slug: "html-escape",
+    icon: "code",
+  },
+  "line-break-remover": {
+    name: "Line Break Remover",
+    description: "Remove line breaks from text",
+    slug: "line-break-remover",
+    icon: "alignLeft",
+  },
+  "lorem-ipsum": {
+    name: "Lorem Ipsum Generator",
+    description: "Generate Lorem Ipsum placeholder text",
+    slug: "lorem-ipsum",
+    icon: "fileText",
+  },
+  "blank-character": {
+    name: "Blank Character Copy",
+    description: "Copy invisible blank characters",
+    slug: "blank-character",
+    icon: "copy",
+  },
+  "cron-expression-generator": {
+    name: "Cron Expression Generator",
+    description: "Generate and understand cron expressions (the human way)",
+    slug: "cron-expression-generator",
+    icon: "clock",
   },
   yamlc: {
     name: "Data Format Converter",
     description:
       "Convert data between different formats including JSON, YAML, TOML, XML, and CSV",
     slug: "yamlc",
+    icon: "arrowUpDown",
   },
-};
+} as const;
+
+export const tools = Object.values(TOOLS);
 
 export const LANGUAGE_OPTIONS = [
   { country: "Estonia", language: "Estonian", locale: "ee-EE" },

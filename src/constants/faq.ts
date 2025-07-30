@@ -171,6 +171,98 @@ const HTML_ESCAPE_FAQ: Faq[] = [
   },
 ];
 
+const LINE_BREAK_REMOVER_FAQ: Faq[] = [
+  {
+    question: "What does the Line Break Remover tool do?",
+    answer:
+      "The Line Break Remover tool automatically removes unwanted single line breaks from text while preserving paragraph structure. It converts text with line breaks into flowing paragraphs.",
+  },
+  {
+    question: "How does it preserve paragraphs?",
+    answer:
+      "The tool treats double line breaks (or more) as paragraph separators and keeps them intact. Only single line breaks within paragraphs are removed and replaced with spaces.",
+  },
+  {
+    question: "When would I use this tool?",
+    answer:
+      "This tool is useful when copying text from PDFs, emails, or documents that have unwanted line breaks, or when preparing text for web content, emails, or documents that need clean formatting.",
+  },
+  {
+    question: "Does it remove all line breaks?",
+    answer:
+      "No, the tool intelligently preserves paragraph breaks (double line breaks) while only removing single line breaks that interrupt the flow of text within paragraphs.",
+  },
+];
+
+const LOREM_IPSUM_FAQ: Faq[] = [
+  {
+    question: "What is Lorem Ipsum?",
+    answer:
+      "Lorem Ipsum is placeholder text commonly used in the printing and typesetting industry. Our generator creates customizable Lorem Ipsum text for your designs, layouts, and mockups.",
+  },
+  {
+    question: "How do I customize the generated text?",
+    answer:
+      "Use the controls to set the number of paragraphs, sentences per paragraph, and words per sentence. Toggle 'Start with Lorem ipsum' to begin with the traditional opening or generate completely random text.",
+  },
+  {
+    question: "Why use Lorem Ipsum instead of regular text?",
+    answer:
+      "Lorem Ipsum prevents viewers from being distracted by readable content when focusing on design elements. It's the industry standard for placeholder text in web design and print layouts.",
+  },
+  {
+    question: "Can I generate different amounts of text?",
+    answer:
+      "Yes! Adjust the paragraphs (1-20), sentences per paragraph (1-20), and words per sentence (3-30) to create the perfect amount of placeholder text for your project needs.",
+  },
+];
+
+const BLANK_CHARACTER_FAQ: Faq[] = [
+  {
+    question: "What are blank characters and why would I need them?",
+    answer:
+      "Blank characters are invisible Unicode characters used for fine-tuning text spacing, creating invisible separators, or fixing layout issues. They're useful for designers, developers, and content creators who need precise text control.",
+  },
+  {
+    question: "What's the difference between the various space characters?",
+    answer:
+      "Different spaces have different widths: En Space (width of 'N'), Em Space (width of 'M'), Thin Space (1/6 em), Hair Space (thinnest), Figure Space (width of digits), and Punctuation Space (width of period). Choose based on your spacing needs.",
+  },
+  {
+    question: "When should I use zero-width characters?",
+    answer:
+      "Zero-width characters are invisible and useful for: Zero Width Space (line break opportunities), Zero Width Non-Joiner (preventing character joining), Zero Width Joiner (forcing character joining), and Word Joiner (invisible non-breaking space).",
+  },
+  {
+    question: "Are these characters safe to use in all applications?",
+    answer:
+      "Most modern applications support Unicode characters, but some older systems might not display them correctly. Test in your target environment first, especially for zero-width characters which can affect text selection and copying.",
+  },
+];
+
+const CRON_EXPRESSION_GENERATOR_FAQ: Faq[] = [
+  {
+    question: "What is a cron expression?",
+    answer:
+      "A cron expression is a time-based job scheduler format used in Unix-like systems. It consists of five fields: minute, hour, day-of-month, month, and day-of-week.",
+  },
+  {
+    question: "How do I read a cron expression?",
+    answer:
+      "Read from left to right: minute (0-59), hour (0-23), day-of-month (1-31), month (1-12), day-of-week (0-7). For example, '0 9 * * 1-5' runs at 9:00 AM on weekdays.",
+  },
+  {
+    question: "What do the special characters mean?",
+    answer:
+      "Common characters: * (any value), - (range like 1-5), , (list like 1,3,5), / (step values like */5), and L (last day of month). These create flexible scheduling patterns.",
+  },
+  {
+    question: "How can I validate my cron expression?",
+    answer:
+      "Enter your expression in the tool above to see its human-readable translation. This helps verify the schedule matches your intended timing before implementation.",
+  },
+];
+
 export const HOME_PAGE_FAQ: Faq[] = [
   {
     question: "What tools are available on Tool Box?",
@@ -225,10 +317,14 @@ export const YAMLC_FAQ: Faq[] = [
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,
-  "json-to-types": JSON_TO_TYPES_FAQ,
+  "json-to-ts": JSON_TO_TYPES_FAQ,
   "numbers-to-words": NUMBERS_TO_WORDS_FAQ,
   "base64-converter": BASE64_CONVERTER_FAQ,
   "url-encoder-decoder": URL_ENCODER_DECODER_FAQ,
   "html-escape": HTML_ESCAPE_FAQ,
+  "line-break-remover": LINE_BREAK_REMOVER_FAQ,
+  "lorem-ipsum": LOREM_IPSUM_FAQ,
+  "blank-character": BLANK_CHARACTER_FAQ,
+  "cron-expression-generator": CRON_EXPRESSION_GENERATOR_FAQ,
   yamlc: YAMLC_FAQ,
 };

@@ -1,9 +1,11 @@
 import "./globals.css";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { StructuredData } from "@/components/structured-data";
+import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import Script from "next/script";
+import { generateSeo } from "@/lib/seo";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,11 +17,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Tool Box - Essential Developer Tools",
-  description:
-    "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make our life easier",
-};
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Generate metadata using our SEO utility
+export const metadata = generateSeo();
 
 export default function RootLayout({
   children,
@@ -27,19 +32,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Script
-          defer
-          src="https://cloud.umami.is/script.js"
-          data-website-id="0d4f34b3-2799-42a6-b815-77c36e45aae8"
-        />
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-          <Navbar />
-          <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSans.variable} antialiased`}
+      >
+        <GoogleAnalytics gaId="G-HMXMKZ0LGM" />
+        <StructuredData />
+        <div className="min-h-screen flex flex-col font-sans text-foreground antialiased">
+          <div className="px-4 py-6 sm:px-8 sm:py-8">
+            <Navbar />
+          </div>
+          <main className="flex-1 w-full flex flex-col items-center px-4 sm:px-8">
             {children}
           </main>
-          <Footer />
+          <div className="px-4 py-8 sm:px-8 pb-20">
+            <Footer />
+          </div>
         </div>
       </body>
     </html>

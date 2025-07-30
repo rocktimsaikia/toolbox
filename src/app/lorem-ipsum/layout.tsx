@@ -4,7 +4,7 @@ import { Faqs } from "@/constants/faq";
 import { TOOLS } from "@/constants/tools";
 import { generateSeo } from "@/lib/seo";
 
-const slug = "html-escape";
+const slug = "lorem-ipsum";
 
 const tool = TOOLS[slug];
 const faq = Faqs[slug];

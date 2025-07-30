@@ -2,22 +2,21 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/24ad3cee-05f3-4dcc-80ed-e54ee858d41b/deploy-status)](https://app.netlify.com/sites/tools-xyz-rocktim/deploys)
 
-A collection of essential web developer tools to make your workflow more efficient. Built with Next.js, TypeScript, and Tailwind CSS.
+A collection of essential web developer tools to make your workflow more efficient.
 
-🔗 Live Demo: [tools.rocktimsaikia.dev](https://tools.rocktimsaikia.dev)
+## Available Tools
 
-## 🛠️ Available Tools
+- **[JSON to TypeScript Types](https://tools.rocktim.dev/json-to-ts)**: Convert JavaScript/JSON objects to TypeScript interfaces
+- **[Numbers to Words](https://tools.rocktim.dev/numbers-to-words)**: Convert numbers to readable words with currency support
+- **[Password Generator](https://tools.rocktim.dev/password-generator)**: Create secure, random passwords
+- **[Base64 Converter](https://tools.rocktim.dev/base64-converter)**: Encode and decode text to/from Base64
+- **[URL Encoder/Decoder](https://tools.rocktim.dev/url-encoder-decoder)**: Encode and decode URL components
+- **[What's My IP](https://tools.rocktim.dev/whats-my-ip)**: Quickly find your public IP address
+- **[HTML Escape](https://tools.rocktim.dev/html-escape)**: Escape special characters for safe HTML usage
+- **[Line Break Remover](https://tools.rocktim.dev/line-break-remover)**: Remove line breaks from text
+- **[Data Format Converter](https://tools.rocktim.dev/data-format-converter)**: Convert data between JSON, YAML, TOML, XML, and CSV formats
 
-- **JSON to TypeScript Types**: Convert JavaScript/JSON objects to TypeScript interfaces
-- **Numbers to Words**: Convert numbers to readable words with currency support
-- **Password Generator**: Create secure, random passwords
-- **Base64 Converter**: Encode and decode text to/from Base64
-- **URL Encoder/Decoder**: Encode and decode URL components
-- **What's My IP**: Quickly find your public IP address
-- **HTML Escape**: Escape special characters for safe HTML usage
-- **Data Format Converter**: Convert data between JSON, YAML, TOML, XML, and CSV formats
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -44,18 +43,10 @@ A collection of essential web developer tools to make your workflow more efficie
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🛠️ Built With
-
-- [Next.js](https://nextjs.org/) - React framework
-- [TypeScript](https://www.typescriptlang.org/) - Type checking
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Radix UI](https://www.radix-ui.com/) - Accessible UI components
-- [CodeMirror](https://codemirror.net/) - Code editor component
-
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
