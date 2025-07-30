@@ -77,6 +77,13 @@ export const TOOLS = {
     slug: "cron-expression-generator",
     icon: "clock",
   },
+  yamlc: {
+    name: "Data Format Converter",
+    description:
+      "Convert data between different formats including JSON, YAML, TOML, XML, and CSV",
+    slug: "yamlc",
+    icon: "arrowUpDown",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);

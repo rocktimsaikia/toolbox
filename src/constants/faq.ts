@@ -286,6 +286,34 @@ export const HOME_PAGE_FAQ: Faq[] = [
   },
 ];
 
+export const YAMLC_FAQ: Faq[] = [
+  {
+    question: "What formats does the Data Format Converter support?",
+    answer:
+      "The Data Format Converter supports JSON, YAML, TOML, XML, and CSV formats. You can convert between any of these formats seamlessly using the dropdown selectors.",
+  },
+  {
+    question: "How do I use the Data Format Converter?",
+    answer:
+      "Select your input format from the left dropdown, paste your data in the input field, then choose your desired output format from the right dropdown. The conversion happens automatically as you type.",
+  },
+  {
+    question: "Can I convert CSV data to other formats?",
+    answer:
+      "Yes! You can convert CSV data to JSON, YAML, TOML, or XML. When converting TO CSV, note that the input data should be in array format for proper CSV generation.",
+  },
+  {
+    question: "What should I do if I get a conversion error?",
+    answer:
+      "Check that your input data is valid for the selected format. Common issues include malformed JSON, incorrect YAML indentation, or invalid XML structure. The error message will help identify the specific issue.",
+  },
+  {
+    question: "Is my data secure when using this converter?",
+    answer:
+      "Yes, all conversions happen entirely in your browser. No data is sent to any server, ensuring your information remains private and secure.",
+  },
+];
+
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,
@@ -298,4 +326,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "lorem-ipsum": LOREM_IPSUM_FAQ,
   "blank-character": BLANK_CHARACTER_FAQ,
   "cron-expression-generator": CRON_EXPRESSION_GENERATOR_FAQ,
+  yamlc: YAMLC_FAQ,
 };
