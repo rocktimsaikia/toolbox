@@ -111,6 +111,17 @@ function parseDay(dayOfMonth: string, dayOfWeek: string): string {
   }
 
   if (dayOfMonth !== "*" && dayOfWeek === "*") {
+    if (dayOfMonth === "L") {
+      return "on the last day of the month";
+    }
+    if (dayOfMonth.includes("L")) {
+      // Handle patterns like "L-3" (3 days before last day)
+      const match = dayOfMonth.match(/^L-(\d+)$/);
+      if (match) {
+        const offset = match[1];
+        return `${offset} days before the last day of the month`;
+      }
+    }
     if (dayOfMonth.includes("/")) {
       const [start, step] = dayOfMonth.split("/");
       return `every ${step} days${start !== "*" ? ` starting on day ${start}` : ""}`;
@@ -127,6 +138,15 @@ function parseDay(dayOfMonth: string, dayOfWeek: string): string {
   }
 
   if (dayOfMonth === "*" && dayOfWeek !== "*") {
+    if (dayOfWeek.includes("L")) {
+      // Handle patterns like "5L" (last Friday of the month)
+      const match = dayOfWeek.match(/^(\d)L$/);
+      if (match) {
+        const dayNum = parseInt(match[1]);
+        const dayName = dayNames[dayNum] || dayNum;
+        return `on the last ${dayName} of the month`;
+      }
+    }
     if (dayOfWeek.includes("/")) {
       const [start, step] = dayOfWeek.split("/");
       const startDay = start === "*" ? "" : dayNames[parseInt(start)] || start;
