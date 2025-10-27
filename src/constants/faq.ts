@@ -314,6 +314,29 @@ export const YAMLC_FAQ: Faq[] = [
   },
 ];
 
+const TEXT_TRIMMER_FAQ: Faq[] = [
+  {
+    question: "What does the Text Trimmer tool do?",
+    answer:
+      "The Text Trimmer removes unwanted leading (left) and trailing (right) whitespace from your text while preserving the content and line structure. You can choose to trim spaces from either or both sides.",
+  },
+  {
+    question: "How do I use the Text Trimmer?",
+    answer:
+      "Simply paste or type your text into the input field, then check the boxes for 'Remove leading spaces' or 'Remove trailing spaces' based on your needs. The trimmed result appears instantly in the output field.",
+  },
+  {
+    question: "Does it work on multi-line text?",
+    answer:
+      "Yes! The Text Trimmer processes each line individually, removing leading and/or trailing spaces from every line while preserving your text's line structure.",
+  },
+  {
+    question: "What types of whitespace does it remove?",
+    answer:
+      "The tool removes all types of leading and trailing whitespace characters including spaces, tabs, and other whitespace characters, depending on your selected options.",
+  },
+];
+
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,
@@ -327,4 +350,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "blank-character": BLANK_CHARACTER_FAQ,
   "cron-expression-generator": CRON_EXPRESSION_GENERATOR_FAQ,
   yamlc: YAMLC_FAQ,
+  "text-trimmer": TEXT_TRIMMER_FAQ,
 };
