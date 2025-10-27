@@ -84,6 +84,12 @@ export const TOOLS = {
     slug: "yamlc",
     icon: "arrowUpDown",
   },
+  "text-trimmer": {
+    name: "Text Trimmer",
+    description: "Remove leading and trailing whitespace from text",
+    slug: "text-trimmer",
+    icon: "scissors",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);
