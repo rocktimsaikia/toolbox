@@ -6,13 +6,17 @@ import { useEffect, useState } from "react";
 
 export default function TextTrimmer() {
   const [inputString, setInputString] = useState(
-    "   This text has leading spaces\nThis text has trailing spaces   \n   And this has both   ",
+    "   This text has leading spaces\nThis text has trailing spaces   \n   And this has both   "
   );
   const [outputString, setOutputString] = useState("");
   const [removeLeading, setRemoveLeading] = useState(true);
   const [removeTrailing, setRemoveTrailing] = useState(false);
 
-  const trimText = (text: string, trimLeading: boolean, trimTrailing: boolean) => {
+  const trimText = (
+    text: string,
+    trimLeading: boolean,
+    trimTrailing: boolean
+  ) => {
     if (!text) return "";
     if (!trimLeading && !trimTrailing) return text;
 
@@ -72,7 +76,9 @@ export default function TextTrimmer() {
             onChange={(e) => setRemoveLeading(e.target.checked)}
             className="w-4 h-4 mr-2 cursor-pointer"
           />
-          <span className="text-sm font-medium">Remove leading spaces (left trim)</span>
+          <span className="text-sm font-medium">
+            Remove leading spaces (left trim)
+          </span>
         </label>
         <label className="flex items-center cursor-pointer">
           <input
@@ -81,7 +87,9 @@ export default function TextTrimmer() {
             onChange={(e) => setRemoveTrailing(e.target.checked)}
             className="w-4 h-4 mr-2 cursor-pointer"
           />
-          <span className="text-sm font-medium">Remove trailing spaces (right trim)</span>
+          <span className="text-sm font-medium">
+            Remove trailing spaces (right trim)
+          </span>
         </label>
       </div>
     </div>
