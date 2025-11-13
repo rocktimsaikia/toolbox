@@ -19,3 +19,25 @@ export function formatJSObject(obj: any, indent: number = 2): string {
     return String(obj);
   }
 }
+
+/**
+ * Parses a comma-separated list of IP addresses and returns the preferred one.
+ * Prefers IPv4 addresses over IPv6. If no IPv4 is found, returns the first address.
+ * @param ipAddressString - Comma-separated list of IP addresses or null/undefined
+ * @returns The preferred IP address, or empty string if none found
+ */
+export function getPreferredIpAddress(
+  ipAddressString: string | null | undefined,
+): string {
+  if (!ipAddressString) {
+    return "";
+  }
+
+  const addresses = ipAddressString.split(",").map((addr) => addr.trim());
+
+  // Look for an IPv4 address (contains dots but not colons)
+  const ipv4 = addresses.find((addr) => addr.includes(".") && !addr.includes(":"));
+
+  // Return IPv4 if found, otherwise return the first address
+  return ipv4 || addresses[0] || "";
+}
