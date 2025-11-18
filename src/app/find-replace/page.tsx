@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function FindReplace() {
   const [inputString, setInputString] = useState(
-    "Hello World! Welcome to the world of programming.\nThis is a simple find and replace tool."
+    "Hello World! Welcome to the world of programming.\nThis is a simple find and replace tool.",
   );
   const [findText, setFindText] = useState("world");
   const [replaceText, setReplaceText] = useState("universe");
@@ -19,7 +19,7 @@ export default function FindReplace() {
     find: string,
     replace: string,
     matchCase: boolean,
-    matchWholeWord: boolean
+    matchWholeWord: boolean,
   ) => {
     if (!text || !find) return text;
 
@@ -45,7 +45,7 @@ export default function FindReplace() {
 
   useEffect(() => {
     setOutputString(
-      findAndReplace(inputString, findText, replaceText, caseSensitive, wholeWord)
+      findAndReplace(inputString, findText, replaceText, caseSensitive, wholeWord),
     );
   }, [inputString, findText, replaceText, caseSensitive, wholeWord]);
 
