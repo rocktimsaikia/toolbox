@@ -337,6 +337,29 @@ const TEXT_TRIMMER_FAQ: Faq[] = [
   },
 ];
 
+const FIND_REPLACE_FAQ: Faq[] = [
+  {
+    question: "What does the Find and Replace Text tool do?",
+    answer:
+      "The Find and Replace Text tool searches for specific text within your input and replaces all occurrences with your replacement text. It supports case-sensitive matching and whole word matching for precise control.",
+  },
+  {
+    question: "How do I use case-sensitive matching?",
+    answer:
+      "Check the 'Case sensitive' option to match text exactly as typed. For example, with case sensitivity enabled, 'World' will not match 'world'. Without it, both will be treated as the same.",
+  },
+  {
+    question: "What does 'Match whole word only' do?",
+    answer:
+      "When enabled, this option only matches complete words. For example, searching for 'cat' will match 'cat' but not 'category' or 'scatter'. This prevents partial word matches.",
+  },
+  {
+    question: "Can I use this tool for multiple replacements?",
+    answer:
+      "The tool replaces all occurrences of the find text in a single operation. If you need different replacements, you can perform multiple find-and-replace operations sequentially by copying the output back to input.",
+  },
+];
+
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,
@@ -351,4 +374,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "cron-expression-generator": CRON_EXPRESSION_GENERATOR_FAQ,
   yamlc: YAMLC_FAQ,
   "text-trimmer": TEXT_TRIMMER_FAQ,
+  "find-replace": FIND_REPLACE_FAQ,
 };

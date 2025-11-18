@@ -90,6 +90,12 @@ export const TOOLS = {
     slug: "text-trimmer",
     icon: "scissors",
   },
+  "find-replace": {
+    name: "Find and Replace Text",
+    description: "Find and replace text with case sensitivity and whole word options",
+    slug: "find-replace",
+    icon: "search",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);
