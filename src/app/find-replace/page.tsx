@@ -5,11 +5,9 @@ import { TOOLS } from "@/constants/tools";
 import { useEffect, useState } from "react";
 
 export default function FindReplace() {
-  const [inputString, setInputString] = useState(
-    "Hello World! Welcome to the world of programming.\nThis is a simple find and replace tool.",
-  );
-  const [findText, setFindText] = useState("world");
-  const [replaceText, setReplaceText] = useState("universe");
+  const [inputString, setInputString] = useState("");
+  const [findText, setFindText] = useState("");
+  const [replaceText, setReplaceText] = useState("");
   const [outputString, setOutputString] = useState("");
   const [caseSensitive, setCaseSensitive] = useState(false);
   const [wholeWord, setWholeWord] = useState(false);
