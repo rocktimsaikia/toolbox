@@ -175,7 +175,7 @@ export default function Yamlc() {
               defaultValue={inputFormat}
               onValueChange={(value) => setInputFormat(value as typeof inputFormat)}
             >
-              <SelectTrigger className={"rounded-none border-neutral-800"}>
+              <SelectTrigger className={"border border-b-0 border-gray-300 rounded hover:bg-gray-100"}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -198,12 +198,12 @@ export default function Yamlc() {
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
             <h2 className="text-lg font-semibold">Output</h2>
-            <div className="flex">
+            <div className="flex gap-2">
               <Select
                 defaultValue={outputFormat}
                 onValueChange={(value) => setOutputFormat(value as typeof outputFormat)}
               >
-                <SelectTrigger className={"rounded-none border-neutral-800"}>
+                <SelectTrigger className={"border border-b-0 border-gray-300 rounded hover:bg-gray-100"}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

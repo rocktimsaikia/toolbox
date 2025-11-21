@@ -56,7 +56,6 @@ export default function Home() {
       </header>
 
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Our Tools</h2>
         <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {tools.map((tool: Tool) => (
             <li
