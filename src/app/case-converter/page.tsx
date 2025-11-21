@@ -2,6 +2,15 @@
 import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
+import {
+  camelCase,
+  capitalCase,
+  constantCase,
+  kebabCase,
+  pascalCase,
+  sentenceCase,
+  snakeCase,
+} from "change-case";
 import { useEffect, useState } from "react";
 
 type CaseType =
@@ -22,60 +31,28 @@ export default function CaseConverter() {
   const [outputText, setOutputText] = useState("");
   const [selectedCase, setSelectedCase] = useState<CaseType>("camelCase");
 
-  const splitIntoWords = (text: string): string[] => {
-    // Split by spaces, hyphens, underscores, and camelCase/PascalCase boundaries
-    return text
-      .replace(/([a-z])([A-Z])/g, "$1 $2") // Split camelCase
-      .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2") // Split PascalCase
-      .replace(/[_-]/g, " ") // Replace underscores and hyphens with spaces
-      .split(/\s+/) // Split by whitespace
-      .filter((word) => word.length > 0); // Remove empty strings
-  };
-
   const convertCase = (text: string, caseType: CaseType): string => {
     if (!text) return "";
 
-    const words = splitIntoWords(text);
-
     switch (caseType) {
       case "camelCase":
-        return words
-          .map((word, index) =>
-            index === 0
-              ? word.toLowerCase()
-              : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
-          )
-          .join("");
-
+        return camelCase(text);
       case "PascalCase":
-        return words
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-          .join("");
-
+        return pascalCase(text);
       case "snake_case":
-        return words.map((word) => word.toLowerCase()).join("_");
-
+        return snakeCase(text);
       case "CONSTANT_CASE":
-        return words.map((word) => word.toUpperCase()).join("_");
-
+        return constantCase(text);
       case "kebab-case":
-        return words.map((word) => word.toLowerCase()).join("-");
-
+        return kebabCase(text);
       case "Title Case":
-        return words
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-          .join(" ");
-
+        return capitalCase(text);
       case "Sentence case":
-        const sentence = words.map((word) => word.toLowerCase()).join(" ");
-        return sentence.charAt(0).toUpperCase() + sentence.slice(1);
-
+        return sentenceCase(text);
       case "lower case":
-        return words.map((word) => word.toLowerCase()).join(" ");
-
+        return text.toLowerCase();
       case "UPPER CASE":
-        return words.map((word) => word.toUpperCase()).join(" ");
-
+        return text.toUpperCase();
       default:
         return text;
     }
