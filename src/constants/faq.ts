@@ -360,6 +360,29 @@ const FIND_REPLACE_FAQ: Faq[] = [
   },
 ];
 
+const CASE_CONVERTER_FAQ: Faq[] = [
+  {
+    question: "What does the Case Converter tool do?",
+    answer:
+      "The Case Converter tool transforms text between different casing formats including camelCase, PascalCase, snake_case, CONSTANT_CASE, kebab-case, Title Case, Sentence case, and more. It intelligently detects word boundaries and converts your text instantly.",
+  },
+  {
+    question: "What case formats are supported?",
+    answer:
+      "The tool supports 9 popular formats: camelCase, PascalCase, snake_case, CONSTANT_CASE, kebab-case, Title Case, Sentence case, lower case, and UPPER CASE.",
+  },
+  {
+    question: "How does the tool detect word boundaries?",
+    answer:
+      "The Case Converter intelligently splits text by recognizing spaces, hyphens, underscores, and camelCase/PascalCase patterns. This means it can convert between any format to any other format automatically.",
+  },
+  {
+    question: "When should I use each case format?",
+    answer:
+      "Use camelCase for JavaScript variables, PascalCase for classes/components, snake_case for Python/Ruby, CONSTANT_CASE for environment variables, kebab-case for URLs/CSS, Title Case for headings, and Sentence case for regular text.",
+  },
+];
+
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,
@@ -375,4 +398,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   yamlc: YAMLC_FAQ,
   "text-trimmer": TEXT_TRIMMER_FAQ,
   "find-replace": FIND_REPLACE_FAQ,
+  "case-converter": CASE_CONVERTER_FAQ,
 };

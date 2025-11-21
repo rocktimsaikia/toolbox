@@ -96,6 +96,12 @@ export const TOOLS = {
     slug: "find-replace",
     icon: "search",
   },
+  "case-converter": {
+    name: "Case Converter",
+    description: "Convert text between different casing formats",
+    slug: "case-converter",
+    icon: "type",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);
