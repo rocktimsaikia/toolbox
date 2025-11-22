@@ -102,6 +102,12 @@ export const TOOLS = {
     slug: "case-converter",
     icon: "type",
   },
+  "color-converter": {
+    name: "Color Code Converter",
+    description: "Convert colors between HEX, RGB, HSL, and RGBA formats",
+    slug: "color-converter",
+    icon: "palette",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);

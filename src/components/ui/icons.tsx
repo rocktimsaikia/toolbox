@@ -1,4 +1,4 @@
-import { Type, Hash, Key, ArrowUpDown, Link as LinkIcon, Wifi, Code, AlignLeft, FileText, Copy, Clock, Scissors, Search } from 'lucide-react';
+import { Type, Hash, Key, ArrowUpDown, Link as LinkIcon, Wifi, Code, AlignLeft, FileText, Copy, Clock, Scissors, Search, Palette } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 
 const iconStyle = { width: '1.25rem', height: '1.25rem' };
@@ -17,6 +17,7 @@ export const Icons = {
   clock: <Clock style={iconStyle} />,
   scissors: <Scissors style={iconStyle} />,
   search: <Search style={iconStyle} />,
+  palette: <Palette style={iconStyle} />,
 } as const;
 
 export type IconName = keyof typeof Icons;

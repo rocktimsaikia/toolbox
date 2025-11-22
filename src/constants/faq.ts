@@ -383,6 +383,29 @@ const CASE_CONVERTER_FAQ: Faq[] = [
   },
 ];
 
+const COLOR_CONVERTER_FAQ: Faq[] = [
+  {
+    question: "What does the Color Code Converter do?",
+    answer:
+      "The Color Code Converter instantly converts colors between different formats including HEX, RGB, HSL, and RGBA. Simply enter a color in any format and see all conversions in real-time with a visual preview.",
+  },
+  {
+    question: "What color formats are supported?",
+    answer:
+      "The tool supports HEX (#RRGGBB or #RGB), RGB (red, green, blue), RGBA (RGB with alpha/transparency), HSL (hue, saturation, lightness), HSLA, and even CSS color names like 'red', 'blue', or 'rebeccapurple'.",
+  },
+  {
+    question: "How do I use the Color Code Converter?",
+    answer:
+      "Enter any valid color in the input field (like #3b82f6, rgb(59, 130, 246), hsl(217, 91%, 60%), or 'blue'). The tool will automatically convert it to all supported formats and display a color preview.",
+  },
+  {
+    question: "When would I use different color formats?",
+    answer:
+      "Use HEX for HTML/CSS and design tools, RGB/RGBA for JavaScript and when you need transparency, HSL for intuitive color adjustments (easier to modify brightness/saturation), and color names for quick prototyping.",
+  },
+];
+
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,
@@ -399,4 +422,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "text-trimmer": TEXT_TRIMMER_FAQ,
   "find-replace": FIND_REPLACE_FAQ,
   "case-converter": CASE_CONVERTER_FAQ,
+  "color-converter": COLOR_CONVERTER_FAQ,
 };

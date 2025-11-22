@@ -175,7 +175,9 @@ export default function Yamlc() {
               defaultValue={inputFormat}
               onValueChange={(value) => setInputFormat(value as typeof inputFormat)}
             >
-              <SelectTrigger className={"border border-b-0 border-gray-300 rounded hover:bg-gray-100"}>
+              <SelectTrigger
+                className={"border border-b-0 border-gray-300 rounded hover:bg-gray-100"}
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -203,7 +205,11 @@ export default function Yamlc() {
                 defaultValue={outputFormat}
                 onValueChange={(value) => setOutputFormat(value as typeof outputFormat)}
               >
-                <SelectTrigger className={"border border-b-0 border-gray-300 rounded hover:bg-gray-100"}>
+                <SelectTrigger
+                  className={
+                    "border border-b-0 border-gray-300 rounded hover:bg-gray-100"
+                  }
+                >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
