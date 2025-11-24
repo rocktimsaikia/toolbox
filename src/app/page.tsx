@@ -98,55 +98,6 @@ export default function Home() {
         <h2 className="text-2xl font-semibold text-center">Frequently Asked Questions</h2>
         <Faq faq={HOME_PAGE_FAQ} />
       </section>
-
-      <section className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 mb-12 border border-gray-100 dark:border-gray-800">
-        <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Why Choose Our Tools?
-        </h2>
-        <div className="grid md:grid-cols-3 gap-8 mt-8">
-          {[
-            {
-              id: "free-no-signup",
-              title: "Free & No Sign-up",
-              description:
-                "All our tools are completely free to use with no registration required.",
-              icon: <CheckCircle className="h-6 w-6" />,
-              color: "text-green-600 dark:text-green-400",
-            },
-            {
-              id: "fast-reliable",
-              title: "Fast & Reliable",
-              description:
-                "Our tools are optimized for speed and reliability, working directly in your browser.",
-              icon: <Zap className="h-6 w-6" />,
-              color: "text-yellow-600 dark:text-yellow-400",
-            },
-            {
-              id: "privacy-focused",
-              title: "Privacy Focused",
-              description:
-                "Your data stays in your browser. We don't store or track your information.",
-              icon: <Lock className="h-6 w-6" />,
-              color: "text-blue-600 dark:text-blue-400",
-            },
-          ].map((feature) => (
-            <div
-              key={feature.id}
-              className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-100 dark:border-gray-800"
-            >
-              <div
-                className={`w-12 h-12 ${feature.color} bg-opacity-10 dark:bg-opacity-20 rounded-full flex items-center justify-center mb-4 mx-auto`}
-              >
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
     </main>
   );
 }
