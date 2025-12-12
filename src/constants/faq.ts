@@ -406,6 +406,29 @@ const COLOR_CONVERTER_FAQ: Faq[] = [
   },
 ];
 
+const WORD_COUNTER_FAQ: Faq[] = [
+  {
+    question: "What does the Word Counter tool do?",
+    answer:
+      "The Word Counter tool analyzes your text and provides detailed statistics including word count, character count (with and without spaces), sentence count, paragraph count, and estimated reading time based on average reading speed.",
+  },
+  {
+    question: "How is reading time calculated?",
+    answer:
+      "Reading time is calculated based on an average reading speed of 200 words per minute. This gives you a realistic estimate of how long it would take to read your content aloud or silently.",
+  },
+  {
+    question: "Why use a Word Counter?",
+    answer:
+      "A Word Counter is essential for writers, students, and content creators who need to meet specific word or character limits for essays, articles, social media posts, or any content with length requirements.",
+  },
+  {
+    question: "What's the difference between characters with and without spaces?",
+    answer:
+      "Characters with spaces counts every character including spaces, tabs, and line breaks. Characters without spaces only counts visible characters, excluding all whitespace. Different platforms may have different character limits based on these counts.",
+  },
+];
+
 export const Faqs: Record<Slug, Faq[]> = {
   "whats-my-ip": WHATS_MY_IP_FAQ,
   "password-generator": PASSWORD_GENERATOR_FAQ,
@@ -423,4 +446,5 @@ export const Faqs: Record<Slug, Faq[]> = {
   "find-replace": FIND_REPLACE_FAQ,
   "case-converter": CASE_CONVERTER_FAQ,
   "color-converter": COLOR_CONVERTER_FAQ,
+  "word-counter": WORD_COUNTER_FAQ,
 };

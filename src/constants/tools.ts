@@ -108,6 +108,12 @@ export const TOOLS = {
     slug: "color-converter",
     icon: "palette",
   },
+  "word-counter": {
+    name: "Word Counter",
+    description: "Count words, characters, sentences, paragraphs, and reading time",
+    slug: "word-counter",
+    icon: "fileText",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);
