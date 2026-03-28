@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface UtterancesProps {
   path?: string;
@@ -8,8 +8,29 @@ interface UtterancesProps {
 
 export default function Utterances({ path }: UtterancesProps) {
   const commentNodeRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+
+    if (commentNodeRef.current) {
+      observer.observe(commentNodeRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || !commentNodeRef.current) return;
+
     const scriptElement = document.createElement("script");
     scriptElement.src = "https://utteranc.es/client.js";
     scriptElement.setAttribute("repo", "rocktimsaikia/toolbox");
@@ -19,14 +40,14 @@ export default function Utterances({ path }: UtterancesProps) {
     scriptElement.setAttribute("crossorigin", "anonymous");
     scriptElement.async = true;
 
-    commentNodeRef.current?.appendChild(scriptElement);
+    commentNodeRef.current.appendChild(scriptElement);
 
     return () => {
       if (commentNodeRef.current) {
         commentNodeRef.current.innerHTML = "";
       }
     };
-  }, [path]);
+  }, [isVisible, path]);
 
   return <div ref={commentNodeRef} className="mt-16" />;
 }
