@@ -1,11 +1,5 @@
 "use client";
 import ToolsHeader from "@/components/tools-header";
-import { TOOLS } from "@/constants/tools";
-import { useEffect, useState } from "react";
-import yaml from "js-yaml";
-import TextAreaCodeEditor from "@/components/code-editor";
-import { copyToClipboard } from "@/libs/common";
-import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import {
   Select,
   SelectContent,
@@ -13,11 +7,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { parse as tomlParse } from "toml";
-import json2toml from "json2toml";
-import { XMLParser } from "fast-xml-parser";
-import { toXML, type XmlElement } from "jstoxml";
+import { TOOLS } from "@/constants/tools";
+import { copyToClipboard } from "@/libs/common";
+import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import { parse as csvParse, stringify as csvStringify } from "csv/sync";
+import { XMLParser } from "fast-xml-parser";
+import yaml from "js-yaml";
+import json2toml from "json2toml";
+import { type XmlElement, toXML } from "jstoxml";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import { parse as tomlParse } from "toml";
+
+const TextAreaCodeEditor = dynamic(() => import("@/components/code-editor"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="h-[380px] lg:h-[485px] w-full lg:w-[529px] bg-gray-100 animate-pulse"
+      role="status"
+      aria-label="Loading editor"
+    />
+  ),
+});
 
 const converters = ["json", "yaml", "toml", "xml", "csv"] as const;
 

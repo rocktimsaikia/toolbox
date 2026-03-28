@@ -1,11 +1,22 @@
 "use client";
-import TextAreaCodeEditor from "@/components/code-editor";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import jsonToTs from "json-to-ts";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+
+const TextAreaCodeEditor = dynamic(() => import("@/components/code-editor"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="h-[380px] lg:h-[485px] w-full lg:w-[529px] bg-gray-100 animate-pulse"
+      role="status"
+      aria-label="Loading editor"
+    />
+  ),
+});
 
 // The default demo object as a string
 const defaultObject = `const User = {
