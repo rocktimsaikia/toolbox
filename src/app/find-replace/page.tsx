@@ -4,48 +4,59 @@ import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { useEffect, useState } from "react";
 
+type ReplacePair = { id: number; find: string; replace: string };
+
+let nextId = 0;
+const newPair = (): ReplacePair => ({ id: nextId++, find: "", replace: "" });
+
 export default function FindReplace() {
   const [inputString, setInputString] = useState("");
-  const [findText, setFindText] = useState("");
-  const [replaceText, setReplaceText] = useState("");
+  const [pairs, setPairs] = useState<ReplacePair[]>([newPair()]);
   const [outputString, setOutputString] = useState("");
   const [caseSensitive, setCaseSensitive] = useState(false);
   const [wholeWord, setWholeWord] = useState(false);
 
-  const findAndReplace = (
+  const applyReplacements = (
     text: string,
-    find: string,
-    replace: string,
+    replacePairs: ReplacePair[],
     matchCase: boolean,
     matchWholeWord: boolean,
   ) => {
-    if (!text || !find) return text;
+    if (!text) return text;
 
-    try {
-      let pattern = find;
-
-      // Escape special regex characters
-      pattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-      // Add word boundary if whole word matching is enabled
-      if (matchWholeWord) {
-        pattern = `\\b${pattern}\\b`;
+    let result = text;
+    for (const { find, replace } of replacePairs) {
+      if (!find) continue;
+      try {
+        let pattern = find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        if (matchWholeWord) {
+          pattern = `\\b${pattern}\\b`;
+        }
+        const flags = matchCase ? "g" : "gi";
+        const regex = new RegExp(pattern, flags);
+        result = result.replace(regex, replace);
+      } catch {
+        // skip invalid pattern
       }
-
-      const flags = matchCase ? "g" : "gi";
-      const regex = new RegExp(pattern, flags);
-
-      return text.replace(regex, replace);
-    } catch (error) {
-      return text;
     }
+    return result;
   };
 
   useEffect(() => {
-    setOutputString(
-      findAndReplace(inputString, findText, replaceText, caseSensitive, wholeWord),
-    );
-  }, [inputString, findText, replaceText, caseSensitive, wholeWord]);
+    setOutputString(applyReplacements(inputString, pairs, caseSensitive, wholeWord));
+  }, [inputString, pairs, caseSensitive, wholeWord]);
+
+  const updatePair = (id: number, field: keyof Omit<ReplacePair, "id">, value: string) => {
+    setPairs((prev) => prev.map((p) => (p.id === id ? { ...p, [field]: value } : p)));
+  };
+
+  const addPair = () => {
+    setPairs((prev) => [...prev, newPair()]);
+  };
+
+  const removePair = (id: number) => {
+    setPairs((prev) => (prev.length > 1 ? prev.filter((p) => p.id !== id) : prev));
+  };
 
   return (
     <div>
@@ -61,26 +72,47 @@ export default function FindReplace() {
             onChange={(e) => setInputString(e.target.value)}
           ></textarea>
           <div className="mt-4 w-full space-y-3">
-            <div className="flex flex-col">
-              <label className="text-sm font-medium mb-1">Find:</label>
-              <input
-                type="text"
-                className="w-full lg:w-[530px] border border-gray-300 rounded outline-none p-2 font-mono text-sm"
-                value={findText}
-                placeholder="Text to find..."
-                onChange={(e) => setFindText(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-medium mb-1">Replace with:</label>
-              <input
-                type="text"
-                className="w-full lg:w-[530px] border border-gray-300 rounded outline-none p-2 font-mono text-sm"
-                value={replaceText}
-                placeholder="Replacement text..."
-                onChange={(e) => setReplaceText(e.target.value)}
-              />
-            </div>
+            {pairs.map((pair) => (
+              <div key={pair.id} className="flex flex-col gap-y-2">
+                <div className="flex items-center gap-x-2">
+                  <div className="flex flex-col flex-1">
+                    <label className="text-sm font-medium mb-1">Find:</label>
+                    <input
+                      type="text"
+                      className="w-full border border-gray-300 rounded outline-none p-2 font-mono text-sm"
+                      value={pair.find}
+                      placeholder="Text to find..."
+                      onChange={(e) => updatePair(pair.id, "find", e.target.value)}
+                    />
+                  </div>
+                  <div className="flex flex-col flex-1">
+                    <label className="text-sm font-medium mb-1">Replace with:</label>
+                    <input
+                      type="text"
+                      className="w-full border border-gray-300 rounded outline-none p-2 font-mono text-sm"
+                      value={pair.replace}
+                      placeholder="Replacement text..."
+                      onChange={(e) => updatePair(pair.id, "replace", e.target.value)}
+                    />
+                  </div>
+                  {pairs.length > 1 && (
+                    <button
+                      onClick={() => removePair(pair.id)}
+                      className="mt-5 text-gray-400 hover:text-red-500 transition-colors text-lg leading-none"
+                      aria-label="Remove pair"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+            <button
+              onClick={addPair}
+              className="text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors"
+            >
+              + Add another replacement
+            </button>
           </div>
         </div>
         <div className="flex flex-col items-start">
