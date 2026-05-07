@@ -54,7 +54,7 @@ export default function FindReplace() {
         <div className="flex flex-col items-start w-full">
           <h2 className="mb-2 lg:text-lg font-semibold">Input Text</h2>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputString}
             spellCheck={false}
             placeholder="Enter your text here..."
@@ -65,7 +65,7 @@ export default function FindReplace() {
               <label className="text-sm font-medium mb-1">Find:</label>
               <input
                 type="text"
-                className="w-full lg:w-[530px] border border-gray-300 rounded outline-none p-2 font-mono text-sm"
+                className="w-full lg:w-[530px] border border-border rounded outline-none p-2 font-mono text-sm"
                 value={findText}
                 placeholder="Text to find..."
                 onChange={(e) => setFindText(e.target.value)}
@@ -75,7 +75,7 @@ export default function FindReplace() {
               <label className="text-sm font-medium mb-1">Replace with:</label>
               <input
                 type="text"
-                className="w-full lg:w-[530px] border border-gray-300 rounded outline-none p-2 font-mono text-sm"
+                className="w-full lg:w-[530px] border border-border rounded outline-none p-2 font-mono text-sm"
                 value={replaceText}
                 placeholder="Replacement text..."
                 onChange={(e) => setReplaceText(e.target.value)}
@@ -89,7 +89,7 @@ export default function FindReplace() {
             <Clipboard text={outputString} />
           </div>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputString}
             readOnly
             spellCheck={false}

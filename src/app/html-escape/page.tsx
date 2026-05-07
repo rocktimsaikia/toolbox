@@ -49,7 +49,7 @@ export default function HtmlEscape() {
         <div className="flex flex-col items-start w-full">
           <h2 className="mb-2 lg:text-lg font-semibold">Input</h2>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
             spellCheck={false}
             value={inputString}
             placeholder={`Add your${escape ? "" : " escaped"} HTML here...`}
@@ -61,12 +61,12 @@ export default function HtmlEscape() {
           <div className="flex justify-between w-full">
             <h2 className="lg:text-lg font-semibold flex gap-x-1">
               <span>Output</span>
-              <span className="text-gray-500">({escape ? "Escaped" : "Unescaped"})</span>
+              <span className="text-muted-foreground">({escape ? "Escaped" : "Unescaped"})</span>
             </h2>
             <Clipboard text={outputString} />
           </div>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputString}
             readOnly
             spellCheck={false}
@@ -77,8 +77,8 @@ export default function HtmlEscape() {
       <div className="mt-4 flex items-center justify-center">
         <label
           className={clsx("mr-2 text-sm font-medium", {
-            "text-gray-400": escape,
-            "text-gray-900": !escape,
+            "text-muted-foreground": escape,
+            "text-foreground": !escape,
           })}
         >
           Unescape
@@ -90,8 +90,8 @@ export default function HtmlEscape() {
         ></Switch>
         <label
           className={clsx("ml-2 text-sm font-medium", {
-            "text-gray-400": !escape,
-            "text-gray-900": escape,
+            "text-muted-foreground": !escape,
+            "text-foreground": escape,
           })}
         >
           Escape

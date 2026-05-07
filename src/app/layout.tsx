@@ -5,6 +5,7 @@ import { StructuredData } from "@/components/structured-data";
 import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import Script from "next/script";
 import { generateSeo } from "@/lib/seo";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
@@ -33,8 +34,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: theme init must run before paint to avoid FOUC */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${notoSans.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSans.variable} antialiased bg-background text-foreground`}
       >
         <GoogleAnalytics gaId="G-HMXMKZ0LGM" />
         <StructuredData />

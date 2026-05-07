@@ -136,7 +136,7 @@ export default function NumbersToWords() {
         <div className="flex flex-col items-start w-full">
           <h2 className="text-lg font-semibold">Numbers</h2>
           <textarea
-            className="w-full lg:w-[614px] lg:h-[185px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
             onChange={handleOnChange}
             value={numbers}
             spellCheck={false}
@@ -147,7 +147,7 @@ export default function NumbersToWords() {
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
             <div className="flex flex-col lg:flex-row lg:gap-x-4">
-              <div className="flex py-2 lg:py-0 items-center gap-x-2 text-sm border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100">
+              <div className="flex py-2 lg:py-0 items-center gap-x-2 text-sm border border-b-0 border-border rounded px-2 hover:bg-muted">
                 <input
                   type="checkbox"
                   id="currency"
@@ -158,7 +158,7 @@ export default function NumbersToWords() {
                 <label htmlFor="currency">Show Currency</label>
               </div>
               <Select onValueChange={setLocaleCode} value={localeCode}>
-                <SelectTrigger className="w-[200px] border border-b-0 border-gray-300 rounded px-2 hover:bg-gray-100 text-sm">
+                <SelectTrigger className="w-[200px] border border-b-0 border-border rounded px-2 hover:bg-muted text-sm">
                   <SelectValue placeholder="Select Locale" />
                 </SelectTrigger>
                 <SelectContent>
@@ -167,7 +167,7 @@ export default function NumbersToWords() {
                     {LANGUAGE_OPTIONS.map((lang) => (
                       <SelectItem key={lang.locale} value={lang.locale}>
                         {lang.country}{" "}
-                        <span className="text-gray-600">
+                        <span className="text-muted-foreground">
                           ({lang.language}, {lang.locale})
                         </span>
                       </SelectItem>
@@ -183,7 +183,7 @@ export default function NumbersToWords() {
                 setIsCopied(true);
               }}
               type="button"
-              className="cursor-pointer border border-b-0 border-gray-300 rounded p-2 hover:bg-gray-100 text-sm"
+              className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm"
             >
               {isCopied ? (
                 <div className="text-green-600">
@@ -197,7 +197,7 @@ export default function NumbersToWords() {
             </button>
           </div>
           <textarea
-            className="w-full lg:w-[614px] lg:h-[185px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={words}
             readOnly
             placeholder="Words will appear here..."

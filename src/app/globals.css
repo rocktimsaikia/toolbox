@@ -132,10 +132,11 @@
   height: 485px !important;
   width: 529px !important;
   font-size: 14px !important;
-  outline: 1px solid #d1d5db;
+  outline: 1px solid var(--border);
 }
-.cm-editor:focus {
-  outline: 1px solid #212121;
+.cm-editor:focus,
+.cm-editor.cm-focused {
+  outline: 1px solid var(--ring);
 }
 @media (max-width: 640px) {
   .cm-editor {

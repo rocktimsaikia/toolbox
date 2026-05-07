@@ -81,7 +81,7 @@ export default function CaseConverter() {
         <div className="flex flex-col items-start w-full">
           <h2 className="mb-2 lg:text-lg font-semibold">Input</h2>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputText}
             spellCheck={false}
             placeholder="Enter your text here..."
@@ -94,7 +94,7 @@ export default function CaseConverter() {
             <Clipboard text={outputText} />
           </div>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputText}
             readOnly
             spellCheck={false}
@@ -112,7 +112,7 @@ export default function CaseConverter() {
               className={`px-4 py-2 rounded border text-sm font-medium transition-colors ${
                 selectedCase === caseType
                   ? "bg-blue-500 text-white border-blue-500"
-                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                  : "bg-card text-foreground border-border hover:bg-muted"
               }`}
             >
               {caseType}

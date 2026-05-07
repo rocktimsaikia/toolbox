@@ -45,7 +45,7 @@ export default function Faq({ faq }: Props) {
         {faq.map(({ question, answer }, idx) => (
           <AccordionItem value={`question-${idx}`} key={question}>
             <AccordionTrigger className="cursor-pointer">{question}</AccordionTrigger>
-            <AccordionContent className="text-gray-600">{answer}</AccordionContent>
+            <AccordionContent className="text-muted-foreground">{answer}</AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
