@@ -63,7 +63,7 @@ a separate paragraph.`);
         <div className="flex flex-col items-start w-full">
           <h2 className="mb-2 lg:text-lg font-semibold">Input</h2>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputString}
             spellCheck={false}
             placeholder="Paste your text with line breaks here..."
@@ -76,7 +76,7 @@ a separate paragraph.`);
             <Clipboard text={outputString} />
           </div>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputString}
             readOnly
             spellCheck={false}
@@ -87,8 +87,8 @@ a separate paragraph.`);
       <div className="mt-4 flex items-center justify-center">
         <label
           className={clsx("mr-2 text-sm font-medium", {
-            "text-gray-400": preserveParagraphs,
-            "text-gray-900": !preserveParagraphs,
+            "text-muted-foreground": preserveParagraphs,
+            "text-foreground": !preserveParagraphs,
           })}
         >
           Remove All
@@ -100,8 +100,8 @@ a separate paragraph.`);
         ></Switch>
         <label
           className={clsx("ml-2 text-sm font-medium", {
-            "text-gray-400": !preserveParagraphs,
-            "text-gray-900": preserveParagraphs,
+            "text-muted-foreground": !preserveParagraphs,
+            "text-foreground": preserveParagraphs,
           })}
         >
           Preserve Paragraphs

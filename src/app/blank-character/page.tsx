@@ -37,16 +37,16 @@ export default function BlankCharacterTool() {
           {BLANK_CHARACTERS.map((blank, index) => (
             <div
               key={index}
-              className="border border-gray-300 rounded-lg p-6 bg-white hover:bg-gray-50 transition-colors"
+              className="border border-border rounded-lg p-6 bg-card hover:bg-muted transition-colors"
             >
               <div className="text-center mb-4">
                 <h3 className="font-semibold text-xl mb-2">{blank.name}</h3>
-                <p className="text-sm text-gray-600 mb-2">{blank.unicode}</p>
-                <p className="text-sm text-gray-500">{blank.description}</p>
+                <p className="text-sm text-muted-foreground mb-2">{blank.unicode}</p>
+                <p className="text-sm text-muted-foreground">{blank.description}</p>
               </div>
 
-              <div className="mb-4 p-3 bg-gray-100 rounded border min-h-[50px] font-mono text-sm flex items-center justify-center">
-                <span className="text-gray-400">[Invisible]</span>
+              <div className="mb-4 p-3 bg-muted rounded border border-border min-h-[50px] font-mono text-sm flex items-center justify-center">
+                <span className="text-muted-foreground">[Invisible]</span>
               </div>
 
               <Button
@@ -59,20 +59,20 @@ export default function BlankCharacterTool() {
             </div>
           ))}
 
-          <div className="mt-6 p-4 border border-gray-300 rounded-lg bg-white">
+          <div className="mt-6 p-4 border border-border rounded-lg bg-card">
             <h3 className="font-semibold text-lg mb-3">Test Field</h3>
-            <p className="text-sm text-gray-600 mb-2">
+            <p className="text-sm text-muted-foreground mb-2">
               Paste the blank character here to verify it was copied:
             </p>
             <Input
               value={testInput}
               onChange={(e) => setTestInput(e.target.value)}
               placeholder="Paste here to test..."
-              className={`w-full ${testInput.includes("\u200B") ? "border-green-500 bg-green-50" : ""}`}
+              className={`w-full ${testInput.includes("\u200B") ? "border-green-500 bg-green-50 dark:bg-green-900/20" : ""}`}
             />
             {testInput && (
               <div className="flex justify-between items-center mt-2">
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-muted-foreground">
                   Character count: {testInput.length}
                 </p>
                 {testInput.includes("\u200B") && (

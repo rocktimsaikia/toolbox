@@ -42,10 +42,10 @@ export default function Base64Converter() {
       <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start w-full">
           <h2 className="mb-2 lg:text-lg font-semibold">
-            Input <span className="text-gray-500">({encode ? "Text" : "Base64"})</span>
+            Input <span className="text-muted-foreground">({encode ? "Text" : "Base64"})</span>
           </h2>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputString}
             spellCheck={false}
             placeholder="Type your text here..."
@@ -57,12 +57,12 @@ export default function Base64Converter() {
           <div className="flex justify-between w-full">
             <h2 className="text-lg font-semibold flex gap-x-1">
               <span>Output</span>
-              <span className="text-gray-500">({encode ? "Base64" : "Text"})</span>
+              <span className="text-muted-foreground">({encode ? "Base64" : "Text"})</span>
             </h2>
             <Clipboard text={outputString} />
           </div>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputString}
             spellCheck={false}
             readOnly
@@ -73,8 +73,8 @@ export default function Base64Converter() {
       <div className="mt-4 flex items-center justify-center">
         <label
           className={clsx("mr-2 text-sm font-medium", {
-            "text-gray-400": encode,
-            "text-gray-900": !encode,
+            "text-muted-foreground": encode,
+            "text-foreground": !encode,
           })}
         >
           Decode
@@ -86,8 +86,8 @@ export default function Base64Converter() {
         ></Switch>
         <label
           className={clsx("ml-2 text-sm font-medium", {
-            "text-gray-400": !encode,
-            "text-gray-900": encode,
+            "text-muted-foreground": !encode,
+            "text-foreground": encode,
           })}
         >
           Encode

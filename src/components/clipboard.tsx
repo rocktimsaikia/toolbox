@@ -27,7 +27,7 @@ export default function Clipboard({ text }: Props) {
     <div className="flex justify-end w-full">
       <button
         onClick={handleCopyPassword}
-        className="cursor-pointer border border-b-0 border-gray-300 rounded p-2 hover:bg-gray-100 text-sm"
+        className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm"
       >
         {isCopied ? (
           <div className="text-green-600">

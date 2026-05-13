@@ -2,6 +2,7 @@ import { javascript } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
 import CodeMirror from "@uiw/react-codemirror";
 import type { Dispatch, SetStateAction } from "react";
+import { useTheme } from "@/lib/theme";
 
 // Define the supported languages
 const LANGUAGE_ENTRIES = [
@@ -28,6 +29,7 @@ export default function TextAreaCodeEditor({
   placeholder,
 }: Props) {
   const extension = languageMap.get(language);
+  const theme = useTheme();
   return (
     <CodeMirror
       value={value}
@@ -35,6 +37,7 @@ export default function TextAreaCodeEditor({
       extensions={[extension as any]}
       placeholder={placeholder}
       onChange={onChange}
+      theme={theme}
     />
   );
 }

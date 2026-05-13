@@ -272,19 +272,19 @@ export default function CronExpressionGenerator() {
               placeholder="Enter cron expression (e.g., */5 * * * *)"
               className="w-full font-mono"
             />
-            <div className="text-xs text-gray-600 mt-1">
+            <div className="text-xs text-muted-foreground mt-1">
               Format:{" "}
-              <code className="bg-gray-200 px-1 rounded text-gray-800">minute</code> |{" "}
-              <code className="bg-gray-200 px-1 rounded text-gray-800">hour</code> |{" "}
-              <code className="bg-gray-200 px-1 rounded text-gray-800">day-of-month</code>{" "}
-              | <code className="bg-gray-200 px-1 rounded text-gray-800">month</code> |{" "}
-              <code className="bg-gray-200 px-1 rounded text-gray-800">day-of-week</code>
+              <code className="bg-muted px-1 rounded text-foreground">minute</code> |{" "}
+              <code className="bg-muted px-1 rounded text-foreground">hour</code> |{" "}
+              <code className="bg-muted px-1 rounded text-foreground">day-of-month</code>{" "}
+              | <code className="bg-muted px-1 rounded text-foreground">month</code> |{" "}
+              <code className="bg-muted px-1 rounded text-foreground">day-of-week</code>
             </div>
           </div>
 
           <div className="w-full relative">
             <textarea
-              className="w-full h-20 border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default text-sm"
+              className="w-full h-20 border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default text-sm"
               value={humanReadable}
               readOnly
               placeholder="Human-readable description will appear here..."
@@ -292,7 +292,7 @@ export default function CronExpressionGenerator() {
           </div>
 
           <div className="mt-6 w-full">
-            <h3 className="text-sm font-medium text-gray-700 mb-2">📋 Common Examples</h3>
+            <h3 className="text-sm font-medium text-foreground mb-2">📋 Common Examples</h3>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -315,10 +315,10 @@ export default function CronExpressionGenerator() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            <div className="text-xs text-gray-600 mt-2 flex items-center gap-2">
+            <div className="text-xs text-muted-foreground mt-2 flex items-center gap-2">
               <span>Expression:</span>
               <code
-                className="bg-gray-200 px-1 rounded text-gray-800 cursor-pointer hover:bg-gray-300 transition-colors font-semibold"
+                className="bg-muted px-1 rounded text-foreground cursor-pointer hover:bg-gray-300 transition-colors font-semibold"
                 onClick={() => {
                   const selectedExampleData = commonExamples.find(
                     (ex) => ex.title === selectedExample,

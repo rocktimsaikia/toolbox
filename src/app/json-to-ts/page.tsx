@@ -11,7 +11,7 @@ const TextAreaCodeEditor = dynamic(() => import("@/components/code-editor"), {
   ssr: false,
   loading: () => (
     <div
-      className="h-[380px] lg:h-[485px] w-full lg:w-[529px] bg-gray-100 animate-pulse"
+      className="h-[380px] lg:h-[485px] w-full lg:w-[529px] bg-muted animate-pulse"
       role="status"
       aria-label="Loading editor"
     />
@@ -112,7 +112,7 @@ export default function JsonToTypes() {
                 copyToClipboard(outputString);
                 setIsCopied(true);
               }}
-              className="cursor-pointer border border-b-0 border-gray-300 rounded p-2 hover:bg-gray-100 text-sm"
+              className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm"
             >
               {isCopied ? (
                 <div className="text-green-600">
@@ -126,7 +126,7 @@ export default function JsonToTypes() {
             </button>
           </div>
           <textarea
-            className="border border-gray-300 outline-none p-3 bg-[#eeeeee] cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
+            className="border border-border outline-none p-3 bg-muted text-foreground cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
             value={outputString}
             readOnly
             placeholder="TypeScript type will appear here..."

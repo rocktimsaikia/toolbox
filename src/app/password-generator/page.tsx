@@ -42,7 +42,7 @@ export default function JSONToJavascript() {
         <div className="flex flex-col items-start w-full">
           <Clipboard text={password} />
           <textarea
-            className="w-full lg:w-[572px] lg:h-[126px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full lg:w-[572px] lg:h-[126px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={password}
             readOnly
             placeholder="Your password will appear here..."
@@ -55,7 +55,7 @@ export default function JSONToJavascript() {
                 value={length}
                 onChange={(e) => setLength(Number(e.target.value))}
               />
-              <label htmlFor="length" className="text-gray-600">
+              <label htmlFor="length" className="text-muted-foreground">
                 Length
               </label>
             </div>

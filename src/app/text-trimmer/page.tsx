@@ -43,7 +43,7 @@ export default function TextTrimmer() {
         <div className="flex flex-col items-start w-full">
           <h2 className="mb-2 lg:text-lg font-semibold">Input</h2>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputString}
             spellCheck={false}
             placeholder="Enter your text here..."
@@ -56,7 +56,7 @@ export default function TextTrimmer() {
             <Clipboard text={outputString} />
           </div>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputString}
             readOnly
             spellCheck={false}

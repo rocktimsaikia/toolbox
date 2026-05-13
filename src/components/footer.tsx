@@ -26,7 +26,7 @@ export default function Footer() {
       <div>
         Built with &hearts; by{" "}
         <a
-          className="bg-black/[.05] font-semibold"
+          className="bg-black/[.05] dark:bg-white/[.08] font-semibold"
           href="https://rocktim.dev"
           target="_blank"
           rel="noopener noreferrer"

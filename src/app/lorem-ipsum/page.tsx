@@ -193,7 +193,7 @@ export default function LoremIpsumGenerator() {
         <div className="flex flex-col items-start w-full">
           <Clipboard text={loremText} />
           <textarea
-            className="w-full lg:w-[572px] lg:h-[300px] border border-gray-300 rounded outline-none p-3 resize-none bg-[#eeeeee] cursor-default font-mono text-sm"
+            className="w-full lg:w-[572px] lg:h-[300px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={loremText}
             readOnly
             placeholder="Your Lorem Ipsum text will appear here..."
@@ -208,7 +208,7 @@ export default function LoremIpsumGenerator() {
                 value={paragraphs}
                 onChange={(e) => setParagraphs(Math.max(1, Number(e.target.value)))}
               />
-              <label htmlFor="paragraphs" className="text-gray-600 text-sm mt-1">
+              <label htmlFor="paragraphs" className="text-muted-foreground text-sm mt-1">
                 Paragraphs
               </label>
             </div>
@@ -223,7 +223,7 @@ export default function LoremIpsumGenerator() {
                   setSentencesPerParagraph(Math.max(1, Number(e.target.value)))
                 }
               />
-              <label htmlFor="sentences" className="text-gray-600 text-sm mt-1">
+              <label htmlFor="sentences" className="text-muted-foreground text-sm mt-1">
                 Sentences
               </label>
             </div>
@@ -236,7 +236,7 @@ export default function LoremIpsumGenerator() {
                 value={wordsPerSentence}
                 onChange={(e) => setWordsPerSentence(Math.max(3, Number(e.target.value)))}
               />
-              <label htmlFor="words" className="text-gray-600 text-sm mt-1">
+              <label htmlFor="words" className="text-muted-foreground text-sm mt-1">
                 Words/Sentence
               </label>
             </div>
