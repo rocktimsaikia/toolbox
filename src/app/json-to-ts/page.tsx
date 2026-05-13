@@ -1,22 +1,10 @@
 "use client";
+import LazyCodeEditor from "@/components/lazy-code-editor";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
-import jsonToTs from "json-to-ts";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-
-const TextAreaCodeEditor = dynamic(() => import("@/components/code-editor"), {
-  ssr: false,
-  loading: () => (
-    <div
-      className="h-[380px] lg:h-[485px] w-full lg:w-[529px] bg-muted animate-pulse"
-      role="status"
-      aria-label="Loading editor"
-    />
-  ),
-});
 
 // The default demo object as a string
 const defaultObject = `const User = {
@@ -43,10 +31,14 @@ export default function JsonToTypes() {
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
+    let isCurrent = true;
+
     if (!inputString.trim()) {
       setOutputString("");
       setError("");
-      return;
+      return () => {
+        isCurrent = false;
+      };
     }
 
     try {
@@ -67,18 +59,28 @@ export default function JsonToTypes() {
       // biome-ignore lint/security/noGlobalEval: <explanation>
       const jsObject = eval(`(${cleanedInput})`);
 
-      // Convert to TypeScript types using variableName + "Type"
-      const typeName = variableName;
-      const tsTypes = jsonToTs(jsObject, {
-        rootName: typeName,
-      });
-
-      setOutputString(tsTypes.join("\n\n"));
-      setError("");
+      import("json-to-ts")
+        .then((module) => {
+          if (!isCurrent) return;
+          const tsTypes = module.default(jsObject, {
+            rootName: variableName,
+          });
+          setOutputString(tsTypes.join("\n\n"));
+          setError("");
+        })
+        .catch((err) => {
+          if (!isCurrent) return;
+          setOutputString(String(err));
+          setError("Invalid JavaScript object syntax");
+        });
     } catch (err) {
       setOutputString(String(err));
       setError("Invalid JavaScript object syntax");
     }
+
+    return () => {
+      isCurrent = false;
+    };
   }, [inputString]);
 
   useEffect(() => {
@@ -95,7 +97,7 @@ export default function JsonToTypes() {
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
         <div className="flex flex-col lg:items-start">
           <h2 className="mb-2 text-lg font-semibold">Object</h2>
-          <TextAreaCodeEditor
+          <LazyCodeEditor
             value={inputString}
             onChange={setInputString}
             language="javascript"

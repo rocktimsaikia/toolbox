@@ -1,9 +1,3 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import type { Faq as FaqType } from "@/constants/faq";
 import type { FAQPage, WithContext } from "schema-dts";
 
@@ -41,14 +35,19 @@ export default function Faq({ faq }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Accordion type="single" collapsible className="w-full">
+      <div className="w-full divide-y divide-border border-b border-t">
         {faq.map(({ question, answer }, idx) => (
-          <AccordionItem value={`question-${idx}`} key={question}>
-            <AccordionTrigger className="cursor-pointer">{question}</AccordionTrigger>
-            <AccordionContent className="text-muted-foreground">{answer}</AccordionContent>
-          </AccordionItem>
+          <details key={question} className="group">
+            <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-medium">
+              {question}
+              <span className="ml-4 text-muted-foreground transition-transform group-open:rotate-180">
+                v
+              </span>
+            </summary>
+            <div className="pb-4 text-sm text-muted-foreground">{answer}</div>
+          </details>
         ))}
-      </Accordion>
+      </div>
     </article>
   );
 }

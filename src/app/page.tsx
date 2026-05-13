@@ -3,7 +3,6 @@ import { HOME_PAGE_FAQ } from "@/constants/faq";
 import { siteConfig } from "@/constants/site";
 import { tools, type Tool } from "@/constants/tools";
 import { Icons } from "@/components/ui/icons";
-import { ArrowRight, Zap, Lock, CheckCircle, Code } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -38,7 +37,7 @@ export default function Home() {
       <header className="text-center mb-12 py-8">
         <div className="flex flex-col items-center">
           <Image
-            src="/toolbox.png"
+            src="/toolbox-v2.png"
             alt="Tool Box Logo - Essential Developer Tools"
             width={150}
             height={150}
@@ -71,7 +70,7 @@ export default function Home() {
               >
                 <div className="flex items-center space-x-3">
                   <div className="flex-shrink-0 p-1.5 bg-blue-50 dark:bg-blue-900/30 rounded text-blue-600 dark:text-blue-400">
-                    {Icons[tool.icon] || <Code className="h-4 w-4" />}
+                    {Icons[tool.icon] || Icons.code}
                   </div>
                   <div className="min-w-0 flex-1">
                     <h3

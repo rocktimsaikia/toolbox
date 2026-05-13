@@ -1,6 +1,5 @@
 "use client";
 import { setTheme } from "@/lib/theme";
-import { Moon, Sun } from "lucide-react";
 
 export default function ThemeToggle() {
   const handleClick = () => {
@@ -15,8 +14,12 @@ export default function ThemeToggle() {
       aria-label="Toggle theme"
       className="cursor-pointer flex items-center justify-center h-9 w-9 rounded-md text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
     >
-      <Sun className="h-4 w-4 block dark:hidden" />
-      <Moon className="h-4 w-4 hidden dark:block" />
+      <span className="block dark:hidden" aria-hidden="true">
+        L
+      </span>
+      <span className="hidden dark:block" aria-hidden="true">
+        D
+      </span>
     </button>
   );
 }
