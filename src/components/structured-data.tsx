@@ -31,7 +31,7 @@ const createJsonLd = (): WithContext<WebPage> => {
       name: "Rocktim Saikia",
       logo: {
         "@type": "ImageObject",
-        url: `${siteConfig.url}/toolbox.png`,
+        url: `${siteConfig.url}/toolbox-v2.png`,
         width: "60px",
         height: "60px",
       },

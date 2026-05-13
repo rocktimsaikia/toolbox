@@ -2,21 +2,7 @@
 import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { TOOLS } from "@/constants/tools";
-import { ChevronDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 function parseCronExpression(cron: string): string {
@@ -244,17 +230,8 @@ export default function CronExpressionGenerator() {
   }, [cronExpression]);
 
   const handleExampleClick = (expression: string, title: string) => {
+    setCronExpression(expression);
     setSelectedExample(title);
-  };
-
-  const handleCopyExpression = async () => {
-    try {
-      await navigator.clipboard.writeText(cronExpression);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
   };
 
   return (
@@ -292,29 +269,25 @@ export default function CronExpressionGenerator() {
           </div>
 
           <div className="mt-6 w-full">
-            <h3 className="text-sm font-medium text-foreground mb-2">📋 Common Examples</h3>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-full justify-between focus:outline-none focus:ring-0 focus-visible:ring-0"
-                >
-                  {selectedExample}
-                  <ChevronDownIcon className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-full max-w-md max-h-80 overflow-y-auto">
-                {commonExamples.map((example, index) => (
-                  <DropdownMenuItem
-                    key={index}
-                    onClick={() => handleExampleClick(example.expression, example.title)}
-                    className="py-2"
-                  >
-                    <div className="font-medium text-sm">{example.title}</div>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <h3 className="text-sm font-medium text-foreground mb-2">Common Examples</h3>
+            <select
+              value={selectedExample}
+              onChange={(event) => {
+                const example = commonExamples.find(
+                  (item) => item.title === event.target.value,
+                );
+                if (example) {
+                  handleExampleClick(example.expression, example.title);
+                }
+              }}
+              className="w-full rounded border border-border bg-background px-3 py-2 text-sm"
+            >
+              {commonExamples.map((example) => (
+                <option key={example.title} value={example.title}>
+                  {example.title}
+                </option>
+              ))}
+            </select>
             <div className="text-xs text-muted-foreground mt-2 flex items-center gap-2">
               <span>Expression:</span>
               <code

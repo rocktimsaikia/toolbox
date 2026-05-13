@@ -1,3 +1,5 @@
+"use client";
+
 import { javascript } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
 import CodeMirror from "@uiw/react-codemirror";

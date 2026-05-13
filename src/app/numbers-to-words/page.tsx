@@ -1,19 +1,22 @@
 "use client";
 import ToolsHeader from "@/components/tools-header";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { LANGUAGE_OPTIONS, TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
-import { ToWords } from "to-words";
+
+async function convertNumberToWords(
+  value: number,
+  localeCode: string,
+  currency: boolean,
+) {
+  const { ToWords } = await import("to-words");
+  const toWords = new ToWords({
+    localeCode,
+    converterOptions: { currency, doNotAddOnly: true },
+  });
+  return toWords.convert(value);
+}
 
 export default function NumbersToWords() {
   const [numbers, setNumbers] = useState<string>("12345");
@@ -46,12 +49,15 @@ export default function NumbersToWords() {
         return;
       }
 
-      const toWords = new ToWords({
-        localeCode,
-        converterOptions: { currency, doNotAddOnly: true },
-      });
-      const words = toWords.convert(valueAsNumber);
-      setWords(words);
+      convertNumberToWords(valueAsNumber, localeCode, currency)
+        .then((words) => {
+          setWords(words);
+          setError("");
+        })
+        .catch(() => {
+          setError("Invalid number format");
+          setWords("");
+        });
       setError("");
     } catch (err) {
       setError("Invalid number format");
@@ -116,12 +122,15 @@ export default function NumbersToWords() {
         return;
       }
 
-      const toWords = new ToWords({
-        localeCode,
-        converterOptions: { currency, doNotAddOnly: true },
-      });
-      const words = toWords.convert(valueAsNumber);
-      setWords(words);
+      convertNumberToWords(valueAsNumber, localeCode, currency)
+        .then((words) => {
+          setWords(words);
+          setError("");
+        })
+        .catch(() => {
+          setError("Invalid number format");
+          setWords("");
+        });
       setError("");
     } catch (err) {
       setError("Invalid number format");
@@ -157,24 +166,17 @@ export default function NumbersToWords() {
                 />
                 <label htmlFor="currency">Show Currency</label>
               </div>
-              <Select onValueChange={setLocaleCode} value={localeCode}>
-                <SelectTrigger className="w-[200px] border border-b-0 border-border rounded px-2 hover:bg-muted text-sm">
-                  <SelectValue placeholder="Select Locale" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup className="font-[family-name:var(--font-geist-sans)]">
-                    <SelectLabel className="text-sm">Select a Locale</SelectLabel>
-                    {LANGUAGE_OPTIONS.map((lang) => (
-                      <SelectItem key={lang.locale} value={lang.locale}>
-                        {lang.country}{" "}
-                        <span className="text-muted-foreground">
-                          ({lang.language}, {lang.locale})
-                        </span>
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <select
+                value={localeCode}
+                onChange={(event) => setLocaleCode(event.target.value)}
+                className="w-[200px] border border-b-0 border-border rounded px-2 py-2 bg-background hover:bg-muted text-sm"
+              >
+                {LANGUAGE_OPTIONS.map((lang) => (
+                  <option key={lang.locale} value={lang.locale}>
+                    {lang.country} ({lang.language}, {lang.locale})
+                  </option>
+                ))}
+              </select>
             </div>
 
             <button

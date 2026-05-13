@@ -1,23 +1,20 @@
-import { Type, Hash, Key, ArrowUpDown, Link as LinkIcon, Wifi, Code, AlignLeft, FileText, Copy, Clock, Scissors, Search, Palette } from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
-
-const iconStyle = { width: '1.25rem', height: '1.25rem' };
+const iconClassName = "inline-flex h-5 w-5 items-center justify-center text-xs font-semibold";
 
 export const Icons = {
-  type: <Type style={iconStyle} />,
-  hash: <Hash style={iconStyle} />,
-  key: <Key style={iconStyle} />,
-  arrowUpDown: <ArrowUpDown style={iconStyle} />,
-  link: <LinkIcon style={iconStyle} />,
-  wifi: <Wifi style={iconStyle} />,
-  code: <Code style={iconStyle} />,
-  alignLeft: <AlignLeft style={iconStyle} />,
-  fileText: <FileText style={iconStyle} />,
-  copy: <Copy style={iconStyle} />,
-  clock: <Clock style={iconStyle} />,
-  scissors: <Scissors style={iconStyle} />,
-  search: <Search style={iconStyle} />,
-  palette: <Palette style={iconStyle} />,
+  type: <span className={iconClassName}>T</span>,
+  hash: <span className={iconClassName}>#</span>,
+  key: <span className={iconClassName}>K</span>,
+  arrowUpDown: <span className={iconClassName}>AZ</span>,
+  link: <span className={iconClassName}>L</span>,
+  wifi: <span className={iconClassName}>IP</span>,
+  code: <span className={iconClassName}>{"{}"}</span>,
+  alignLeft: <span className={iconClassName}>A</span>,
+  fileText: <span className={iconClassName}>F</span>,
+  copy: <span className={iconClassName}>C</span>,
+  clock: <span className={iconClassName}>12</span>,
+  scissors: <span className={iconClassName}>X</span>,
+  search: <span className={iconClassName}>?</span>,
+  palette: <span className={iconClassName}>P</span>,
 } as const;
 
 export type IconName = keyof typeof Icons;

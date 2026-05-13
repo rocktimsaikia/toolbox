@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Coffee, Github } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,7 +8,6 @@ export default function Footer() {
           href="/support"
           className="flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
         >
-          <Coffee className="h-4 w-4 mr-1" />
           Support Us
         </Link>
         <span className="text-gray-400 dark:text-gray-600">•</span>
@@ -19,7 +17,6 @@ export default function Footer() {
           rel="noopener noreferrer"
           className="flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
         >
-          <Github className="h-4 w-4 mr-1" />
           Star on GitHub
         </a>
       </div>

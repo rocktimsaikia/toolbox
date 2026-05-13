@@ -3,7 +3,6 @@ import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
@@ -241,10 +240,12 @@ export default function LoremIpsumGenerator() {
               </label>
             </div>
             <div className="flex items-center space-x-2">
-              <Switch
+              <input
+                type="checkbox"
                 id="startWithLorem"
                 checked={startWithLorem}
-                onCheckedChange={setStartWithLorem}
+                onChange={(event) => setStartWithLorem(event.target.checked)}
+                className="cursor-pointer accent-primary"
               />
               <label htmlFor="startWithLorem" className="text-sm">
                 Start with "Lorem ipsum"

@@ -1,11 +1,10 @@
 "use client";
+
 import { useEffect, useState } from "react";
 
 export type Theme = "light" | "dark";
 
 const STORAGE_KEY = "theme";
-
-export const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('${STORAGE_KEY}');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`;
 
 export function setTheme(theme: Theme) {
   const root = document.documentElement;

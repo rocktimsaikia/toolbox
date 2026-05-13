@@ -1,7 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
-import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -55,7 +54,9 @@ export default function UrlEncoder() {
           <div className="flex justify-between w-full">
             <h2 className="lg:text-lg font-semibold flex gap-x-1">
               <span>Output</span>
-              <span className="text-muted-foreground">({encode ? "Encoded" : "Decoded"})</span>
+              <span className="text-muted-foreground">
+                ({encode ? "Encoded" : "Decoded"})
+              </span>
             </h2>
             <Clipboard text={outputString} />
           </div>
@@ -70,6 +71,7 @@ export default function UrlEncoder() {
       </div>
       <div className="mt-4 flex items-center justify-center">
         <label
+          htmlFor="convert"
           className={clsx("mr-2 text-sm font-medium", {
             "text-muted-foreground": encode,
             "text-foreground": !encode,
@@ -77,12 +79,15 @@ export default function UrlEncoder() {
         >
           Decode
         </label>
-        <Switch
+        <input
+          type="checkbox"
           id="convert"
           checked={encode}
-          onCheckedChange={handleConversionSwitch}
-        ></Switch>
+          onChange={handleConversionSwitch}
+          className="h-4 w-8 cursor-pointer accent-primary"
+        />
         <label
+          htmlFor="convert"
           className={clsx("ml-2 text-sm font-medium", {
             "text-muted-foreground": !encode,
             "text-foreground": encode,

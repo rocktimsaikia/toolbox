@@ -1,16 +1,29 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
-import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { encode, decode } from "html-entities";
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function unescapeHtml(value: string) {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = value;
+  return textarea.value;
+}
 
 export default function HtmlEscape() {
   const [inputString, setInputString] = useState("");
   const [outputString, setOutputString] = useState("");
-  const [escape, setEscape] = useState(true);
+  const [shouldEscape, setShouldEscape] = useState(true);
   const [error, setError] = useState("");
 
   function handleConversion() {
@@ -22,25 +35,25 @@ export default function HtmlEscape() {
         return;
       }
 
-      if (escape) {
-        setOutputString(encode(inputString, { level: "html5", mode: "specialChars" }));
+      if (shouldEscape) {
+        setOutputString(escapeHtml(inputString));
       } else {
-        setOutputString(decode(inputString));
+        setOutputString(unescapeHtml(inputString));
       }
     } catch (err) {
-      setError(`Invalid ${escape ? "text" : "HTML"} input`);
+      setError(`Invalid ${shouldEscape ? "text" : "HTML"} input`);
       setOutputString("");
     }
   }
 
   function handleConversionSwitch() {
     setInputString(outputString);
-    setEscape(!escape);
+    setShouldEscape(!shouldEscape);
   }
 
   useEffect(() => {
     handleConversion();
-  }, [inputString, escape]);
+  }, [inputString, shouldEscape]);
 
   return (
     <div>
@@ -52,7 +65,7 @@ export default function HtmlEscape() {
             className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
             spellCheck={false}
             value={inputString}
-            placeholder={`Add your${escape ? "" : " escaped"} HTML here...`}
+            placeholder={`Add your${shouldEscape ? "" : " escaped"} HTML here...`}
             onChange={(e) => setInputString(e.target.value)}
           ></textarea>
           {error && <p className="text-red-500 mt-2">{error}</p>}
@@ -61,7 +74,9 @@ export default function HtmlEscape() {
           <div className="flex justify-between w-full">
             <h2 className="lg:text-lg font-semibold flex gap-x-1">
               <span>Output</span>
-              <span className="text-muted-foreground">({escape ? "Escaped" : "Unescaped"})</span>
+              <span className="text-muted-foreground">
+                ({shouldEscape ? "Escaped" : "Unescaped"})
+              </span>
             </h2>
             <Clipboard text={outputString} />
           </div>
@@ -70,28 +85,32 @@ export default function HtmlEscape() {
             value={outputString}
             readOnly
             spellCheck={false}
-            placeholder={`Your ${escape ? "escaped" : "unescaped"} HTML will appear here...`}
+            placeholder={`Your ${shouldEscape ? "escaped" : "unescaped"} HTML will appear here...`}
           ></textarea>
         </div>
       </div>
       <div className="mt-4 flex items-center justify-center">
         <label
+          htmlFor="convert"
           className={clsx("mr-2 text-sm font-medium", {
-            "text-muted-foreground": escape,
-            "text-foreground": !escape,
+            "text-muted-foreground": shouldEscape,
+            "text-foreground": !shouldEscape,
           })}
         >
           Unescape
         </label>
-        <Switch
+        <input
+          type="checkbox"
           id="convert"
-          checked={escape}
-          onCheckedChange={handleConversionSwitch}
-        ></Switch>
+          checked={shouldEscape}
+          onChange={handleConversionSwitch}
+          className="h-4 w-8 cursor-pointer accent-primary"
+        />
         <label
+          htmlFor="convert"
           className={clsx("ml-2 text-sm font-medium", {
-            "text-muted-foreground": !escape,
-            "text-foreground": escape,
+            "text-muted-foreground": !shouldEscape,
+            "text-foreground": shouldEscape,
           })}
         >
           Escape

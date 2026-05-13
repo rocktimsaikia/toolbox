@@ -3,10 +3,8 @@ import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import generator, { type GenerateOptions } from "generate-password-browser";
 import { useEffect, useState } from "react";
 
 export default function JSONToJavascript() {
@@ -17,8 +15,9 @@ export default function JSONToJavascript() {
   const [numbers, setNumbers] = useState(true);
   const [symbols, setSymbols] = useState(true);
 
-  function handleGeneratePassword() {
-    const generateConfig: GenerateOptions = {
+  async function handleGeneratePassword() {
+    const generator = (await import("generate-password-browser")).default;
+    const generateConfig = {
       length,
       numbers,
       symbols,
@@ -32,7 +31,7 @@ export default function JSONToJavascript() {
 
   useEffect(() => {
     // Generate a password when the component mounts
-    handleGeneratePassword();
+    void handleGeneratePassword();
   }, []);
 
   return (
@@ -60,25 +59,49 @@ export default function JSONToJavascript() {
               </label>
             </div>
             <div className="flex items-center space-x-1">
-              <Switch id="uppercase" checked={uppercase} onCheckedChange={setUppercase} />
+              <input
+                id="uppercase"
+                type="checkbox"
+                checked={uppercase}
+                onChange={(event) => setUppercase(event.target.checked)}
+                className="cursor-pointer accent-primary"
+              />
               <label htmlFor="uppercase">Uppercase</label>
             </div>
             <div className="flex items-center space-x-1">
-              <Switch id="lowercase" checked={lowercase} onCheckedChange={setLowercase} />
+              <input
+                id="lowercase"
+                type="checkbox"
+                checked={lowercase}
+                onChange={(event) => setLowercase(event.target.checked)}
+                className="cursor-pointer accent-primary"
+              />
               <label htmlFor="lowercase">Lowercase</label>
             </div>
             <div className="flex items-center space-x-1">
-              <Switch id="numbers" checked={numbers} onCheckedChange={setNumbers} />
+              <input
+                id="numbers"
+                type="checkbox"
+                checked={numbers}
+                onChange={(event) => setNumbers(event.target.checked)}
+                className="cursor-pointer accent-primary"
+              />
               <label htmlFor="numbers">Numbers</label>
             </div>
             <div className="flex items-center space-x-1">
-              <Switch id="symbols" checked={symbols} onCheckedChange={setSymbols} />
+              <input
+                id="symbols"
+                type="checkbox"
+                checked={symbols}
+                onChange={(event) => setSymbols(event.target.checked)}
+                className="cursor-pointer accent-primary"
+              />
               <label htmlFor="symbols">Symbols</label>
             </div>
           </div>
           <Button
             className="mt-5 cursor-pointer mx-auto"
-            onClick={handleGeneratePassword}
+            onClick={() => void handleGeneratePassword()}
           >
             Generate Password <ReloadIcon className="inline-block" />
           </Button>

@@ -1,36 +1,13 @@
 "use client";
+import LazyCodeEditor from "@/components/lazy-code-editor";
 import ToolsHeader from "@/components/tools-header";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
-import { parse as csvParse, stringify as csvStringify } from "csv/sync";
-import { XMLParser } from "fast-xml-parser";
-import yaml from "js-yaml";
-import json2toml from "json2toml";
-import { type XmlElement, toXML } from "jstoxml";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { parse as tomlParse } from "toml";
-
-const TextAreaCodeEditor = dynamic(() => import("@/components/code-editor"), {
-  ssr: false,
-  loading: () => (
-    <div
-      className="h-[380px] lg:h-[485px] w-full lg:w-[529px] bg-muted animate-pulse"
-      role="status"
-      aria-label="Loading editor"
-    />
-  ),
-});
 
 const converters = ["json", "yaml", "toml", "xml", "csv"] as const;
+type Converter = (typeof converters)[number];
 
 const defaultInput = `{
     "firstName": "John",
@@ -41,137 +18,104 @@ const defaultInput = `{
 }
 `;
 
+async function parseInput(input: string, inputFormat: Converter) {
+  switch (inputFormat) {
+    case "json":
+      return JSON.parse(input);
+    case "yaml": {
+      const yaml = await import("js-yaml");
+      return yaml.load(input);
+    }
+    case "toml": {
+      const toml = await import("toml");
+      return toml.parse(input);
+    }
+    case "xml": {
+      const { XMLParser } = await import("fast-xml-parser");
+      return new XMLParser().parse(input);
+    }
+    case "csv": {
+      const { parse } = await import("csv/sync");
+      return parse(input, { columns: true, skip_empty_lines: true });
+    }
+  }
+}
+
+async function stringifyOutput(data: unknown, outputFormat: Converter) {
+  switch (outputFormat) {
+    case "json":
+      return JSON.stringify(data, null, 2);
+    case "yaml": {
+      const yaml = await import("js-yaml");
+      return yaml.dump(data, { indent: 4 });
+    }
+    case "toml": {
+      const json2toml = (await import("json2toml")).default;
+      return json2toml(data as object, { indent: 0 });
+    }
+    case "xml": {
+      const { toXML } = await import("jstoxml");
+      return toXML(data as never, { header: false, indent: "  " });
+    }
+    case "csv": {
+      if (!Array.isArray(data)) {
+        throw new Error(
+          "CSV output requires array data. Please convert from a format that produces arrays.",
+        );
+      }
+      const { stringify } = await import("csv/sync");
+      return stringify(data, { header: true });
+    }
+  }
+}
+
 export default function Yamlc() {
   const [input, setInput] = useState(defaultInput);
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
   const [isCopied, setIsCopied] = useState(false);
-  const [inputFormat, setInputFormat] = useState<(typeof converters)[number]>("json");
-  const [outputFormat, setOutputFormat] = useState<(typeof converters)[number]>("yaml");
+  const [inputFormat, setInputFormat] = useState<Converter>("json");
+  const [outputFormat, setOutputFormat] = useState<Converter>("yaml");
 
   useEffect(() => {
+    let isCurrent = true;
+
     if (!input.trim()) {
       setError("");
+      setOutput("");
       if (input !== "") {
         setInput("");
       }
-      return;
+      return () => {
+        isCurrent = false;
+      };
     }
     if (inputFormat === outputFormat) {
       setOutput(input);
       setError("");
-      return;
+      return () => {
+        isCurrent = false;
+      };
     }
 
-    // Clear any previous errors at the start of conversion
     setError("");
-    let data: unknown;
 
-    // input parser
-    switch (inputFormat.toLowerCase()) {
-      case "json": {
-        try {
-          data = JSON.parse(input);
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-      case "yaml": {
-        try {
-          data = yaml.load(input);
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-
-      case "toml": {
-        try {
-          data = tomlParse(input);
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-
-      case "xml": {
-        try {
-          const parser = new XMLParser();
-          data = parser.parse(input);
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-
-      case "csv": {
-        try {
-          const converted = csvParse(input, {
-            columns: true,
-            skip_empty_lines: true,
-          });
-          data = converted;
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-    }
-
-    switch (outputFormat.toLowerCase()) {
-      case "yaml": {
-        const converted = yaml.dump(data, { indent: 4 });
+    parseInput(input, inputFormat)
+      .then((data) => stringifyOutput(data, outputFormat))
+      .then((converted) => {
+        if (!isCurrent) return;
         setOutput(converted);
-        break;
-      }
+        setError("");
+      })
+      .catch((e: unknown) => {
+        if (!isCurrent) return;
+        setOutput("");
+        setError(e instanceof Error ? e.message : String(e));
+      });
 
-      case "json": {
-        try {
-          const converted = JSON.stringify(data, null, 2);
-          setOutput(converted);
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-
-      case "toml": {
-        try {
-          const converted = json2toml(data as object, { indent: 0 });
-          setOutput(converted);
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-
-      case "xml": {
-        try {
-          const converted = toXML(data as XmlElement, { header: false, indent: "  " });
-          setOutput(converted);
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-
-      case "csv": {
-        try {
-          if (Array.isArray(data)) {
-            const converted = csvStringify(data, { header: true });
-            setOutput(converted);
-          } else {
-            setError(
-              "CSV output requires array data. Please convert from a format that produces arrays.",
-            );
-          }
-        } catch (e: unknown) {
-          setError(e instanceof Error ? e.message : String(e));
-        }
-        break;
-      }
-    }
+    return () => {
+      isCurrent = false;
+    };
   }, [inputFormat, outputFormat, input]);
 
   return (
@@ -182,25 +126,19 @@ export default function Yamlc() {
           <div className="flex justify-between w-full">
             <h2 className="mb-2 text-lg font-semibold">Input</h2>
 
-            <Select
-              defaultValue={inputFormat}
-              onValueChange={(value) => setInputFormat(value as typeof inputFormat)}
+            <select
+              value={inputFormat}
+              onChange={(event) => setInputFormat(event.target.value as Converter)}
+              className="border border-b-0 border-border rounded bg-background px-3 py-2 hover:bg-muted"
             >
-              <SelectTrigger
-                className={"border border-b-0 border-border rounded hover:bg-muted"}
-              >
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {converters.map((item) => (
-                  <SelectItem value={item} key={item}>
-                    {item}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              {converters.map((item) => (
+                <option value={item} key={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
-          <TextAreaCodeEditor
+          <LazyCodeEditor
             value={input}
             onChange={setInput}
             language={inputFormat === "json" ? "javascript" : "json"}
@@ -212,25 +150,17 @@ export default function Yamlc() {
           <div className="flex justify-between w-full">
             <h2 className="text-lg font-semibold">Output</h2>
             <div className="flex gap-2">
-              <Select
-                defaultValue={outputFormat}
-                onValueChange={(value) => setOutputFormat(value as typeof outputFormat)}
+              <select
+                value={outputFormat}
+                onChange={(event) => setOutputFormat(event.target.value as Converter)}
+                className="border border-b-0 border-border rounded bg-background px-3 py-2 hover:bg-muted"
               >
-                <SelectTrigger
-                  className={
-                    "border border-b-0 border-border rounded hover:bg-muted"
-                  }
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {converters.map((item) => (
-                    <SelectItem value={item} key={item}>
-                      {item}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                {converters.map((item) => (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
               <button
                 type={"button"}
                 onClick={() => {

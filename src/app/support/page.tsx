@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Coffee } from "lucide-react";
 import { siteConfig } from "@/constants/site";
 
 export const metadata = {
@@ -31,7 +30,7 @@ export default function SupportPage() {
       <div className="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-8 mb-8 text-center">
         <div className="mb-6">
           <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mx-auto mb-4 text-yellow-600 dark:text-yellow-400">
-            <Coffee className="h-8 w-8" />
+            <span className="text-2xl font-semibold">BMC</span>
           </div>
           <h2 className="text-2xl font-semibold mb-3">Buy Me a Coffee</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
@@ -45,7 +44,6 @@ export default function SupportPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-medium rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all duration-300 hover:shadow-lg"
           >
-            <Coffee className="mr-2 h-5 w-5" />
             Support on BuyMeACoffee
           </a>
         </div>

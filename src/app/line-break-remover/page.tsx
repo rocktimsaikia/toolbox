@@ -1,7 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
-import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -86,6 +85,7 @@ a separate paragraph.`);
       </div>
       <div className="mt-4 flex items-center justify-center">
         <label
+          htmlFor="preserve-paragraphs"
           className={clsx("mr-2 text-sm font-medium", {
             "text-muted-foreground": preserveParagraphs,
             "text-foreground": !preserveParagraphs,
@@ -93,12 +93,15 @@ a separate paragraph.`);
         >
           Remove All
         </label>
-        <Switch
+        <input
+          type="checkbox"
           id="preserve-paragraphs"
           checked={preserveParagraphs}
-          onCheckedChange={setPreserveParagraphs}
-        ></Switch>
+          onChange={(event) => setPreserveParagraphs(event.target.checked)}
+          className="h-4 w-8 cursor-pointer accent-primary"
+        />
         <label
+          htmlFor="preserve-paragraphs"
           className={clsx("ml-2 text-sm font-medium", {
             "text-muted-foreground": !preserveParagraphs,
             "text-foreground": preserveParagraphs,
