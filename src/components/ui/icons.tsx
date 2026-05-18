@@ -1,20 +1,44 @@
-const iconClassName = "inline-flex h-5 w-5 items-center justify-center text-xs font-semibold";
+import {
+  AlignLeft,
+  ArrowRightLeft,
+  Braces,
+  Clock3,
+  Code2,
+  Copy,
+  FileJson2,
+  FileText,
+  Hash,
+  KeyRound,
+  Link2,
+  Palette,
+  Scissors,
+  Search,
+  Sparkles,
+  Type,
+  Wifi,
+} from "lucide-react";
+
+const iconClassName = "h-5 w-5";
+const iconStrokeWidth = 2;
 
 export const Icons = {
-  type: <span className={iconClassName}>T</span>,
-  hash: <span className={iconClassName}>#</span>,
-  key: <span className={iconClassName}>K</span>,
-  arrowUpDown: <span className={iconClassName}>AZ</span>,
-  link: <span className={iconClassName}>L</span>,
-  wifi: <span className={iconClassName}>IP</span>,
-  code: <span className={iconClassName}>{"{}"}</span>,
-  alignLeft: <span className={iconClassName}>A</span>,
-  fileText: <span className={iconClassName}>F</span>,
-  copy: <span className={iconClassName}>C</span>,
-  clock: <span className={iconClassName}>12</span>,
-  scissors: <span className={iconClassName}>X</span>,
-  search: <span className={iconClassName}>?</span>,
-  palette: <span className={iconClassName}>P</span>,
+  type: <Type className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  textTools: <Sparkles className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  json: <FileJson2 className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  hash: <Hash className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  key: <KeyRound className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  arrowUpDown: <ArrowRightLeft className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  link: <Link2 className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  wifi: <Wifi className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  code: <Code2 className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  alignLeft: <AlignLeft className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  fileText: <FileText className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  copy: <Copy className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  clock: <Clock3 className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  scissors: <Scissors className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  search: <Search className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  palette: <Palette className={iconClassName} strokeWidth={iconStrokeWidth} />,
+  braces: <Braces className={iconClassName} strokeWidth={iconStrokeWidth} />,
 } as const;
 
 export type IconName = keyof typeof Icons;

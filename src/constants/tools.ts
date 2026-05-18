@@ -15,7 +15,7 @@ export const TOOLS = {
     name: "JavaScript/JSON to TypeScript Types",
     description: "Convert JavaScript/JSON to TypeScript types",
     slug: "json-to-ts",
-    icon: "type",
+    icon: "json",
   },
   "numbers-to-words": {
     name: "Numbers to Words",
@@ -51,12 +51,14 @@ export const TOOLS = {
     name: "HTML Escape",
     description: "Escape HTML entities",
     slug: "html-escape",
+    hide: true,
     icon: "code",
   },
   "line-break-remover": {
     name: "Line Break Remover",
     description: "Remove line breaks from text",
     slug: "line-break-remover",
+    hide: true,
     icon: "alignLeft",
   },
   "lorem-ipsum": {
@@ -88,19 +90,28 @@ export const TOOLS = {
     name: "Text Trimmer",
     description: "Remove leading and trailing whitespace from text",
     slug: "text-trimmer",
+    hide: true,
     icon: "scissors",
   },
   "find-replace": {
     name: "Find and Replace Text",
     description: "Find and replace text with case sensitivity and whole word options",
     slug: "find-replace",
+    hide: true,
     icon: "search",
   },
   "case-converter": {
     name: "Case Converter",
     description: "Convert text between different casing formats",
     slug: "case-converter",
+    hide: true,
     icon: "type",
+  },
+  "text-tools": {
+    name: "Text Utilities",
+    description: "Modify text with case conversion, trimming, find and replace, and more",
+    slug: "text-tools",
+    icon: "textTools",
   },
   "color-converter": {
     name: "Color Code Converter",
