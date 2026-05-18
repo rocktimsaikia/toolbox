@@ -1,23 +1,25 @@
-import type { WebPage, WithContext } from "schema-dts";
-import { TOOLS } from "@/constants/tools";
 import { siteConfig } from "@/constants/site";
+import { type Tool, tools } from "@/constants/tools";
+import type { WebPage, WithContext } from "schema-dts";
 
 // This function creates the JSON-LD structured data
 const createJsonLd = (): WithContext<WebPage> => {
   // Generate software applications from TOOLS
-  const softwareApplications = Object.values(TOOLS).map((tool) => ({
-    "@type": "SoftwareApplication" as const,
-    name: tool.name,
-    applicationCategory: "DeveloperApplication",
-    operatingSystem: "Web Browser",
-    url: `${siteConfig.url}/${tool.slug}`,
-    description: tool.description,
-    offers: {
-      "@type": "Offer" as const,
-      price: "0",
-      priceCurrency: "USD",
-    },
-  }));
+  const softwareApplications = tools
+    .filter((tool: Tool) => !tool.hide)
+    .map((tool) => ({
+      "@type": "SoftwareApplication" as const,
+      name: tool.name,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Web Browser",
+      url: `${siteConfig.url}/${tool.slug}`,
+      description: tool.description,
+      offers: {
+        "@type": "Offer" as const,
+        price: "0",
+        priceCurrency: "USD",
+      },
+    }));
 
   return {
     "@context": "https://schema.org",

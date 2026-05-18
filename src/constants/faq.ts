@@ -383,6 +383,29 @@ const CASE_CONVERTER_FAQ: Faq[] = [
   },
 ];
 
+const TEXT_TOOLS_FAQ: Faq[] = [
+  {
+    question: "What does the Text Utilities tool do?",
+    answer:
+      "Text Utilities combines common text modification tools in one place, including case conversion, trimming, line break removal, find and replace, and HTML escaping or unescaping.",
+  },
+  {
+    question: "Is my text sent to a server?",
+    answer:
+      "No. Text processing happens entirely in your browser, so your input is not uploaded or stored by the tool.",
+  },
+  {
+    question: "Can I still use the individual text tool pages?",
+    answer:
+      "Yes. Existing pages like Case Converter, Text Trimmer, Line Break Remover, Find and Replace, and HTML Escape still open with their matching mode selected.",
+  },
+  {
+    question: "Which text utility mode should I use?",
+    answer:
+      "Use Case Converter for naming formats, Text Trimmer for whitespace cleanup, Line Break Remover for pasted document text, Find and Replace for substitutions, and HTML Escape for safe HTML text.",
+  },
+];
+
 const COLOR_CONVERTER_FAQ: Faq[] = [
   {
     question: "What does the Color Code Converter do?",
@@ -445,6 +468,7 @@ export const Faqs: Record<Slug, Faq[]> = {
   "text-trimmer": TEXT_TRIMMER_FAQ,
   "find-replace": FIND_REPLACE_FAQ,
   "case-converter": CASE_CONVERTER_FAQ,
+  "text-tools": TEXT_TOOLS_FAQ,
   "color-converter": COLOR_CONVERTER_FAQ,
   "word-counter": WORD_COUNTER_FAQ,
 };

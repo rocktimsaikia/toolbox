@@ -1,10 +1,18 @@
 import Faq from "@/components/faq";
+import { Icons } from "@/components/ui/icons";
 import { HOME_PAGE_FAQ } from "@/constants/faq";
 import { siteConfig } from "@/constants/site";
-import { tools, type Tool } from "@/constants/tools";
-import { Icons } from "@/components/ui/icons";
+import { type Tool, tools } from "@/constants/tools";
 import Image from "next/image";
 import Link from "next/link";
+
+const visibleTools = tools
+  .filter((tool: Tool) => !tool.hide)
+  .sort((firstTool: Tool, secondTool: Tool) => {
+    if (firstTool.slug === "text-tools") return -1;
+    if (secondTool.slug === "text-tools") return 1;
+    return 0;
+  });
 
 export const metadata = {
   title: "Essential Developer Tools - Free Online Utilities for Programmers",
@@ -56,7 +64,7 @@ export default function Home() {
 
       <section className="mb-12">
         <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tools.map((tool: Tool) => (
+          {visibleTools.map((tool: Tool) => (
             <li
               key={tool.name}
               className="group bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-all duration-300 hover:border-blue-200 dark:hover:border-blue-800/50"
@@ -69,7 +77,13 @@ export default function Home() {
                 itemProp="url"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="flex-shrink-0 p-1.5 bg-blue-50 dark:bg-blue-900/30 rounded text-blue-600 dark:text-blue-400">
+                  <div
+                    className={
+                      tool.slug === "text-tools"
+                        ? "flex-shrink-0 p-1.5 bg-amber-50 dark:bg-amber-900/30 rounded text-amber-600 dark:text-amber-300"
+                        : "flex-shrink-0 p-1.5 bg-blue-50 dark:bg-blue-900/30 rounded text-blue-600 dark:text-blue-400"
+                    }
+                  >
                     {Icons[tool.icon] || Icons.code}
                   </div>
                   <div className="min-w-0 flex-1">
