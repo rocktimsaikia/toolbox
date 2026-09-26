@@ -1,42 +1,13 @@
 "use client";
-import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
-import { type ParsedUrl, type QueryParam, parseUrl } from "@/lib/parse-url";
-import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
+import { type Decoded, type ParsedUrl, type QueryParam, parseUrl } from "@/lib/parse-url";
+import { CheckIcon, ChevronDownIcon, CopyIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 
 const EXAMPLE_URL =
-  "https://shop.example.com:8443/en/products/running%20shoes/?utm_source=newsletter&utm_medium=email&utm_campaign=spring_sale_2026&q=red+trail+shoes&size=42&size=43&sort=price_asc&redirect_uri=https%3A%2F%2Faccounts.example.com%2Fcallback%3Fstate%3Dxyz&ref=#reviews";
-
-function toJson(parsed: ParsedUrl) {
-  const group = (params: QueryParam[]) =>
-    params.reduce<Record<string, string | string[]>>((acc, { key, value }) => {
-      const existing = acc[key];
-      acc[key] =
-        existing === undefined
-          ? value
-          : [...(Array.isArray(existing) ? existing : [existing]), value];
-      return acc;
-    }, {});
-
-  return JSON.stringify(
-    {
-      protocol: parsed.protocol,
-      username: parsed.username || undefined,
-      password: parsed.password || undefined,
-      hostname: parsed.hostname,
-      port: parsed.port || undefined,
-      path: parsed.pathname,
-      query: group(parsed.params),
-      hash: parsed.hash || undefined,
-      hashParams: parsed.hashParams.length ? group(parsed.hashParams) : undefined,
-    },
-    null,
-    2,
-  );
-}
+  "https://shop.example.com:8443/en/products/running%20shoes/?utm_source=newsletter&utm_medium=email&utm_campaign=spring_sale_2026&q=red+trail+shoes&size=42&size=43&sort=price_asc&redirect_uri=https%3A%2F%2Faccounts.example.com%2Fcallback%3Fstate%3Dxyz&state=eyJyZXR1cm5UbyI6Ii9jYXJ0IiwiY2FydElkIjoiYzE5MiJ9&ref=#reviews";
 
 function CopyValue({ value, label }: { value: string; label: string }) {
   const [copied, setCopied] = useState(false);
@@ -66,24 +37,84 @@ function CopyValue({ value, label }: { value: string; label: string }) {
 function Section({
   title,
   count,
+  collapsible = false,
   children,
 }: {
   title: string;
   count?: number;
+  collapsible?: boolean;
   children: React.ReactNode;
 }) {
+  const heading = (
+    <h2 className="text-lg font-semibold">
+      {title}
+      {count !== undefined && (
+        <span className="ml-2 text-sm font-normal text-muted-foreground">{count}</span>
+      )}
+    </h2>
+  );
+  const body = (
+    <div className="divide-y divide-border rounded border border-border">{children}</div>
+  );
+
+  if (!collapsible) {
+    return (
+      <section className="flex w-full flex-col gap-2">
+        {heading}
+        {body}
+      </section>
+    );
+  }
+
+  // ponytail: native <details> keeps open/closed state across re-parses, no React state
   return (
-    <section className="w-full">
-      <h2 className="mb-2 text-lg font-semibold">
-        {title}
-        {count !== undefined && (
-          <span className="ml-2 text-sm font-normal text-muted-foreground">{count}</span>
-        )}
-      </h2>
-      <div className="divide-y divide-border rounded border border-border">
-        {children}
+    <details open className="group w-full">
+      <summary className="mb-2 flex w-fit cursor-pointer list-none items-center gap-2 rounded [&::-webkit-details-marker]:hidden">
+        {heading}
+        <ChevronDownIcon
+          className="text-muted-foreground transition-transform group-[:not([open])]:-rotate-90"
+          aria-hidden="true"
+        />
+      </summary>
+      {body}
+    </details>
+  );
+}
+
+function ParseButton({ url, onParse }: { url: string; onParse: (url: string) => void }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onParse(url)}
+      className="shrink-0 cursor-pointer rounded border border-border px-2 py-0.5 text-xs hover:bg-muted"
+    >
+      Parse
+    </button>
+  );
+}
+
+function DecodedValue({
+  decoded,
+  name,
+  onParse,
+}: {
+  decoded: Decoded;
+  name: string;
+  onParse?: (url: string) => void;
+}) {
+  return (
+    <div className="mt-2 flex items-start gap-2 rounded bg-muted px-2 py-1.5">
+      <div className="min-w-0 flex-1">
+        <div className="font-sans text-xs text-muted-foreground">
+          {decoded.kind === "jwt" ? "JWT, decoded header and payload" : "Base64, decoded"}
+        </div>
+        <pre className="whitespace-pre-wrap break-all font-mono text-sm">
+          {decoded.text}
+        </pre>
       </div>
-    </section>
+      {decoded.isUrl && onParse && <ParseButton url={decoded.text} onParse={onParse} />}
+      <CopyValue value={decoded.text} label={`decoded ${name}`} />
+    </div>
   );
 }
 
@@ -92,26 +123,37 @@ function Row({
   value,
   note,
   action,
+  decoded,
+  onParse,
 }: {
   name: string;
   value: string;
   note?: string;
   action?: React.ReactNode;
+  decoded?: Decoded;
+  onParse?: (url: string) => void;
 }) {
   return (
     <div className="grid gap-1 px-3 py-2 sm:grid-cols-[minmax(0,12rem)_minmax(0,1fr)] sm:gap-4">
       <div className="min-w-0 break-all font-mono text-sm text-muted-foreground">
         {name}
       </div>
-      <div className="flex min-w-0 items-start gap-2">
-        <div className="min-w-0 flex-1 break-all font-mono text-sm">
-          {value === "" ? <span className="text-muted-foreground">(empty)</span> : value}
-          {note && (
-            <span className="ml-2 font-sans text-xs text-muted-foreground">{note}</span>
-          )}
+      <div className="min-w-0">
+        <div className="flex items-start gap-2">
+          <div className="min-w-0 flex-1 break-all font-mono text-sm">
+            {value === "" ? (
+              <span className="text-muted-foreground">(empty)</span>
+            ) : (
+              value
+            )}
+            {note && (
+              <span className="ml-2 font-sans text-xs text-muted-foreground">{note}</span>
+            )}
+          </div>
+          {action}
+          {value !== "" && <CopyValue value={value} label={name} />}
         </div>
-        {action}
-        {value !== "" && <CopyValue value={value} label={name} />}
+        {decoded && <DecodedValue decoded={decoded} name={name} onParse={onParse} />}
       </div>
     </div>
   );
@@ -135,17 +177,9 @@ function ParamRows({
       name={param.key}
       value={param.value}
       note={counts[param.key] > 1 ? "repeated" : undefined}
-      action={
-        param.isUrl && (
-          <button
-            type="button"
-            onClick={() => onParse(param.value)}
-            className="shrink-0 cursor-pointer rounded border border-border px-2 py-0.5 text-xs hover:bg-muted"
-          >
-            Parse
-          </button>
-        )
-      }
+      action={param.isUrl && <ParseButton url={param.value} onParse={onParse} />}
+      decoded={param.decoded}
+      onParse={onParse}
     />
   ));
 }
@@ -203,18 +237,7 @@ export default function UrlParser() {
 
       {parsed && (
         <div className="mt-10 flex flex-col gap-8">
-          <div className="flex items-end justify-between gap-4">
-            <p className="min-w-0 text-sm text-muted-foreground">
-              {parsed.params.length} query{" "}
-              {parsed.params.length === 1 ? "parameter" : "parameters"}
-              {parsed.schemeAdded && " · no scheme given, assumed https"}
-            </p>
-            <div className="shrink-0">
-              <Clipboard text={toJson(parsed)} />
-            </div>
-          </div>
-
-          <Section title="Overview">
+          <Section title="Overview" collapsible>
             <Row name="protocol" value={parsed.protocol} />
             {parsed.username && <Row name="username" value={parsed.username} />}
             {parsed.password && <Row name="password" value={parsed.password} />}
@@ -227,14 +250,26 @@ export default function UrlParser() {
               />
             )}
             <Row name="path" value={parsed.pathname} />
-            {parsed.hash && <Row name="fragment" value={parsed.hash} />}
+            {parsed.hash && (
+              <Row
+                name="fragment"
+                value={parsed.hash}
+                decoded={parsed.hashDecoded}
+                onParse={handleParse}
+              />
+            )}
           </Section>
 
           {parsed.pathSegments.length > 0 && (
-            <Section title="Path segments" count={parsed.pathSegments.length}>
+            <Section title="Path segments" count={parsed.pathSegments.length} collapsible>
               {parsed.pathSegments.map((segment, idx) => (
-                // biome-ignore lint/suspicious/noArrayIndexKey: segments can repeat
-                <Row key={`${segment}-${idx}`} name={String(idx + 1)} value={segment} />
+                <Row
+                  key={`${segment.value}-${idx}`}
+                  name={String(idx + 1)}
+                  value={segment.value}
+                  decoded={segment.decoded}
+                  onParse={handleParse}
+                />
               ))}
             </Section>
           )}

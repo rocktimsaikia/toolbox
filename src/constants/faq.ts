@@ -134,7 +134,7 @@ const URL_PARSER_FAQ: Faq[] = [
   {
     question: "How do I use the URL Parser?",
     answer:
-      "Paste any URL into the box. The breakdown updates as you type. Copy a single value with the copy icon next to it, or copy the whole breakdown as JSON. If a parameter holds another URL, such as a redirect_uri, click Parse to open it.",
+      "Paste any URL into the box. The breakdown updates as you type. Copy any value with the copy icon next to it. If a parameter holds another URL, such as a redirect_uri, click Parse to open it.",
   },
   {
     question: "Does it handle repeated and encoded parameters?",
