@@ -1,5 +1,4 @@
 import Faq from "@/components/faq";
-import Utterances from "@/components/utterances";
 import { Faqs } from "@/constants/faq";
 import { TOOLS } from "@/constants/tools";
 import { generateSeo } from "@/lib/seo";
@@ -20,7 +19,6 @@ export default function Layout({ children }: Readonly<{ children: React.ReactNod
     <div>
       {children}
       <Faq faq={faq} />
-      <Utterances path={`/${slug}`} />
     </div>
   );
 }

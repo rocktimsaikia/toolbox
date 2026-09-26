@@ -35,10 +35,10 @@ Follow these steps carefully:
    - Use the standard classes and styling patterns
 
 4. **Create the layout component** (`layout.tsx`) following this pattern:
-   - Import Faq, Utterances, Faqs, TOOLS, and generateSeo
+   - Import Faq, Faqs, TOOLS, and generateSeo
    - Define slug constant
    - Generate metadata using generateSeo
-   - Export default layout that renders children, Faq, and Utterances
+   - Export default layout that renders children and Faq
 
 5. **Add tool to constants** (`/src/constants/tools.ts`):
    - Add the new tool entry to the TOOLS object
