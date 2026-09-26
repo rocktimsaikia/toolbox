@@ -10,7 +10,7 @@ const faq = Faqs[slug];
 
 export const metadata = generateSeo({
   title: tool.name,
-  description: tool.description,
+  description: tool.seoDescription,
   path: `/${slug}`,
 });
 

@@ -1,20 +1,13 @@
+import { generateSeo } from "@/lib/seo";
 import { ArrowLeftIcon, CheckIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { siteConfig } from "@/constants/site";
 
-export const metadata = {
-  title: "Support Us - Toolbelt",
+export const metadata = generateSeo({
+  title: "Support",
   description:
-    "All our tools are free to use. If you find them useful, consider supporting us with a BuyMeACoffee membership.",
-  openGraph: {
-    title: "Support Us - Toolbelt",
-    description:
-      "All our tools are free to use. If you find them useful, consider supporting us with a BuyMeACoffee membership.",
-    type: "website",
-    url: `${siteConfig.url}/support`,
-    siteName: "Toolbelt - Essential Developer Tools",
-  },
-};
+    "All Toolbelt tools are free to use. If you find them useful, consider supporting development with a BuyMeACoffee membership.",
+  path: "/support",
+});
 
 const SUPPORT_ITEMS = [
   { id: "maintain", text: "Maintaining and improving existing tools" },

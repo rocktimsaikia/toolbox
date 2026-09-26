@@ -1,58 +1,28 @@
 import { siteConfig } from "@/constants/site";
-import { type Tool, tools } from "@/constants/tools";
-import type { WebPage, WithContext } from "schema-dts";
+import type { WebSite, WithContext } from "schema-dts";
 
-// This function creates the JSON-LD structured data
-const createJsonLd = (): WithContext<WebPage> => {
-  // Generate software applications from TOOLS
-  const softwareApplications = tools
-    .filter((tool: Tool) => !tool.hide)
-    .map((tool) => ({
-      "@type": "SoftwareApplication" as const,
-      name: tool.name,
-      applicationCategory: "DeveloperApplication",
-      operatingSystem: "Web Browser",
-      url: `${siteConfig.url}/${tool.slug}`,
-      description: tool.description,
-      offers: {
-        "@type": "Offer" as const,
-        price: "0",
-        priceCurrency: "USD",
-      },
-    }));
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "Toolbelt - Essential Developer Tools",
-    description:
-      "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make your development workflow more efficient.",
-    url: siteConfig.url,
-    publisher: {
-      "@type": "Organization",
-      name: "Rocktim Saikia",
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/toolbox-v2.png`,
-        width: "60px",
-        height: "60px",
-      },
-    },
-    mainEntity: softwareApplications,
-  };
+// ponytail: WebSite only. SoftwareApplication needs real ratings for rich results;
+// add it per tool page once there are genuine reviews to cite.
+const jsonLd: WithContext<WebSite> = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  description:
+    "Free developer tools that run in your browser: JSON to TypeScript, URL parser, Base64, case converter, cron generator, and more.",
+  publisher: {
+    "@type": "Person",
+    name: "Rocktim Saikia",
+    url: "https://rocktim.dev",
+  },
 };
 
 export function StructuredData() {
-  const jsonLd = createJsonLd();
-  const jsonLdString = JSON.stringify(jsonLd);
-
   return (
     <script
       type="application/ld+json"
-      key="structured-data"
-      suppressHydrationWarning
       // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD requires this
-      dangerouslySetInnerHTML={{ __html: jsonLdString }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   );
 }
