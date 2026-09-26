@@ -1,44 +1,57 @@
 "use client";
 import { copyToClipboard } from "@/libs/common";
-import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
+import { CheckIcon, CopyIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 
 interface Props {
   text: string;
 }
 
-export default function Clipboard({ text }: Props) {
-  const [isCopied, setIsCopied] = useState(false);
+type Status = "idle" | "copied" | "failed";
 
-  function handleCopyPassword() {
-    copyToClipboard(text);
-    setIsCopied(true);
+const STATUS_MESSAGE: Record<Status, string> = {
+  idle: "",
+  copied: "Copied to clipboard",
+  failed: "Copy failed. Select the text and press Ctrl+C.",
+};
+
+export default function Clipboard({ text }: Props) {
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleCopy() {
+    setStatus((await copyToClipboard(text)) ? "copied" : "failed");
   }
 
   useEffect(() => {
-    if (!isCopied) return;
-    const timer = setTimeout(() => setIsCopied(false), 2000);
+    if (status === "idle") return;
+    const timer = setTimeout(() => setStatus("idle"), status === "failed" ? 4000 : 2000);
     return () => clearTimeout(timer);
-  }, [isCopied]);
+  }, [status]);
 
   return (
-    <div className="flex justify-end w-full">
+    <div className="flex w-full justify-end">
       <button
         type="button"
-        onClick={handleCopyPassword}
-        aria-live="polite"
-        className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm min-w-[10.5rem]"
+        onClick={handleCopy}
+        disabled={!text}
+        className="inline-flex h-11 min-w-[9.5rem] cursor-pointer items-center justify-center gap-1.5 rounded border border-border px-3 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:bg-transparent lg:h-9"
       >
-        {isCopied ? (
-          <span className="text-success">
-            Copied <CheckIcon className="inline-block" />
+        {status === "copied" ? (
+          <span className="inline-flex items-center gap-1.5 text-success">
+            Copied <CheckIcon aria-hidden="true" />
+          </span>
+        ) : status === "failed" ? (
+          <span className="inline-flex items-center gap-1.5 text-destructive">
+            Copy failed <CrossCircledIcon aria-hidden="true" />
           </span>
         ) : (
           <>
-            Copy to clipboard <CopyIcon className="inline-block" />
+            Copy <CopyIcon aria-hidden="true" />
           </>
         )}
       </button>
+      {/* Separate live region: announcements on the button itself are unreliable */}
+      <output className="sr-only">{STATUS_MESSAGE[status]}</output>
     </div>
   );
 }

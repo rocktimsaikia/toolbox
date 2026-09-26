@@ -371,7 +371,7 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       {
         heading: "Unescaping",
         paragraphs: [
-          "Flip the switch to Unescape to turn entities back into characters. Your browser does the decoding, so every named entity works, such as &copy; and &nbsp;, along with numeric ones like &#8364; for the euro sign.",
+          "Choose Unescape to turn entities back into characters. Your browser does the decoding, so every named entity works, such as &copy; and &nbsp;, along with numeric ones like &#8364; for the euro sign.",
         ],
       },
       {
@@ -389,7 +389,7 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       {
         heading: "Keeping paragraphs",
         paragraphs: [
-          "With Preserve Paragraphs on, a blank line counts as a paragraph break and is kept, while single line breaks inside a paragraph become spaces. Switch to Remove All to join everything into one block.",
+          "With Keep paragraphs selected, a blank line counts as a paragraph break and is kept, while single line breaks inside a paragraph become spaces. Choose Join everything to merge it all into one block.",
         ],
         code: "This line was\nbroken by a PDF.\n\nNew paragraph.\n\n// becomes\n\nThis line was broken by a PDF.\n\nNew paragraph.",
       },

@@ -1,8 +1,25 @@
-export function copyToClipboard(text: string) {
-  navigator.clipboard.writeText(text);
+// Resolves to whether the copy really happened, so callers never report a false success
+export async function copyToClipboard(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // The async API is blocked in some contexts (insecure origin, embedded frames);
+    // the legacy selection copy still works there.
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    const copied = document.execCommand("copy");
+    textarea.remove();
+    return copied;
+  }
 }
 
-export function formatJSObject(obj: any, indent: number = 2): string {
+export function formatJSObject(obj: any, indent = 2): string {
   const space = " ".repeat(indent);
 
   if (Array.isArray(obj)) {

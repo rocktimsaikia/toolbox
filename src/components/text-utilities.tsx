@@ -2,7 +2,8 @@
 
 import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
-import type { Tool } from "@/constants/tools";
+import { TOOLS, type Tool } from "@/constants/tools";
+import { ArrowLeftIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 import {
   camelCase,
   capitalCase,
@@ -14,7 +15,7 @@ import {
 } from "change-case";
 import clsx from "clsx";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export type TextUtilityMode =
   | "case-converter"
@@ -39,23 +40,18 @@ type Props = {
   tool: Tool;
 };
 
-const caseOptions: CaseType[] = [
-  "camelCase",
-  "PascalCase",
-  "snake_case",
-  "CONSTANT_CASE",
-  "kebab-case",
-  "Title Case",
-  "Sentence case",
-  "lower case",
-  "UPPER CASE",
+const CASE_GROUPS: { label: string; options: CaseType[] }[] = [
+  {
+    label: "Code",
+    options: ["camelCase", "PascalCase", "snake_case", "CONSTANT_CASE", "kebab-case"],
+  },
+  { label: "Text", options: ["Title Case", "Sentence case", "lower case", "UPPER CASE"] },
 ];
 
 const textUtilityModes: Record<
   TextUtilityMode,
   {
     label: string;
-    description: string;
     defaultInput: string;
     inputLabel: string;
     inputPlaceholder: string;
@@ -64,7 +60,6 @@ const textUtilityModes: Record<
 > = {
   "case-converter": {
     label: "Case Converter",
-    description: "Convert text between common casing formats.",
     defaultInput: "Hello World! This is a sample text for case conversion.",
     inputLabel: "Input",
     inputPlaceholder: "Enter your text here…",
@@ -72,7 +67,6 @@ const textUtilityModes: Record<
   },
   "text-trimmer": {
     label: "Text Trimmer",
-    description: "Remove leading or trailing whitespace from each line.",
     defaultInput:
       "   This text has leading spaces\nThis text has trailing spaces   \n   And this has both   ",
     inputLabel: "Input",
@@ -81,7 +75,6 @@ const textUtilityModes: Record<
   },
   "line-break-remover": {
     label: "Line Break Remover",
-    description: "Remove line breaks while optionally preserving paragraphs.",
     defaultInput: `If
 you
 are
@@ -98,17 +91,15 @@ a separate paragraph.`,
     outputPlaceholder: "Your text without line breaks will appear here…",
   },
   "find-replace": {
-    label: "Find and Replace",
-    description: "Find and replace text with matching options.",
-    defaultInput: "",
-    inputLabel: "Input Text",
+    label: "Find and Replace Text",
+    defaultInput: "The colour of the Colour picker is a nice colour.",
+    inputLabel: "Input",
     inputPlaceholder: "Enter your text here…",
     outputPlaceholder: "Your replaced text will appear here…",
   },
   "html-escape": {
     label: "HTML Escape",
-    description: "Escape or unescape HTML entities.",
-    defaultInput: "",
+    defaultInput: '<a href="/">Home</a> & more',
     inputLabel: "Input",
     inputPlaceholder: "Add your HTML here…",
     outputPlaceholder: "Your escaped HTML will appear here…",
@@ -188,19 +179,20 @@ function findAndReplace(
   matchCase: boolean,
   matchWholeWord: boolean,
 ) {
-  if (!text || !find) return text;
+  if (!text || !find) return { text, count: 0 };
 
-  try {
-    let pattern = find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
-    if (matchWholeWord) {
-      pattern = `\\b${pattern}\\b`;
-    }
-
-    return text.replace(new RegExp(pattern, matchCase ? "g" : "gi"), replace);
-  } catch {
-    return text;
+  let pattern = find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (matchWholeWord) {
+    pattern = `\\b${pattern}\\b`;
   }
+
+  let count = 0;
+  // A replacer function keeps the replacement literal ($& etc. are not expanded)
+  const result = text.replace(new RegExp(pattern, matchCase ? "g" : "gi"), () => {
+    count += 1;
+    return replace;
+  });
+  return { text: result, count };
 }
 
 function escapeHtml(value: string) {
@@ -221,124 +213,274 @@ function unescapeHtml(value: string) {
 // Text the user typed survives client-side navigation between the tool pages
 let carriedInput: string | undefined;
 
-export default function TextUtilities({ initialMode: mode, tool }: Props) {
-  const [inputString, setInput] = useState(
-    carriedInput ?? textUtilityModes[mode].defaultInput,
+const fieldClass =
+  "w-full rounded border border-input p-3 font-mono text-sm dark:bg-input/30 lg:w-[530px]";
+
+// Two-state choice as a real radio group: each option selects itself, and screen
+// readers announce the chosen option (a checkbox between two labels did neither).
+function SegmentedControl<T extends string>({
+  label,
+  name,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  name: string;
+  value: T;
+  options: { value: T; label: string }[];
+  onChange: (value: T) => void;
+}) {
+  return (
+    <fieldset className="flex flex-wrap items-center gap-3">
+      <legend className="sr-only">{label}</legend>
+      <div className="inline-flex rounded border border-input p-0.5">
+        {options.map((option) => (
+          <label
+            key={option.value}
+            className={clsx(
+              "inline-flex h-10 cursor-pointer items-center rounded-sm px-4 text-sm font-medium transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-foreground lg:h-8",
+              value === option.value
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            <input
+              type="radio"
+              name={name}
+              value={option.value}
+              checked={value === option.value}
+              onChange={() => onChange(option.value)}
+              className="sr-only"
+            />
+            {option.label}
+          </label>
+        ))}
+      </div>
+    </fieldset>
   );
+}
+
+function Checkbox({
+  checked,
+  onChange,
+  children,
+}: {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="inline-flex cursor-pointer items-center gap-2 py-2 text-sm font-medium lg:py-0">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(event) => onChange(event.target.checked)}
+        className="h-4 w-4 cursor-pointer accent-primary"
+      />
+      {children}
+    </label>
+  );
+}
+
+function plural(count: number, word: string, pluralWord = `${word}s`) {
+  return `${count} ${count === 1 ? word : pluralWord}`;
+}
+
+export default function TextUtilities({ initialMode: mode, tool }: Props) {
+  const modeConfig = textUtilityModes[mode];
+  const [inputString, setInput] = useState(carriedInput ?? modeConfig.defaultInput);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const [selectedCase, setSelectedCase] = useState<CaseType>("camelCase");
   const [removeLeading, setRemoveLeading] = useState(true);
   const [removeTrailing, setRemoveTrailing] = useState(false);
   const [preserveParagraphs, setPreserveParagraphs] = useState(true);
-  const [findText, setFindText] = useState("");
-  const [replaceText, setReplaceText] = useState("");
+  // The sample search only makes sense against the sample text
+  const [findText, setFindText] = useState(carriedInput === undefined ? "colour" : "");
+  const [replaceText, setReplaceText] = useState(
+    carriedInput === undefined ? "color" : "",
+  );
   const [caseSensitive, setCaseSensitive] = useState(false);
   const [wholeWord, setWholeWord] = useState(false);
   const [shouldEscape, setShouldEscape] = useState(true);
-
-  const modeConfig = textUtilityModes[mode];
 
   function setInputString(value: string) {
     carriedInput = value;
     setInput(value);
   }
 
-  function handleConversionSwitch() {
-    setShouldEscape(!shouldEscape);
-  }
-
   function handleApplyToInput() {
+    const input = inputRef.current;
+    if (input) {
+      input.focus();
+      input.select();
+      // ponytail: execCommand is deprecated but is the only way to change a textarea
+      // while keeping the browser's undo history, so Ctrl+Z restores the old input.
+      // It fires a normal input event, which updates state through onChange.
+      if (document.execCommand("insertText", false, outputString)) return;
+    }
     setInputString(outputString);
   }
 
   // Derived during render (not in an effect) so the server HTML already contains the
   // output; otherwise the output box stays empty until hydration and delays LCP.
   let outputString = "";
+  let status = "";
   let error = "";
   try {
     switch (mode) {
       case "case-converter":
         outputString = convertCase(inputString, selectedCase);
+        status = selectedCase;
         break;
-      case "text-trimmer":
+      case "text-trimmer": {
         outputString = trimText(inputString, removeLeading, removeTrailing);
+        const before = inputString.split("\n");
+        const after = outputString.split("\n");
+        const changedLines = before.filter((line, index) => line !== after[index]).length;
+        const removed = inputString.length - outputString.length;
+        status = removed
+          ? `Removed ${plural(removed, "character")} from ${plural(changedLines, "line")}`
+          : "Nothing to trim";
         break;
-      case "line-break-remover":
+      }
+      case "line-break-remover": {
         outputString = removeLineBreaks(inputString, preserveParagraphs);
+        const breaks = (text: string) => (text.match(/\r\n|\r|\n/g) ?? []).length;
+        const removed = breaks(inputString) - breaks(outputString);
+        status =
+          removed > 0 ? `Removed ${plural(removed, "line break")}` : "No line breaks";
         break;
-      case "find-replace":
-        outputString = findAndReplace(
+      }
+      case "find-replace": {
+        const result = findAndReplace(
           inputString,
           findText,
           replaceText,
           caseSensitive,
           wholeWord,
         );
+        outputString = result.text;
+        status = !findText
+          ? "Enter text to find"
+          : result.count
+            ? `Replaced ${plural(result.count, "match", "matches")}`
+            : "No matches";
         break;
+      }
       case "html-escape":
         if (inputString) {
           outputString = shouldEscape
             ? escapeHtml(inputString)
             : unescapeHtml(inputString);
         }
+        status = shouldEscape ? "Escaped" : "Unescaped";
         break;
     }
   } catch {
     error = `Invalid ${shouldEscape ? "text" : "HTML"} input`;
     outputString = "";
   }
+  if (!inputString) status = "";
 
   return (
-    <div>
+    <div className="w-full">
       <ToolsHeader tool={tool} />
 
-      <div className="mt-10 flex flex-col items-center gap-3">
-        <div className="flex max-w-4xl flex-wrap justify-center gap-2">
+      {/* inline-size containment stops the unwrapped mobile row from widening the page */}
+      <nav
+        aria-label="Text tools"
+        className="mx-auto mt-8 max-w-[1084px] [contain:inline-size]"
+      >
+        <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:px-0">
           {(Object.keys(textUtilityModes) as TextUtilityMode[]).map((utilityMode) => (
-            <Link
-              key={utilityMode}
-              href={`/${utilityMode}`}
-              aria-current={mode === utilityMode ? "page" : undefined}
-              className={clsx(
-                "rounded border px-4 py-2 text-sm font-medium transition-colors",
-                mode === utilityMode
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-foreground hover:bg-muted",
-              )}
-            >
-              {textUtilityModes[utilityMode].label}
-            </Link>
+            <li key={utilityMode} className="shrink-0">
+              <Link
+                href={`/${utilityMode}`}
+                aria-current={mode === utilityMode ? "page" : undefined}
+                className={clsx(
+                  "inline-flex h-11 items-center whitespace-nowrap rounded border px-4 text-sm font-medium transition-colors lg:h-9",
+                  mode === utilityMode
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground hover:bg-muted",
+                )}
+              >
+                {textUtilityModes[utilityMode].label}
+              </Link>
+            </li>
           ))}
-        </div>
-        <p className="max-w-2xl text-center text-sm text-muted-foreground">
-          {modeConfig.description}
-        </p>
-      </div>
+        </ul>
+      </nav>
 
-      <div className="mt-10 flex flex-col justify-center gap-y-5 lg:flex-row lg:gap-x-6 lg:gap-y-0">
-        <div className="flex w-full flex-col items-start">
-          <h2 className="mb-2 font-semibold lg:text-lg">{modeConfig.inputLabel}</h2>
-          <textarea
-            className="h-20 w-full resize-none rounded border border-border p-3 font-mono text-sm dark:bg-input/30 lg:h-[125px] lg:w-[530px]"
-            value={inputString}
-            spellCheck={false}
-            placeholder={
-              mode === "html-escape"
-                ? `Add your${shouldEscape ? "" : " escaped"} HTML here...`
-                : modeConfig.inputPlaceholder
-            }
-            onChange={(e) => setInputString(e.target.value)}
+      {/* Options sit above the text so they are read, and tabbed to, before the result */}
+      <div className="mx-auto mt-8 flex max-w-[1084px] flex-col gap-4">
+        {mode === "case-converter" && (
+          <div className="flex flex-col gap-2">
+            {CASE_GROUPS.map((group) => (
+              <fieldset key={group.label} className="flex flex-wrap items-center gap-2">
+                <legend className="sr-only">{group.label} formats</legend>
+                <span
+                  aria-hidden="true"
+                  className="w-10 text-xs font-medium text-muted-foreground"
+                >
+                  {group.label}
+                </span>
+                {group.options.map((caseType) => (
+                  <button
+                    key={caseType}
+                    type="button"
+                    aria-pressed={selectedCase === caseType}
+                    onClick={() => setSelectedCase(caseType)}
+                    className={clsx(
+                      "h-10 rounded border px-3 font-mono text-sm transition-colors lg:h-8",
+                      selectedCase === caseType
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border bg-card text-foreground hover:bg-muted",
+                    )}
+                  >
+                    {caseType}
+                  </button>
+                ))}
+              </fieldset>
+            ))}
+          </div>
+        )}
+
+        {mode === "text-trimmer" && (
+          <div className="flex flex-wrap gap-x-6">
+            <Checkbox checked={removeLeading} onChange={setRemoveLeading}>
+              Remove leading spaces (left trim)
+            </Checkbox>
+            <Checkbox checked={removeTrailing} onChange={setRemoveTrailing}>
+              Remove trailing spaces (right trim)
+            </Checkbox>
+          </div>
+        )}
+
+        {mode === "line-break-remover" && (
+          <SegmentedControl
+            label="Line breaks"
+            name="line-breaks"
+            value={preserveParagraphs ? "keep" : "join"}
+            options={[
+              { value: "keep", label: "Keep paragraphs" },
+              { value: "join", label: "Join everything" },
+            ]}
+            onChange={(value) => setPreserveParagraphs(value === "keep")}
           />
-          {error && <p className="mt-2 text-destructive">{error}</p>}
-          {mode === "find-replace" && (
-            <div className="mt-4 w-full space-y-3">
+        )}
+
+        {mode === "find-replace" && (
+          <div className="flex flex-col gap-3">
+            <div className="grid gap-3 lg:grid-cols-2 lg:gap-6">
               <div className="flex flex-col">
                 <label htmlFor="find-text" className="mb-1 text-sm font-medium">
-                  Find:
+                  Find
                 </label>
                 <input
                   id="find-text"
                   type="text"
-                  className="w-full rounded border border-border p-2 font-mono text-sm lg:w-[530px]"
+                  className={clsx(fieldClass, "h-11 lg:h-10")}
                   value={findText}
                   placeholder="Text to find…"
                   onChange={(e) => setFindText(e.target.value)}
@@ -346,189 +488,108 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
               </div>
               <div className="flex flex-col">
                 <label htmlFor="replace-text" className="mb-1 text-sm font-medium">
-                  Replace with:
+                  Replace with
                 </label>
                 <input
                   id="replace-text"
                   type="text"
-                  className="w-full rounded border border-border p-2 font-mono text-sm lg:w-[530px]"
+                  className={clsx(fieldClass, "h-11 lg:h-10")}
                   value={replaceText}
-                  placeholder="Replacement text…"
+                  placeholder="Leave empty to delete matches"
                   onChange={(e) => setReplaceText(e.target.value)}
                 />
               </div>
             </div>
-          )}
-        </div>
-
-        <div className="flex flex-col items-start">
-          <div className="flex w-full justify-between gap-3">
-            <h2 className="font-semibold lg:text-lg">
-              <span>Output</span>
-              {mode === "html-escape" && (
-                <span className="text-muted-foreground">
-                  {" "}
-                  ({shouldEscape ? "Escaped" : "Unescaped"})
-                </span>
-              )}
-            </h2>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handleApplyToInput}
-                disabled={!outputString}
-                className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded border border-border px-3 py-1 text-xs font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                <span aria-hidden="true">←</span>
-                Apply to Input
-              </button>
-              <Clipboard text={outputString} />
+            <div className="flex flex-wrap gap-x-6">
+              <Checkbox checked={caseSensitive} onChange={setCaseSensitive}>
+                Case sensitive
+              </Checkbox>
+              <Checkbox checked={wholeWord} onChange={setWholeWord}>
+                Match whole word only
+              </Checkbox>
             </div>
           </div>
-          <textarea
-            className="h-20 w-full cursor-default resize-none rounded border border-border bg-muted p-3 font-mono text-sm text-foreground lg:h-[125px] lg:w-[530px]"
-            value={outputString}
-            readOnly
-            spellCheck={false}
-            placeholder={
-              mode === "html-escape"
-                ? `Your ${shouldEscape ? "escaped" : "unescaped"} HTML will appear here...`
-                : modeConfig.outputPlaceholder
-            }
-          />
-        </div>
-      </div>
+        )}
 
-      {mode === "case-converter" && (
-        <div className="mt-6 flex flex-col items-center gap-y-4">
-          <p className="text-sm font-medium">Select Case Format:</p>
-          <div className="flex max-w-2xl flex-wrap justify-center gap-2">
-            {caseOptions.map((caseType) => (
-              <button
-                key={caseType}
-                type="button"
-                onClick={() => setSelectedCase(caseType)}
-                className={clsx(
-                  "rounded border px-4 py-2 text-sm font-medium transition-colors",
-                  selectedCase === caseType
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-foreground hover:bg-muted",
-                )}
-              >
-                {caseType}
-              </button>
-            ))}
+        {mode === "html-escape" && (
+          <SegmentedControl
+            label="Direction"
+            name="html-direction"
+            value={shouldEscape ? "escape" : "unescape"}
+            options={[
+              { value: "escape", label: "Escape" },
+              { value: "unescape", label: "Unescape" },
+            ]}
+            onChange={(value) => setShouldEscape(value === "escape")}
+          />
+        )}
+
+        <div className="flex flex-col gap-y-6 lg:flex-row lg:gap-x-6">
+          <div className="flex w-full flex-col lg:w-auto">
+            <div className="mb-2 flex min-h-11 items-end lg:min-h-9">
+              <h2 className="font-semibold lg:text-lg">
+                <label htmlFor="text-input">{modeConfig.inputLabel}</label>
+              </h2>
+            </div>
+            <textarea
+              id="text-input"
+              ref={inputRef}
+              className={clsx(fieldClass, "h-32 resize-y lg:h-[160px]")}
+              value={inputString}
+              spellCheck={false}
+              placeholder={
+                mode === "html-escape"
+                  ? `Add your${shouldEscape ? "" : " escaped"} HTML here…`
+                  : modeConfig.inputPlaceholder
+              }
+              onChange={(e) => setInputString(e.target.value)}
+            />
+            {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
+          </div>
+
+          <div className="flex w-full flex-col lg:w-auto">
+            <div className="mb-2 flex min-h-11 flex-wrap items-end justify-between gap-2 lg:min-h-9">
+              <h2 id="output-heading" className="font-semibold lg:text-lg">
+                Output
+              </h2>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleApplyToInput}
+                  disabled={!outputString || outputString === inputString}
+                  className="inline-flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded border border-border px-3 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:bg-transparent lg:h-9"
+                >
+                  <ArrowUpIcon aria-hidden="true" className="lg:hidden" />
+                  <ArrowLeftIcon aria-hidden="true" className="hidden lg:block" />
+                  Apply to Input
+                </button>
+                <Clipboard text={outputString} />
+              </div>
+            </div>
+            <textarea
+              aria-labelledby="output-heading"
+              className={clsx(
+                fieldClass,
+                "h-32 resize-y bg-muted text-foreground lg:h-[160px]",
+              )}
+              value={outputString}
+              readOnly
+              spellCheck={false}
+              placeholder={
+                mode === "html-escape"
+                  ? `Your ${shouldEscape ? "escaped" : "unescaped"} HTML will appear here…`
+                  : modeConfig.outputPlaceholder
+              }
+            />
+            <p
+              className="mt-2 min-h-5 text-sm text-muted-foreground"
+              aria-live={mode === "find-replace" ? "polite" : undefined}
+            >
+              {status}
+            </p>
           </div>
         </div>
-      )}
-
-      {mode === "text-trimmer" && (
-        <div className="mt-6 flex flex-col items-center gap-y-3">
-          <label className="flex cursor-pointer items-center">
-            <input
-              type="checkbox"
-              checked={removeLeading}
-              onChange={(e) => setRemoveLeading(e.target.checked)}
-              className="mr-2 h-4 w-4 cursor-pointer"
-            />
-            <span className="text-sm font-medium">Remove leading spaces (left trim)</span>
-          </label>
-          <label className="flex cursor-pointer items-center">
-            <input
-              type="checkbox"
-              checked={removeTrailing}
-              onChange={(e) => setRemoveTrailing(e.target.checked)}
-              className="mr-2 h-4 w-4 cursor-pointer"
-            />
-            <span className="text-sm font-medium">
-              Remove trailing spaces (right trim)
-            </span>
-          </label>
-        </div>
-      )}
-
-      {mode === "line-break-remover" && (
-        <div className="mt-4 flex items-center justify-center">
-          <label
-            htmlFor="preserve-paragraphs"
-            className={clsx("mr-2 text-sm font-medium", {
-              "text-muted-foreground": preserveParagraphs,
-              "text-foreground": !preserveParagraphs,
-            })}
-          >
-            Remove All
-          </label>
-          <input
-            type="checkbox"
-            id="preserve-paragraphs"
-            checked={preserveParagraphs}
-            onChange={(event) => setPreserveParagraphs(event.target.checked)}
-            className="h-4 w-8 cursor-pointer accent-primary"
-          />
-          <label
-            htmlFor="preserve-paragraphs"
-            className={clsx("ml-2 text-sm font-medium", {
-              "text-muted-foreground": !preserveParagraphs,
-              "text-foreground": preserveParagraphs,
-            })}
-          >
-            Preserve Paragraphs
-          </label>
-        </div>
-      )}
-
-      {mode === "find-replace" && (
-        <div className="mt-6 flex flex-col items-center gap-y-3">
-          <label className="flex cursor-pointer items-center">
-            <input
-              type="checkbox"
-              checked={caseSensitive}
-              onChange={(e) => setCaseSensitive(e.target.checked)}
-              className="mr-2 h-4 w-4 cursor-pointer"
-            />
-            <span className="text-sm font-medium">Case sensitive</span>
-          </label>
-          <label className="flex cursor-pointer items-center">
-            <input
-              type="checkbox"
-              checked={wholeWord}
-              onChange={(e) => setWholeWord(e.target.checked)}
-              className="mr-2 h-4 w-4 cursor-pointer"
-            />
-            <span className="text-sm font-medium">Match whole word only</span>
-          </label>
-        </div>
-      )}
-
-      {mode === "html-escape" && (
-        <div className="mt-4 flex items-center justify-center">
-          <label
-            htmlFor="convert"
-            className={clsx("mr-2 text-sm font-medium", {
-              "text-muted-foreground": shouldEscape,
-              "text-foreground": !shouldEscape,
-            })}
-          >
-            Unescape
-          </label>
-          <input
-            type="checkbox"
-            id="convert"
-            checked={shouldEscape}
-            onChange={handleConversionSwitch}
-            className="h-4 w-8 cursor-pointer accent-primary"
-          />
-          <label
-            htmlFor="convert"
-            className={clsx("ml-2 text-sm font-medium", {
-              "text-muted-foreground": !shouldEscape,
-              "text-foreground": shouldEscape,
-            })}
-          >
-            Escape
-          </label>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
