@@ -41,6 +41,13 @@ export const TOOLS = {
     slug: "url-encoder-decoder",
     icon: "link",
   },
+  "url-parser": {
+    name: "URL Parser",
+    description:
+      "Break a messy URL into readable parts: host, path, and every query param",
+    slug: "url-parser",
+    icon: "listTree",
+  },
   "whats-my-ip": {
     name: "What's My IP",
     description: "Get your public IP address",

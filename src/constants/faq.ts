@@ -125,6 +125,29 @@ const URL_ENCODER_DECODER_FAQ: Faq[] = [
   },
 ];
 
+const URL_PARSER_FAQ: Faq[] = [
+  {
+    question: "What does the URL Parser do?",
+    answer:
+      "It splits a URL into its parts - protocol, host, port, path segments, query parameters, and the fragment - and decodes every value so long tracking links and redirect URLs become easy to read.",
+  },
+  {
+    question: "How do I use the URL Parser?",
+    answer:
+      "Paste any URL into the box. The breakdown updates as you type. Copy a single value with the copy icon next to it, or copy the whole breakdown as JSON. If a parameter holds another URL, such as a redirect_uri, click Parse to open it.",
+  },
+  {
+    question: "Does it handle repeated and encoded parameters?",
+    answer:
+      "Yes. Repeated keys like size=42&size=43 are listed in order and marked as repeated, and percent-encoded values and plus signs are decoded. Malformed encodings are shown as-is instead of failing.",
+  },
+  {
+    question: "Is my URL sent anywhere?",
+    answer:
+      "No. Parsing happens entirely in your browser using the built-in URL API. Nothing you paste leaves your device, so it is safe for links that contain tokens or session IDs.",
+  },
+];
+
 const JSON_TO_TYPES_FAQ: Faq[] = [
   {
     question: "What does the JavaScript/JSON to TypeScript Types tool do?",
@@ -459,6 +482,7 @@ export const Faqs: Record<Slug, Faq[]> = {
   "numbers-to-words": NUMBERS_TO_WORDS_FAQ,
   "base64-converter": BASE64_CONVERTER_FAQ,
   "url-encoder-decoder": URL_ENCODER_DECODER_FAQ,
+  "url-parser": URL_PARSER_FAQ,
   "html-escape": HTML_ESCAPE_FAQ,
   "line-break-remover": LINE_BREAK_REMOVER_FAQ,
   "lorem-ipsum": LOREM_IPSUM_FAQ,
