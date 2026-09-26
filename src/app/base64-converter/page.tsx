@@ -6,6 +6,21 @@ import { TOOLS } from "@/constants/tools";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 
+// btoa/atob only handle Latin-1, so go through UTF-8 bytes to support emoji and any script
+function encodeBase64(text: string) {
+  let binary = "";
+  for (const byte of new TextEncoder().encode(text)) binary += String.fromCharCode(byte);
+  return btoa(binary);
+}
+
+function decodeBase64(base64: string) {
+  // Accept the URL-safe alphabet (- and _) and missing padding too
+  const normalized = base64.trim().replace(/-/g, "+").replace(/_/g, "/");
+  const padded = normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
+  const bytes = Uint8Array.from(atob(padded), (char) => char.charCodeAt(0));
+  return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+}
+
 export default function Base64Converter() {
   const [inputString, setInputString] = useState("");
   const [outputString, setOutputString] = useState("");
@@ -16,9 +31,9 @@ export default function Base64Converter() {
     setError("");
     try {
       if (encode) {
-        setOutputString(btoa(inputString));
+        setOutputString(encodeBase64(inputString));
       } else {
-        setOutputString(atob(inputString));
+        setOutputString(decodeBase64(inputString));
       }
     } catch (err) {
       setError(`Invalid ${encode ? "text" : "base64"} input`);

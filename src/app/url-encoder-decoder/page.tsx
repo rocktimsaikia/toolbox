@@ -21,7 +21,7 @@ export default function UrlEncoder() {
         setOutputString(decodeURIComponent(inputString));
       }
     } catch (err) {
-      setError(`Invalid ${encode ? "text" : "base64"} input`);
+      setError(`Invalid ${encode ? "text" : "encoded URL"} input`);
       setOutputString("");
     }
   }
