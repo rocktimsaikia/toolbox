@@ -1,33 +1,55 @@
 # 🧰 Toolbelt
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/24ad3cee-05f3-4dcc-80ed-e54ee858d41b/deploy-status)](https://app.netlify.com/sites/tools-xyz-rocktim/deploys)
+Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-up, and anything you paste is processed in your browser, never sent to a server.
 
-A collection of essential web developer tools to make your workflow more efficient.
+## Tools
 
-## Available Tools
-
-| Tool | Description |
-|------|-------------|
-| [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Convert JavaScript/JSON objects to TypeScript interfaces |
-| [Numbers to Words](https://toolbelt.fyi/numbers-to-words) | Convert numbers to readable words with currency support |
-| [Password Generator](https://toolbelt.fyi/password-generator) | Create secure, random passwords |
-| [Base64 Converter](https://toolbelt.fyi/base64-converter) | Encode and decode text to/from Base64 |
-| [URL Encoder/Decoder](https://toolbelt.fyi/url-encoder-decoder) | Encode and decode URL components |
-| [What's My IP](https://toolbelt.fyi/whats-my-ip) | Quickly find your public IP address |
-| [HTML Escape](https://toolbelt.fyi/html-escape) | Escape special characters for safe HTML usage |
-| [Line Break Remover](https://toolbelt.fyi/line-break-remover) | Remove line breaks from text |
-| [Lorem Ipsum Generator](https://toolbelt.fyi/lorem-ipsum) | Generate Lorem Ipsum placeholder text |
+| Tool | What it does |
+|------|--------------|
+| [Text Utilities](https://toolbelt.fyi/text-tools) | Case conversion, trimming, find and replace, line break removal, and HTML escaping in one place |
+| [URL Parser](https://toolbelt.fyi/url-parser) | Break a messy URL into host, path segments, and every query param, with base64 and JWT values decoded |
+| [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Generate TypeScript types from a JavaScript object or JSON |
+| [Data Format Converter](https://toolbelt.fyi/yamlc) | Convert between JSON, YAML, TOML, XML, and CSV |
+| [Base64 Converter](https://toolbelt.fyi/base64-converter) | Encode and decode Base64 strings |
+| [URL Encoder/Decoder](https://toolbelt.fyi/url-encoder-decoder) | Percent-encode and decode URL components |
+| [Cron Expression Generator](https://toolbelt.fyi/cron-expression-generator) | Build cron expressions and read them in plain English |
+| [Color Code Converter](https://toolbelt.fyi/color-converter) | Convert colors between HEX, RGB, HSL, and RGBA |
+| [Password Generator](https://toolbelt.fyi/password-generator) | Create strong random passwords |
+| [Word Counter](https://toolbelt.fyi/word-counter) | Count words, characters, sentences, paragraphs, and reading time |
+| [Numbers to Words](https://toolbelt.fyi/numbers-to-words) | Spell out numbers in words, with optional currency and locale |
+| [Lorem Ipsum Generator](https://toolbelt.fyi/lorem-ipsum) | Generate placeholder text |
 | [Blank Character Copy](https://toolbelt.fyi/blank-character) | Copy invisible blank characters |
-| [Cron Expression Generator](https://toolbelt.fyi/cron-expression-generator) | Generate and understand cron expressions |
-| [Data Format Converter](https://toolbelt.fyi/yamlc) | Convert data between JSON, YAML, TOML, XML, and CSV formats |
-| [Text Trimmer](https://toolbelt.fyi/text-trimmer) | Remove leading and trailing whitespace from text |
-| [Find and Replace Text](https://toolbelt.fyi/find-replace) | Find and replace text with case sensitivity and whole word options |
-| [Case Converter](https://toolbelt.fyi/case-converter) | Convert text between different casing formats |
+| [What's My IP](https://toolbelt.fyi/whats-my-ip) | Show your public IP address |
+
+## Development
+
+Requires Node.js and pnpm.
+
+```sh
+pnpm install
+pnpm dev          # http://localhost:3000
+pnpm build        # production build
+pnpm lint
+pnpm format       # Biome
+```
+
+Built with Next.js (App Router), TypeScript, Tailwind CSS, and Radix UI. Tools live in `src/app/<slug>/` and are registered in `src/constants/tools.ts`.
+
+### Deployment
+
+The site runs on Cloudflare Workers via [OpenNext](https://opennext.js.org/cloudflare):
+
+```sh
+pnpm preview      # build and run locally in the Workers runtime
+pnpm deploy       # build and deploy
+```
+
+Analytics is off unless `NEXT_PUBLIC_GA_ID` is set at build time.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Bug reports and pull requests are welcome. By submitting a contribution, you agree that it may be used, modified, and relicensed by the maintainer, including as part of toolbelt.fyi.
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+[PolyForm Noncommercial 1.0.0](LICENSE). You are free to read, run, modify, and share this code for any noncommercial purpose. Commercial use, including running an ad-supported or paid copy of the site, is not permitted without permission.
