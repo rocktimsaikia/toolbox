@@ -66,8 +66,8 @@ const textUtilityModes: Record<
     description: "Convert text between common casing formats.",
     defaultInput: "Hello World! This is a sample text for case conversion.",
     inputLabel: "Input",
-    inputPlaceholder: "Enter your text here...",
-    outputPlaceholder: "Your converted text will appear here...",
+    inputPlaceholder: "Enter your text here…",
+    outputPlaceholder: "Your converted text will appear here…",
   },
   "text-trimmer": {
     label: "Text Trimmer",
@@ -75,8 +75,8 @@ const textUtilityModes: Record<
     defaultInput:
       "   This text has leading spaces\nThis text has trailing spaces   \n   And this has both   ",
     inputLabel: "Input",
-    inputPlaceholder: "Enter your text here...",
-    outputPlaceholder: "Your trimmed text will appear here...",
+    inputPlaceholder: "Enter your text here…",
+    outputPlaceholder: "Your trimmed text will appear here…",
   },
   "line-break-remover": {
     label: "Line Break Remover",
@@ -93,24 +93,24 @@ single line breaks
 but keep this as
 a separate paragraph.`,
     inputLabel: "Input",
-    inputPlaceholder: "Paste your text with line breaks here...",
-    outputPlaceholder: "Your text without line breaks will appear here...",
+    inputPlaceholder: "Paste your text with line breaks here…",
+    outputPlaceholder: "Your text without line breaks will appear here…",
   },
   "find-replace": {
     label: "Find and Replace",
     description: "Find and replace text with matching options.",
     defaultInput: "",
     inputLabel: "Input Text",
-    inputPlaceholder: "Enter your text here...",
-    outputPlaceholder: "Your replaced text will appear here...",
+    inputPlaceholder: "Enter your text here…",
+    outputPlaceholder: "Your replaced text will appear here…",
   },
   "html-escape": {
     label: "HTML Escape",
     description: "Escape or unescape HTML entities.",
     defaultInput: "",
     inputLabel: "Input",
-    inputPlaceholder: "Add your HTML here...",
-    outputPlaceholder: "Your escaped HTML will appear here...",
+    inputPlaceholder: "Add your HTML here…",
+    outputPlaceholder: "Your escaped HTML will appear here…",
   },
 };
 
@@ -314,7 +314,7 @@ export default function TextUtilities({
               className={clsx(
                 "rounded border px-4 py-2 text-sm font-medium transition-colors",
                 mode === utilityMode
-                  ? "border-blue-500 bg-blue-500 text-white"
+                  ? "border-primary bg-primary text-primary-foreground"
                   : "border-border bg-card text-foreground hover:bg-muted",
               )}
             >
@@ -331,7 +331,7 @@ export default function TextUtilities({
         <div className="flex w-full flex-col items-start">
           <h2 className="mb-2 font-semibold lg:text-lg">{modeConfig.inputLabel}</h2>
           <textarea
-            className="h-20 w-full resize-none rounded border border-border p-3 font-mono text-sm outline-none dark:bg-input/30 lg:h-[125px] lg:w-[530px]"
+            className="h-20 w-full resize-none rounded border border-border p-3 font-mono text-sm dark:bg-input/30 lg:h-[125px] lg:w-[530px]"
             value={inputString}
             spellCheck={false}
             placeholder={
@@ -341,7 +341,7 @@ export default function TextUtilities({
             }
             onChange={(e) => setInputString(e.target.value)}
           />
-          {error && <p className="mt-2 text-red-500">{error}</p>}
+          {error && <p className="mt-2 text-destructive">{error}</p>}
           {mode === "find-replace" && (
             <div className="mt-4 w-full space-y-3">
               <div className="flex flex-col">
@@ -351,9 +351,9 @@ export default function TextUtilities({
                 <input
                   id="find-text"
                   type="text"
-                  className="w-full rounded border border-border p-2 font-mono text-sm outline-none lg:w-[530px]"
+                  className="w-full rounded border border-border p-2 font-mono text-sm lg:w-[530px]"
                   value={findText}
-                  placeholder="Text to find..."
+                  placeholder="Text to find…"
                   onChange={(e) => setFindText(e.target.value)}
                 />
               </div>
@@ -364,9 +364,9 @@ export default function TextUtilities({
                 <input
                   id="replace-text"
                   type="text"
-                  className="w-full rounded border border-border p-2 font-mono text-sm outline-none lg:w-[530px]"
+                  className="w-full rounded border border-border p-2 font-mono text-sm lg:w-[530px]"
                   value={replaceText}
-                  placeholder="Replacement text..."
+                  placeholder="Replacement text…"
                   onChange={(e) => setReplaceText(e.target.value)}
                 />
               </div>
@@ -399,7 +399,7 @@ export default function TextUtilities({
             </div>
           </div>
           <textarea
-            className="h-20 w-full cursor-default resize-none rounded border border-border bg-muted p-3 font-mono text-sm text-foreground outline-none lg:h-[125px] lg:w-[530px]"
+            className="h-20 w-full cursor-default resize-none rounded border border-border bg-muted p-3 font-mono text-sm text-foreground lg:h-[125px] lg:w-[530px]"
             value={outputString}
             readOnly
             spellCheck={false}
@@ -424,7 +424,7 @@ export default function TextUtilities({
                 className={clsx(
                   "rounded border px-4 py-2 text-sm font-medium transition-colors",
                   selectedCase === caseType
-                    ? "border-blue-500 bg-blue-500 text-white"
+                    ? "border-primary bg-primary text-primary-foreground"
                     : "border-border bg-card text-foreground hover:bg-muted",
                 )}
               >

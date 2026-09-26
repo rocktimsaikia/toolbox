@@ -22,7 +22,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <Link
             href="/support"
-            className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex items-center px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
           >
             Support Us
           </Link>

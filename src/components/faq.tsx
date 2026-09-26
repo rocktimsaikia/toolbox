@@ -1,4 +1,5 @@
 import type { Faq as FaqType } from "@/constants/faq";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 import type { FAQPage, WithContext } from "schema-dts";
 
 type Props = {
@@ -40,9 +41,10 @@ export default function Faq({ faq }: Props) {
           <details key={question} className="group">
             <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-medium">
               {question}
-              <span className="ml-4 text-muted-foreground transition-transform group-open:rotate-180">
-                v
-              </span>
+              <ChevronDownIcon
+                className="ml-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                aria-hidden="true"
+              />
             </summary>
             <div className="pb-4 text-sm text-muted-foreground">{answer}</div>
           </details>

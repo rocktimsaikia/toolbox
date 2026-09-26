@@ -26,7 +26,10 @@ export default function WordCounter() {
   const countWords = (text: string): number => {
     if (!text.trim()) return 0;
     // Split by whitespace and filter out empty strings
-    return text.trim().split(/\s+/).filter((word) => word.length > 0).length;
+    return text
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
   };
 
   const countSentences = (text: string): number => {
@@ -79,10 +82,10 @@ export default function WordCounter() {
         <div className="flex flex-col items-start w-full max-w-[1100px]">
           <h2 className="mb-2 lg:text-lg font-semibold">Text</h2>
           <textarea
-            className="w-full h-40 lg:h-[200px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
+            className="w-full h-40 lg:h-[200px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputText}
             spellCheck={false}
-            placeholder="Enter your text here to count words, characters, sentences, and more..."
+            placeholder="Enter your text here to count words, characters, sentences, and more…"
             onChange={(e) => setInputText(e.target.value)}
           ></textarea>
         </div>
@@ -93,7 +96,7 @@ export default function WordCounter() {
               <span className="text-muted-foreground text-sm lg:text-base">
                 Characters without spaces
               </span>
-              <span className="text-2xl lg:text-3xl font-bold text-green-600">
+              <span className="text-2xl lg:text-3xl font-bold text-success">
                 {stats.charactersWithoutSpaces}
               </span>
             </div>
@@ -101,31 +104,37 @@ export default function WordCounter() {
               <span className="text-muted-foreground text-sm lg:text-base">
                 Characters with spaces
               </span>
-              <span className="text-2xl lg:text-3xl font-bold text-green-600">
+              <span className="text-2xl lg:text-3xl font-bold text-success">
                 {stats.charactersWithSpaces}
               </span>
             </div>
             <div className="flex flex-col items-start p-4 border border-border rounded">
               <span className="text-muted-foreground text-sm lg:text-base">Words</span>
-              <span className="text-2xl lg:text-3xl font-bold text-green-600">
+              <span className="text-2xl lg:text-3xl font-bold text-success">
                 {stats.words}
               </span>
             </div>
             <div className="flex flex-col items-start p-4 border border-border rounded">
-              <span className="text-muted-foreground text-sm lg:text-base">Sentences</span>
-              <span className="text-2xl lg:text-3xl font-bold text-green-600">
+              <span className="text-muted-foreground text-sm lg:text-base">
+                Sentences
+              </span>
+              <span className="text-2xl lg:text-3xl font-bold text-success">
                 {stats.sentences}
               </span>
             </div>
             <div className="flex flex-col items-start p-4 border border-border rounded">
-              <span className="text-muted-foreground text-sm lg:text-base">Paragraphs</span>
-              <span className="text-2xl lg:text-3xl font-bold text-green-600">
+              <span className="text-muted-foreground text-sm lg:text-base">
+                Paragraphs
+              </span>
+              <span className="text-2xl lg:text-3xl font-bold text-success">
                 {stats.paragraphs}
               </span>
             </div>
             <div className="flex flex-col items-start p-4 border border-border rounded">
-              <span className="text-muted-foreground text-sm lg:text-base">Reading Time</span>
-              <span className="text-2xl lg:text-3xl font-bold text-green-600">
+              <span className="text-muted-foreground text-sm lg:text-base">
+                Reading Time
+              </span>
+              <span className="text-2xl lg:text-3xl font-bold text-success">
                 {stats.readingTime}
               </span>
             </div>

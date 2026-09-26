@@ -43,7 +43,7 @@ export default function LazyCodeEditor({
 
   return (
     <textarea
-      className="border border-border outline-none p-3 bg-background text-foreground font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
+      className="border border-border p-3 bg-background text-foreground font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
       value={value}
       spellCheck={false}
       placeholder={placeholder}

@@ -1,6 +1,7 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
+import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
@@ -42,13 +43,13 @@ export default function UrlEncoder() {
         <div className="flex flex-col items-start w-full">
           <h2 className="mb-2 lg:text-lg font-semibold">Input</h2>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             spellCheck={false}
             value={inputString}
             placeholder={`Add your${encode ? "" : " encoded"} URL here...`}
             onChange={(e) => setInputString(e.target.value)}
           ></textarea>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {error && <p className="text-destructive mt-2">{error}</p>}
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
@@ -61,7 +62,7 @@ export default function UrlEncoder() {
             <Clipboard text={outputString} />
           </div>
           <textarea
-            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
+            className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputString}
             readOnly
             spellCheck={false}
@@ -79,13 +80,7 @@ export default function UrlEncoder() {
         >
           Decode
         </label>
-        <input
-          type="checkbox"
-          id="convert"
-          checked={encode}
-          onChange={handleConversionSwitch}
-          className="h-4 w-8 cursor-pointer accent-primary"
-        />
+        <Switch id="convert" checked={encode} onCheckedChange={handleConversionSwitch} />
         <label
           htmlFor="convert"
           className={clsx("ml-2 text-sm font-medium", {

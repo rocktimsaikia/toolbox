@@ -49,7 +49,7 @@ export default function RootLayout({
           </>
         ) : null}
         <StructuredData />
-        <div className="min-h-screen flex flex-col font-sans text-foreground antialiased">
+        <div className="min-h-screen flex flex-col font-sans">
           <div className="px-4 py-6 sm:px-8 sm:py-8">
             <Navbar />
           </div>

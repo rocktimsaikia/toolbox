@@ -192,10 +192,10 @@ export default function LoremIpsumGenerator() {
         <div className="flex flex-col items-start w-full">
           <Clipboard text={loremText} />
           <textarea
-            className="w-full lg:w-[572px] lg:h-[300px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
+            className="w-full lg:w-[572px] lg:h-[300px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={loremText}
             readOnly
-            placeholder="Your Lorem Ipsum text will appear here..."
+            placeholder="Your Lorem Ipsum text will appear here…"
           ></textarea>
           <div className="mt-4 flex lg:flex-row flex-col lg:space-y-0 space-y-4 items-start justify-center lg:gap-x-6 gap-y-2">
             <div className="flex flex-col items-center max-w-[100px]">

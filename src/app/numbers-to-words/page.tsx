@@ -145,13 +145,13 @@ export default function NumbersToWords() {
         <div className="flex flex-col items-start w-full">
           <h2 className="text-lg font-semibold">Numbers</h2>
           <textarea
-            className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded outline-none p-3 resize-none dark:bg-input/30 font-mono text-sm"
+            className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             onChange={handleOnChange}
             value={numbers}
             spellCheck={false}
-            placeholder="Add numbers here..."
+            placeholder="Add numbers here…"
           />
-          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {error && <p className="text-destructive mt-2">{error}</p>}
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
@@ -188,7 +188,7 @@ export default function NumbersToWords() {
               className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm"
             >
               {isCopied ? (
-                <div className="text-green-600">
+                <div className="text-success">
                   Copied <CheckIcon className="inline-block" />
                 </div>
               ) : (
@@ -199,10 +199,10 @@ export default function NumbersToWords() {
             </button>
           </div>
           <textarea
-            className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
+            className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={words}
             readOnly
-            placeholder="Words will appear here..."
+            placeholder="Words will appear here…"
           />
         </div>
       </div>
