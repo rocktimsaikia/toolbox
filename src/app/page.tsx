@@ -62,7 +62,6 @@ export default function Home() {
       </section>
 
       <section className="mb-16">
-        <h2 className="text-2xl font-semibold text-center">Frequently Asked Questions</h2>
         <Faq faq={HOME_PAGE_FAQ} />
       </section>
     </main>

@@ -28,7 +28,7 @@ export default function Faq({ faq }: Props) {
   const jsonLd = generateFaqSchema(faq);
 
   return (
-    <article className="lg:w-sm lg:mx-auto mt-10">
+    <article className="mx-auto mt-16 w-full max-w-2xl">
       {/* Schema.org FAQ markup */}
       <script
         type="application/ld+json"
@@ -36,6 +36,9 @@ export default function Faq({ faq }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
+      <h2 className="mb-3 text-xl font-semibold text-foreground">
+        Frequently asked questions
+      </h2>
       <div className="w-full divide-y divide-border border-b border-t">
         {faq.map(({ question, answer }, idx) => (
           <details key={question} className="group">
