@@ -4,17 +4,12 @@ import type { MetadataRoute } from "next";
 
 const BASE_URL = siteConfig.url;
 
-// Get current date in YYYY-MM-DD format
-const getCurrentDate = () => new Date().toISOString().split("T")[0];
-
-// Main sitemap configuration
+// No lastModified: the sitemap is built at deploy time, so it would stamp every page
+// with the deploy date and Google learns to ignore it. Add real per-page dates if needed.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const currentDate = getCurrentDate();
-
   // Generate entries for all tools
   const tools = Object.values(TOOLS).map((tool) => ({
     url: `${BASE_URL}/${tool.slug}`,
-    lastModified: getCurrentDate(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
@@ -23,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Homepage
     {
       url: BASE_URL,
-      lastModified: currentDate,
       changeFrequency: "daily" as const,
       priority: 1.0,
     },
