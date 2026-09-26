@@ -2,7 +2,7 @@
 
 import Clipboard from "@/components/clipboard";
 import ToolsHeader from "@/components/tools-header";
-import { TOOLS, type Tool } from "@/constants/tools";
+import type { Tool } from "@/constants/tools";
 import {
   camelCase,
   capitalCase,
@@ -13,6 +13,7 @@ import {
   snakeCase,
 } from "change-case";
 import clsx from "clsx";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export type TextUtilityMode =
@@ -34,8 +35,8 @@ type CaseType =
   | "UPPER CASE";
 
 type Props = {
-  initialMode?: TextUtilityMode;
-  tool?: Tool;
+  initialMode: TextUtilityMode;
+  tool: Tool;
 };
 
 const caseOptions: CaseType[] = [
@@ -217,13 +218,12 @@ function unescapeHtml(value: string) {
   return textarea.value;
 }
 
-export default function TextUtilities({
-  initialMode = "case-converter",
-  tool = TOOLS["text-tools"],
-}: Props) {
-  const [mode, setMode] = useState<TextUtilityMode>(initialMode);
-  const [inputString, setInputString] = useState(
-    textUtilityModes[initialMode].defaultInput,
+// Text the user typed survives client-side navigation between the tool pages
+let carriedInput: string | undefined;
+
+export default function TextUtilities({ initialMode: mode, tool }: Props) {
+  const [inputString, setInput] = useState(
+    carriedInput ?? textUtilityModes[mode].defaultInput,
   );
   const [outputString, setOutputString] = useState("");
   const [selectedCase, setSelectedCase] = useState<CaseType>("camelCase");
@@ -239,9 +239,9 @@ export default function TextUtilities({
 
   const modeConfig = textUtilityModes[mode];
 
-  function handleModeChange(nextMode: TextUtilityMode) {
-    setMode(nextMode);
-    setError("");
+  function setInputString(value: string) {
+    carriedInput = value;
+    setInput(value);
   }
 
   function handleConversionSwitch() {
@@ -307,10 +307,10 @@ export default function TextUtilities({
       <div className="mt-10 flex flex-col items-center gap-3">
         <div className="flex max-w-4xl flex-wrap justify-center gap-2">
           {(Object.keys(textUtilityModes) as TextUtilityMode[]).map((utilityMode) => (
-            <button
+            <Link
               key={utilityMode}
-              type="button"
-              onClick={() => handleModeChange(utilityMode)}
+              href={`/${utilityMode}`}
+              aria-current={mode === utilityMode ? "page" : undefined}
               className={clsx(
                 "rounded border px-4 py-2 text-sm font-medium transition-colors",
                 mode === utilityMode
@@ -319,7 +319,7 @@ export default function TextUtilities({
               )}
             >
               {textUtilityModes[utilityMode].label}
-            </button>
+            </Link>
           ))}
         </div>
         <p className="max-w-2xl text-center text-sm text-muted-foreground">

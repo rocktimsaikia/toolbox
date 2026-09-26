@@ -14,7 +14,6 @@ import {
   Palette,
   Scissors,
   Search,
-  Sparkles,
   Type,
   Wifi,
 } from "lucide-react";
@@ -24,7 +23,6 @@ const iconStrokeWidth = 2;
 
 export const Icons = {
   type: <Type className={iconClassName} strokeWidth={iconStrokeWidth} />,
-  textTools: <Sparkles className={iconClassName} strokeWidth={iconStrokeWidth} />,
   json: <FileJson2 className={iconClassName} strokeWidth={iconStrokeWidth} />,
   hash: <Hash className={iconClassName} strokeWidth={iconStrokeWidth} />,
   key: <KeyRound className={iconClassName} strokeWidth={iconStrokeWidth} />,

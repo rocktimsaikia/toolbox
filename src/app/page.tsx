@@ -5,13 +5,7 @@ import { siteConfig } from "@/constants/site";
 import { type Tool, tools } from "@/constants/tools";
 import Link from "next/link";
 
-const visibleTools = tools
-  .filter((tool: Tool) => !tool.hide)
-  .sort((firstTool: Tool, secondTool: Tool) => {
-    if (firstTool.slug === "text-tools") return -1;
-    if (secondTool.slug === "text-tools") return 1;
-    return 0;
-  });
+const visibleTools = tools.filter((tool: Tool) => !tool.hide);
 
 export const metadata = {
   title: "Essential Developer Tools - Free Online Utilities for Programmers",

@@ -6,7 +6,11 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 
 | Tool | What it does |
 |------|--------------|
-| [Text Utilities](https://toolbelt.fyi/text-tools) | Case conversion, trimming, find and replace, line break removal, and HTML escaping in one place |
+| [Case Converter](https://toolbelt.fyi/case-converter) | Convert text between camelCase, snake_case, Title Case, and more |
+| [Text Trimmer](https://toolbelt.fyi/text-trimmer) | Remove leading and trailing whitespace from text |
+| [Find and Replace Text](https://toolbelt.fyi/find-replace) | Find and replace with case sensitivity and whole word options |
+| [Line Break Remover](https://toolbelt.fyi/line-break-remover) | Remove line breaks, optionally keeping paragraphs |
+| [HTML Escape](https://toolbelt.fyi/html-escape) | Escape and unescape HTML entities |
 | [URL Parser](https://toolbelt.fyi/url-parser) | Break a messy URL into host, path segments, and every query param, with base64 and JWT values decoded |
 | [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Generate TypeScript types from a JavaScript object or JSON |
 | [Data Format Converter](https://toolbelt.fyi/yamlc) | Convert between JSON, YAML, TOML, XML, and CSV |

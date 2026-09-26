@@ -29,12 +29,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Tools pages
     ...tools,
-    // About page
-    {
-      url: `${BASE_URL}/about`,
-      lastModified: currentDate,
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    },
   ];
 }
