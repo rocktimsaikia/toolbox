@@ -24,7 +24,7 @@ const createJsonLd = (): WithContext<WebPage> => {
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Tool Box - Essential Developer Tools",
+    name: "Toolbelt - Essential Developer Tools",
     description:
       "A collection of essential tools including HTML Escape, Base64 Converter, Password Generator, and more to make your development workflow more efficient.",
     url: siteConfig.url,

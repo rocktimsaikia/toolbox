@@ -16,7 +16,7 @@ export function generateSeo({
 }: SeoProps = {}): Metadata {
   const baseUrl = siteConfig.url;
   const url = `${baseUrl}${path}`;
-  const siteName = "Tool Box - Essential Developer Tools";
+  const siteName = "Toolbelt - Essential Developer Tools";
 
   return {
     title: title ? `${title} | ${siteName}` : siteName,

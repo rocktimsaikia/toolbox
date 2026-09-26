@@ -7,7 +7,7 @@ Disallow: /*/$
 Disallow: /*?
 
 # Sitemap
-Sitemap: https://tools.rocktim.dev/sitemap.xml
+Sitemap: https://toolbelt.fyi/sitemap.xml
 
 # Block common bad bots
 User-agent: AhrefsBot

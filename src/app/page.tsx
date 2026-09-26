@@ -34,7 +34,7 @@ export const metadata = {
       "A collection of free, fast, and easy-to-use developer tools to streamline your development workflow.",
     type: "website",
     url: siteConfig.url,
-    siteName: "Tool Box - Essential Developer Tools",
+    siteName: "Toolbelt - Essential Developer Tools",
   },
 };
 

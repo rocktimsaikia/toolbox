@@ -288,24 +288,24 @@ const CRON_EXPRESSION_GENERATOR_FAQ: Faq[] = [
 
 export const HOME_PAGE_FAQ: Faq[] = [
   {
-    question: "What tools are available on Tool Box?",
+    question: "What tools are available on Toolbelt?",
     answer:
-      "Tool Box offers essential tools like JavaScript/JSON to TypeScript Types, Numbers to Words, Password Generator, Base64 Converter, URL Encoder/Decoder, HTML Escape, and What's My IP for various tasks.",
+      "Toolbelt offers essential tools like JavaScript/JSON to TypeScript Types, Numbers to Words, Password Generator, Base64 Converter, URL Encoder/Decoder, HTML Escape, and What's My IP for various tasks.",
   },
   {
-    question: "How can Tool Box make my life easier?",
+    question: "How can Toolbelt make my life easier?",
     answer:
-      "Tool Box provides quick solutions for coding, data conversion, and security tasks, such as generating passwords, encoding URLs, or converting numbers to words, all in one place.",
+      "Toolbelt provides quick solutions for coding, data conversion, and security tasks, such as generating passwords, encoding URLs, or converting numbers to words, all in one place.",
   },
   {
-    question: "Are the tools on Tool Box free to use?",
+    question: "Are the tools on Toolbelt free to use?",
     answer:
-      "Yes, all tools on Tool Box, including the Password Generator, Base64 Converter, and more, are completely free to use with no sign-up required.",
+      "Yes, all tools on Toolbelt, including the Password Generator, Base64 Converter, and more, are completely free to use with no sign-up required.",
   },
   {
-    question: "Who can benefit from using Tool Box?",
+    question: "Who can benefit from using Toolbelt?",
     answer:
-      "Developers, students, and professionals can benefit from Tool Box. It simplifies tasks like TypeScript type generation, IP lookup, and secure password creation for everyone.",
+      "Developers, students, and professionals can benefit from Toolbelt. It simplifies tasks like TypeScript type generation, IP lookup, and secure password creation for everyone.",
   },
 ];
 

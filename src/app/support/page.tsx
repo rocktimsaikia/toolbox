@@ -3,16 +3,16 @@ import Link from "next/link";
 import { siteConfig } from "@/constants/site";
 
 export const metadata = {
-  title: "Support Us - Tool Box",
+  title: "Support Us - Toolbelt",
   description:
     "All our tools are free to use. If you find them useful, consider supporting us with a BuyMeACoffee membership.",
   openGraph: {
-    title: "Support Us - Tool Box",
+    title: "Support Us - Toolbelt",
     description:
       "All our tools are free to use. If you find them useful, consider supporting us with a BuyMeACoffee membership.",
     type: "website",
     url: `${siteConfig.url}/support`,
-    siteName: "Tool Box - Essential Developer Tools",
+    siteName: "Toolbelt - Essential Developer Tools",
   },
 };
 
@@ -28,7 +28,7 @@ export default function SupportPage() {
   return (
     <main className="max-w-3xl w-full mx-auto px-4 py-12">
       <header className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight mb-3">Support Tool Box</h1>
+        <h1 className="text-3xl font-bold tracking-tight mb-3">Support Toolbelt</h1>
         <p className="text-lg text-muted-foreground">
           All our tools are completely free and will always remain free.
         </p>

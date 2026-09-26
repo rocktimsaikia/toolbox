@@ -1,7 +1,7 @@
 export const siteConfig = {
-  name: "Tool Box",
+  name: "Toolbelt",
   description: "A collection of useful developer tools",
-  url: "https://tools.rocktim.dev",
+  url: "https://toolbelt.fyi",
   links: {
     github: "https://github.com/rocktimsaikia/toolbox",
   },

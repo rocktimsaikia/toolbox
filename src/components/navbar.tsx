@@ -9,13 +9,13 @@ export default function Navbar() {
         <Link href="/" className="flex items-center">
           <Image
             src="/toolbox-v2.png"
-            alt="Tool Box Logo"
+            alt="Toolbelt Logo"
             width={60}
             height={60}
             className="inline-block"
           />
           <span className="ml-2 text-lg font-semibold hidden sm:inline-block">
-            Tool Box
+            Toolbelt
           </span>
         </Link>
 
