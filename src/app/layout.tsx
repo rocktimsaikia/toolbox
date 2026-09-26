@@ -20,7 +20,8 @@ const geistMono = Geist_Mono({
 // Generate metadata using our SEO utility
 export const metadata = generateSeo();
 
-const gaId = process.env.NEXT_PUBLIC_GA_ID ?? "G-HMXMKZ0LGM";
+// Set per deployment so forks and clones never report into this site's analytics
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 export default function RootLayout({
   children,
