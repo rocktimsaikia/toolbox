@@ -261,10 +261,10 @@ export default function CronExpressionGenerator() {
 
           <div className="w-full relative">
             <textarea
-              className="w-full h-20 border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default text-sm"
+              className="w-full h-20 border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default text-sm"
               value={humanReadable}
               readOnly
-              placeholder="Human-readable description will appear here..."
+              placeholder="Human-readable description will appear here…"
             />
           </div>
 
@@ -291,7 +291,7 @@ export default function CronExpressionGenerator() {
             <div className="text-xs text-muted-foreground mt-2 flex items-center gap-2">
               <span>Expression:</span>
               <code
-                className="bg-muted px-1 rounded text-foreground cursor-pointer hover:bg-gray-300 transition-colors font-semibold"
+                className="bg-muted px-1 rounded text-foreground cursor-pointer hover:bg-border transition-colors font-semibold"
                 onClick={() => {
                   const selectedExampleData = commonExamples.find(
                     (ex) => ex.title === selectedExample,
@@ -308,7 +308,7 @@ export default function CronExpressionGenerator() {
                   "*/5 * * * *"}
               </code>
               {copied && (
-                <span className="text-green-600 text-xs font-medium animate-fade-in">
+                <span className="text-success text-xs font-medium animate-fade-in">
                   Copied!
                 </span>
               )}

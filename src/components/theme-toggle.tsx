@@ -1,5 +1,6 @@
 "use client";
 import { setTheme } from "@/lib/theme";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
 export default function ThemeToggle() {
   const handleClick = () => {
@@ -12,14 +13,10 @@ export default function ThemeToggle() {
       type="button"
       onClick={handleClick}
       aria-label="Toggle theme"
-      className="cursor-pointer flex items-center justify-center h-9 w-9 rounded-md text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      className="cursor-pointer flex items-center justify-center h-9 w-9 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
     >
-      <span className="block dark:hidden" aria-hidden="true">
-        L
-      </span>
-      <span className="hidden dark:block" aria-hidden="true">
-        D
-      </span>
+      <SunIcon className="block dark:hidden h-4 w-4" aria-hidden="true" />
+      <MoonIcon className="hidden dark:block h-4 w-4" aria-hidden="true" />
     </button>
   );
 }

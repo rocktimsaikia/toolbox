@@ -41,10 +41,10 @@ export default function JSONToJavascript() {
         <div className="flex flex-col items-start w-full">
           <Clipboard text={password} />
           <textarea
-            className="w-full lg:w-[572px] lg:h-[126px] border border-border rounded outline-none p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
+            className="w-full lg:w-[572px] lg:h-[126px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={password}
             readOnly
-            placeholder="Your password will appear here..."
+            placeholder="Your password will appear here…"
           ></textarea>
           <div className="mt-1 flex lg:flex-row flex-col lg:space-y-0 space-y-2 items-start justify-center lg:gap-x-4">
             <div className="flex flex-col items-center max-w-[70px]">

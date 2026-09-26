@@ -77,20 +77,22 @@ export default function ColorConverter() {
             <h2 className="mb-2 lg:text-lg font-semibold">Input Color</h2>
             <input
               type="text"
-              className="w-full lg:w-[530px] h-12 border border-border rounded outline-none px-3 font-mono text-sm"
+              className="w-full lg:w-[530px] h-12 border border-border rounded px-3 font-mono text-sm"
               value={inputColor}
               spellCheck={false}
               placeholder="Enter color (e.g., #3b82f6, rgb(59, 130, 246), blue)"
               onChange={(e) => setInputColor(e.target.value)}
             />
-            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+            {error && <p className="text-destructive text-sm mt-2">{error}</p>}
           </div>
         </div>
 
         {!error && inputColor.trim() && (
           <>
             <div className="mt-8 flex flex-col items-center">
-              <h3 className="mb-3 font-semibold text-sm text-foreground">Color Preview</h3>
+              <h3 className="mb-3 font-semibold text-sm text-foreground">
+                Color Preview
+              </h3>
               <div
                 className="w-32 h-32 rounded-lg shadow-lg border-2 border-border"
                 style={{ backgroundColor: previewColor }}
@@ -105,7 +107,7 @@ export default function ColorConverter() {
                 </div>
                 <input
                   type="text"
-                  className="w-full h-11 border border-border rounded outline-none px-3 bg-muted text-foreground cursor-default font-mono text-sm"
+                  className="w-full h-11 border border-border rounded px-3 bg-muted text-foreground cursor-default font-mono text-sm"
                   value={hexOutput}
                   readOnly
                   spellCheck={false}
@@ -119,7 +121,7 @@ export default function ColorConverter() {
                 </div>
                 <input
                   type="text"
-                  className="w-full h-11 border border-border rounded outline-none px-3 bg-muted text-foreground cursor-default font-mono text-sm"
+                  className="w-full h-11 border border-border rounded px-3 bg-muted text-foreground cursor-default font-mono text-sm"
                   value={rgbOutput}
                   readOnly
                   spellCheck={false}
@@ -133,7 +135,7 @@ export default function ColorConverter() {
                 </div>
                 <input
                   type="text"
-                  className="w-full h-11 border border-border rounded outline-none px-3 bg-muted text-foreground cursor-default font-mono text-sm"
+                  className="w-full h-11 border border-border rounded px-3 bg-muted text-foreground cursor-default font-mono text-sm"
                   value={hslOutput}
                   readOnly
                   spellCheck={false}
@@ -147,7 +149,7 @@ export default function ColorConverter() {
                 </div>
                 <input
                   type="text"
-                  className="w-full h-11 border border-border rounded outline-none px-3 bg-muted text-foreground cursor-default font-mono text-sm"
+                  className="w-full h-11 border border-border rounded px-3 bg-muted text-foreground cursor-default font-mono text-sm"
                   value={rgbaOutput}
                   readOnly
                   spellCheck={false}

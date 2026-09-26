@@ -101,9 +101,9 @@ export default function JsonToTypes() {
             value={inputString}
             onChange={setInputString}
             language="javascript"
-            placeholder="Paste your JavaScript object here..."
+            placeholder="Paste your JavaScript object here…"
           />
-          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {error && <p className="text-destructive mt-2">{error}</p>}
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
@@ -117,7 +117,7 @@ export default function JsonToTypes() {
               className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm"
             >
               {isCopied ? (
-                <div className="text-green-600">
+                <div className="text-success">
                   Copied <CheckIcon className="inline-block" />
                 </div>
               ) : (
@@ -128,10 +128,10 @@ export default function JsonToTypes() {
             </button>
           </div>
           <textarea
-            className="border border-border outline-none p-3 bg-muted text-foreground cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
+            className="border border-border p-3 bg-muted text-foreground cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
             value={outputString}
             readOnly
-            placeholder="TypeScript type will appear here..."
+            placeholder="TypeScript type will appear here…"
           />
         </div>
       </div>

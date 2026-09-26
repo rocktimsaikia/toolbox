@@ -3,7 +3,6 @@ import { Icons } from "@/components/ui/icons";
 import { HOME_PAGE_FAQ } from "@/constants/faq";
 import { siteConfig } from "@/constants/site";
 import { type Tool, tools } from "@/constants/tools";
-import Image from "next/image";
 import Link from "next/link";
 
 const visibleTools = tools
@@ -42,59 +41,43 @@ export const metadata = {
 export default function Home() {
   return (
     <main className="max-w-6xl mx-auto px-4">
-      <header className="text-center mb-12 py-8">
-        <div className="flex flex-col items-center">
-          <Image
-            src="/toolbox-v2.png"
-            alt="Tool Box Logo - Essential Developer Tools"
-            width={150}
-            height={150}
-            className="inline-block mb-4"
-            priority
-          />
-          <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Essential Developer Tools
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-            Free, fast, and easy-to-use online tools to streamline your development
-            workflow. No sign-up required. Just pick a tool and get started!
-          </p>
-        </div>
+      <header className="mb-10 py-8">
+        <h1 className="text-3xl font-bold tracking-tight mb-3 text-foreground">
+          Essential Developer Tools
+        </h1>
+        <p className="text-lg text-muted-foreground max-w-2xl">
+          Free, fast, and easy-to-use online tools to streamline your development
+          workflow. No sign-up required. Just pick a tool and get started!
+        </p>
       </header>
 
       <section className="mb-12">
-        <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {visibleTools.map((tool: Tool) => (
             <li
               key={tool.name}
-              className="group bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-all duration-300 hover:border-blue-200 dark:hover:border-blue-800/50"
+              className="group bg-card border border-border rounded-lg hover:border-foreground/30 hover:shadow-sm transition-[border-color,box-shadow] duration-200"
               itemScope
               itemType="https://schema.org/SoftwareApplication"
             >
               <Link
                 href={`/${tool.slug}`}
-                className="block hover:no-underline"
+                className="block p-4 rounded-lg hover:no-underline"
                 itemProp="url"
               >
-                <div className="flex items-center space-x-3">
-                  <div
-                    className={
-                      tool.slug === "text-tools"
-                        ? "flex-shrink-0 p-1.5 bg-amber-50 dark:bg-amber-900/30 rounded text-amber-600 dark:text-amber-300"
-                        : "flex-shrink-0 p-1.5 bg-blue-50 dark:bg-blue-900/30 rounded text-blue-600 dark:text-blue-400"
-                    }
-                  >
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 text-muted-foreground group-hover:text-foreground transition-colors">
                     {Icons[tool.icon] || Icons.code}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3
-                      className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate"
+                    <h2
+                      className="text-sm font-semibold text-card-foreground truncate"
                       itemProp="name"
                     >
                       {tool.name}
-                    </h3>
+                    </h2>
                     <p
-                      className="text-xs text-gray-600 dark:text-gray-300 line-clamp-2"
+                      className="text-xs text-muted-foreground line-clamp-2"
                       itemProp="description"
                     >
                       {tool.description}
@@ -104,7 +87,7 @@ export default function Home() {
               </Link>
             </li>
           ))}
-        </ol>
+        </ul>
       </section>
 
       <section className="mb-16">

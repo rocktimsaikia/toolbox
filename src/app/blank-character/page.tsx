@@ -67,8 +67,8 @@ export default function BlankCharacterTool() {
             <Input
               value={testInput}
               onChange={(e) => setTestInput(e.target.value)}
-              placeholder="Paste here to test..."
-              className={`w-full ${testInput.includes("\u200B") ? "border-green-500 bg-green-50 dark:bg-green-900/20" : ""}`}
+              placeholder="Paste here to test…"
+              className={`w-full ${testInput.includes("\u200B") ? "border-success bg-success/10" : ""}`}
             />
             {testInput && (
               <div className="flex justify-between items-center mt-2">
@@ -76,7 +76,7 @@ export default function BlankCharacterTool() {
                   Character count: {testInput.length}
                 </p>
                 {testInput.includes("\u200B") && (
-                  <p className="text-xs text-green-600 font-semibold">
+                  <p className="text-xs text-success font-semibold">
                     ✓ Blank character detected!
                   </p>
                 )}

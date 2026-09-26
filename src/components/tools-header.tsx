@@ -6,9 +6,9 @@ type Props = {
 
 export default function ToolsHeader({ tool: { name, description } }: Props) {
   return (
-    <div className="">
-      <h1 className="text-center text-3xl">{name}</h1>
-      <h2 className="text-center text-lg mt-2">{description}</h2>
+    <div>
+      <h1 className="text-3xl font-semibold tracking-tight">{name}</h1>
+      <p className="text-lg mt-2 text-muted-foreground">{description}</p>
     </div>
   );
 }
