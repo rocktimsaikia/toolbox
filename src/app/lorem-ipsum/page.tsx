@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TOOLS } from "@/constants/tools";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const LOREM_WORDS = [
   "lorem",
@@ -131,6 +131,7 @@ function generateLoremIpsum(
   sentencesPerParagraph: number,
   wordsPerSentence: number,
   startWithLorem: boolean,
+  random: () => number = Math.random,
 ): string {
   const result: string[] = [];
 
@@ -146,7 +147,7 @@ function generateLoremIpsum(
         } else if (p === 0 && s === 0 && w === 1 && startWithLorem) {
           words.push("ipsum");
         } else {
-          const randomWord = LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)];
+          const randomWord = LOREM_WORDS[Math.floor(random() * LOREM_WORDS.length)];
           words.push(
             w === 0
               ? randomWord.charAt(0).toUpperCase() + randomWord.slice(1)
@@ -164,8 +165,21 @@ function generateLoremIpsum(
   return result.join("\n\n");
 }
 
+// Fixed-seed PRNG for the first render, so server and client produce the same text and
+// the server HTML already contains it (faster LCP). Later generations use Math.random.
+function seededRandom(seed: number) {
+  let state = seed;
+  return () => {
+    state = (state * 1664525 + 1013904223) % 4294967296;
+    return state / 4294967296;
+  };
+}
+
 export default function LoremIpsumGenerator() {
-  const [loremText, setLoremText] = useState("");
+  const [loremText, setLoremText] = useState(() =>
+    generateLoremIpsum(3, 4, 8, true, seededRandom(42)),
+  );
+  const isFirstRender = useRef(true);
   const [paragraphs, setParagraphs] = useState(3);
   const [sentencesPerParagraph, setSentencesPerParagraph] = useState(4);
   const [wordsPerSentence, setWordsPerSentence] = useState(8);
@@ -182,6 +196,10 @@ export default function LoremIpsumGenerator() {
   }
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     handleGenerateText();
   }, [paragraphs, sentencesPerParagraph, wordsPerSentence, startWithLorem]);
 

@@ -20,7 +20,9 @@ async function convertNumberToWords(
 
 export default function NumbersToWords() {
   const [numbers, setNumbers] = useState<string>("12345");
-  const [words, setWords] = useState("");
+  // Precomputed for the default input so the server HTML has the output (faster LCP);
+  // the effect recomputes the same value after hydration. Update both together.
+  const [words, setWords] = useState("Twelve Thousand Three Hundred Forty Five");
   const [isCopied, setIsCopied] = useState(false);
   const [error, setError] = useState("");
   const [localeCode, setLocaleCode] = useState("en-US");

@@ -14,7 +14,7 @@ import {
 } from "change-case";
 import clsx from "clsx";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export type TextUtilityMode =
   | "case-converter"
@@ -225,7 +225,6 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
   const [inputString, setInput] = useState(
     carriedInput ?? textUtilityModes[mode].defaultInput,
   );
-  const [outputString, setOutputString] = useState("");
   const [selectedCase, setSelectedCase] = useState<CaseType>("camelCase");
   const [removeLeading, setRemoveLeading] = useState(true);
   const [removeTrailing, setRemoveTrailing] = useState(false);
@@ -235,7 +234,6 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
   const [caseSensitive, setCaseSensitive] = useState(false);
   const [wholeWord, setWholeWord] = useState(false);
   const [shouldEscape, setShouldEscape] = useState(true);
-  const [error, setError] = useState("");
 
   const modeConfig = textUtilityModes[mode];
 
@@ -252,53 +250,42 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
     setInputString(outputString);
   }
 
-  useEffect(() => {
-    setError("");
-
-    try {
-      switch (mode) {
-        case "case-converter":
-          setOutputString(convertCase(inputString, selectedCase));
-          return;
-        case "text-trimmer":
-          setOutputString(trimText(inputString, removeLeading, removeTrailing));
-          return;
-        case "line-break-remover":
-          setOutputString(removeLineBreaks(inputString, preserveParagraphs));
-          return;
-        case "find-replace":
-          setOutputString(
-            findAndReplace(inputString, findText, replaceText, caseSensitive, wholeWord),
-          );
-          return;
-        case "html-escape":
-          if (!inputString) {
-            setOutputString("");
-            return;
-          }
-
-          setOutputString(
-            shouldEscape ? escapeHtml(inputString) : unescapeHtml(inputString),
-          );
-          return;
-      }
-    } catch {
-      setError(`Invalid ${shouldEscape ? "text" : "HTML"} input`);
-      setOutputString("");
+  // Derived during render (not in an effect) so the server HTML already contains the
+  // output; otherwise the output box stays empty until hydration and delays LCP.
+  let outputString = "";
+  let error = "";
+  try {
+    switch (mode) {
+      case "case-converter":
+        outputString = convertCase(inputString, selectedCase);
+        break;
+      case "text-trimmer":
+        outputString = trimText(inputString, removeLeading, removeTrailing);
+        break;
+      case "line-break-remover":
+        outputString = removeLineBreaks(inputString, preserveParagraphs);
+        break;
+      case "find-replace":
+        outputString = findAndReplace(
+          inputString,
+          findText,
+          replaceText,
+          caseSensitive,
+          wholeWord,
+        );
+        break;
+      case "html-escape":
+        if (inputString) {
+          outputString = shouldEscape
+            ? escapeHtml(inputString)
+            : unescapeHtml(inputString);
+        }
+        break;
     }
-  }, [
-    mode,
-    inputString,
-    selectedCase,
-    removeLeading,
-    removeTrailing,
-    preserveParagraphs,
-    findText,
-    replaceText,
-    caseSensitive,
-    wholeWord,
-    shouldEscape,
-  ]);
+  } catch {
+    error = `Invalid ${shouldEscape ? "text" : "HTML"} input`;
+    outputString = "";
+  }
 
   return (
     <div>
