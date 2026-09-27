@@ -13,7 +13,16 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [HTML Escape](https://toolbelt.fyi/html-escape) | Escape and unescape HTML entities |
 | [URL Parser](https://toolbelt.fyi/url-parser) | Break a messy URL into host, path segments, and every query param, with base64 and JWT values decoded |
 | [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Generate TypeScript types from a JavaScript object or JSON |
-| [Data Format Converter](https://toolbelt.fyi/data-format-converter) | Convert between JSON, YAML, TOML, XML, and CSV |
+| [JSON to YAML](https://toolbelt.fyi/json-to-yaml) | Convert JSON to YAML |
+| [YAML to JSON](https://toolbelt.fyi/yaml-to-json) | Convert YAML to JSON |
+| [JSON to CSV](https://toolbelt.fyi/json-to-csv) | Turn a JSON array of records into CSV |
+| [CSV to JSON](https://toolbelt.fyi/csv-to-json) | Turn CSV rows into a JSON array |
+| [XML to JSON](https://toolbelt.fyi/xml-to-json) | Convert XML to JSON |
+| [JSON to XML](https://toolbelt.fyi/json-to-xml) | Convert JSON to XML |
+| [TOML to JSON](https://toolbelt.fyi/toml-to-json) | Convert TOML to JSON |
+| [JSON to TOML](https://toolbelt.fyi/json-to-toml) | Convert JSON to TOML |
+| [YAML to TOML](https://toolbelt.fyi/yaml-to-toml) | Convert YAML to TOML |
+| [TOML to YAML](https://toolbelt.fyi/toml-to-yaml) | Convert TOML to YAML |
 | [Base64 Converter](https://toolbelt.fyi/base64-converter) | Encode and decode Base64 strings |
 | [URL Encoder/Decoder](https://toolbelt.fyi/url-encoder-decoder) | Percent-encode and decode URL components |
 | [Cron Expression Generator](https://toolbelt.fyi/cron-expression-generator) | Build cron expressions and read them in plain English |

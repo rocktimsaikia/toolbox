@@ -5,6 +5,7 @@ export type Slug = keyof typeof TOOLS;
 // Homepage groups, in display order
 export const CATEGORIES = [
   "Convert",
+  "Data formats",
   "Encode & decode",
   "Text",
   "Generate",
@@ -146,16 +147,6 @@ export const TOOLS = {
     category: "Generate",
     icon: "clock",
   },
-  "data-format-converter": {
-    name: "Data Format Converter",
-    seoTitle: "JSON, YAML, TOML, XML and CSV Converter Online",
-    description: "Convert between JSON, YAML, TOML, XML, and CSV",
-    seoDescription:
-      "Convert data between JSON, YAML, TOML, XML, and CSV in your browser. Paste one format and pick another to convert instantly. Free and private.",
-    slug: "data-format-converter",
-    category: "Convert",
-    icon: "arrowUpDown",
-  },
   "text-trimmer": {
     name: "Text Trimmer",
     seoTitle: "Trim Whitespace from Text Online",
@@ -213,9 +204,7 @@ export const TOOLS = {
     seoDescription:
       "Convert JSON to YAML online. Paste an object or API response and get readable YAML for Kubernetes, Docker Compose, or CI config. Runs in your browser.",
     slug: "json-to-yaml",
-    category: "Convert",
-    // Landing page for one preset pair; the directory lists the main converter instead
-    hide: true,
+    category: "Data formats",
     icon: "arrowUpDown",
   },
   "yaml-to-json": {
@@ -225,9 +214,7 @@ export const TOOLS = {
     seoDescription:
       "Convert YAML to JSON online. Paste a Kubernetes manifest, Compose file, or config and get formatted JSON, with anchors resolved. Runs in your browser.",
     slug: "yaml-to-json",
-    category: "Convert",
-    // Landing page for one preset pair; the directory lists the main converter instead
-    hide: true,
+    category: "Data formats",
     icon: "arrowUpDown",
   },
   "json-to-csv": {
@@ -237,9 +224,7 @@ export const TOOLS = {
     seoDescription:
       "Convert a JSON array to CSV online. Each object becomes a row and each key a column, ready for Excel or Google Sheets. Free, private, and instant.",
     slug: "json-to-csv",
-    category: "Convert",
-    // Landing page for one preset pair; the directory lists the main converter instead
-    hide: true,
+    category: "Data formats",
     icon: "arrowUpDown",
   },
   "csv-to-json": {
@@ -249,9 +234,7 @@ export const TOOLS = {
     seoDescription:
       "Convert CSV to JSON online. The header row becomes the keys and each row becomes an object in a JSON array. Free, private, and runs in your browser.",
     slug: "csv-to-json",
-    category: "Convert",
-    // Landing page for one preset pair; the directory lists the main converter instead
-    hide: true,
+    category: "Data formats",
     icon: "arrowUpDown",
   },
   "xml-to-json": {
@@ -261,9 +244,7 @@ export const TOOLS = {
     seoDescription:
       "Convert XML to JSON online. Elements become keys and repeated elements become arrays, so you can work with XML feeds and SOAP responses as JSON.",
     slug: "xml-to-json",
-    category: "Convert",
-    // Landing page for one preset pair; the directory lists the main converter instead
-    hide: true,
+    category: "Data formats",
     icon: "arrowUpDown",
   },
   "json-to-xml": {
@@ -273,9 +254,47 @@ export const TOOLS = {
     seoDescription:
       "Convert JSON to XML online. Keys become elements and arrays become repeated elements, with readable indentation. Free, private, and in your browser.",
     slug: "json-to-xml",
-    category: "Convert",
-    // Landing page for one preset pair; the directory lists the main converter instead
-    hide: true,
+    category: "Data formats",
+    icon: "arrowUpDown",
+  },
+  "toml-to-json": {
+    name: "TOML to JSON Converter",
+    seoTitle: "TOML to JSON Converter Online, Free and Private",
+    description: "Paste TOML, get formatted JSON",
+    seoDescription:
+      "Convert TOML to JSON online. Paste pyproject.toml, Cargo.toml, or any TOML config and get formatted JSON with tables as nested objects. Runs in your browser.",
+    slug: "toml-to-json",
+    category: "Data formats",
+    icon: "arrowUpDown",
+  },
+  "json-to-toml": {
+    name: "JSON to TOML Converter",
+    seoTitle: "JSON to TOML Converter Online, Free and Private",
+    description: "Paste JSON, get a TOML config",
+    seoDescription:
+      "Convert JSON to TOML online. Nested objects become [tables] and lists of objects become [[arrays of tables]]. Free, private, and runs in your browser.",
+    slug: "json-to-toml",
+    category: "Data formats",
+    icon: "arrowUpDown",
+  },
+  "yaml-to-toml": {
+    name: "YAML to TOML Converter",
+    seoTitle: "YAML to TOML Converter Online, Free and Private",
+    description: "Paste YAML, get a TOML config",
+    seoDescription:
+      "Convert YAML to TOML online. Move a YAML config to TOML for Python, Rust, or Hugo projects, with nested maps turned into [tables]. Free and private.",
+    slug: "yaml-to-toml",
+    category: "Data formats",
+    icon: "arrowUpDown",
+  },
+  "toml-to-yaml": {
+    name: "TOML to YAML Converter",
+    seoTitle: "TOML to YAML Converter Online, Free and Private",
+    description: "Paste TOML, get readable YAML",
+    seoDescription:
+      "Convert TOML to YAML online. Paste a Cargo.toml, pyproject.toml, or other TOML config and get indented YAML back. Free, private, and in your browser.",
+    slug: "toml-to-yaml",
+    category: "Data formats",
     icon: "arrowUpDown",
   },
 } as const;

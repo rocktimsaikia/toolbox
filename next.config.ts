@@ -15,8 +15,10 @@ const nextConfig: NextConfig = {
     return [
       // The combined text page was split into one page per tool
       { source: "/text-tools", destination: "/case-converter", permanent: true },
-      // Renamed to a slug that matches what people search for
-      { source: "/yamlc", destination: "/data-format-converter", permanent: true },
+      // The multi-format converter was split into one page per conversion; JSON to YAML
+      // was its default, so old links land on the closest match
+      { source: "/yamlc", destination: "/json-to-yaml", permanent: true },
+      { source: "/data-format-converter", destination: "/json-to-yaml", permanent: true },
     ];
   },
 };

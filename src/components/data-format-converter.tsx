@@ -1,23 +1,32 @@
 "use client";
 import LazyCodeEditor from "@/components/lazy-code-editor";
 import ToolsHeader from "@/components/tools-header";
+import type { Format } from "@/constants/conversions";
 import type { Tool } from "@/constants/tools";
 import { copyToClipboard } from "@/libs/common";
 import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
+import { ArrowLeftRight } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-
-export const converters = ["json", "yaml", "toml", "xml", "csv"] as const;
-export type Converter = (typeof converters)[number];
 
 type Props = {
   tool: Tool;
-  from: Converter;
-  to: Converter;
+  from: Format;
+  to: Format;
   sample: string;
+  // The reverse conversion page, linked from the input header
+  swapHref: string;
 };
 
-async function parseInput(input: string, inputFormat: Converter) {
-  switch (inputFormat) {
+type ConversionError = { message: string; detail?: string };
+
+const label = (format: Format) => format.toUpperCase();
+
+const isPlainObject = (data: unknown): data is Record<string, unknown> =>
+  typeof data === "object" && data !== null && !Array.isArray(data);
+
+async function parseInput(input: string, format: Format) {
+  switch (format) {
     case "json":
       return JSON.parse(input);
     case "yaml": {
@@ -39,8 +48,9 @@ async function parseInput(input: string, inputFormat: Converter) {
   }
 }
 
-async function stringifyOutput(data: unknown, outputFormat: Converter) {
-  switch (outputFormat) {
+// Throws messages written for the reader, since they are shown as-is
+async function stringifyOutput(data: unknown, format: Format) {
+  switch (format) {
     case "json":
       return JSON.stringify(data, null, 2);
     case "yaml": {
@@ -48,8 +58,21 @@ async function stringifyOutput(data: unknown, outputFormat: Converter) {
       return yaml.dump(data, { indent: 4 });
     }
     case "toml": {
+      if (!isPlainObject(data)) {
+        throw new Error(
+          'TOML needs an object at the top level, such as { "key": "value" }, not a list or a single value.',
+        );
+      }
       const json2toml = (await import("json2toml")).default;
-      return json2toml(data as object, { indent: 0 });
+      try {
+        return json2toml(data, { indent: 0 });
+      } catch (e) {
+        const key = e instanceof Error && e.message.match(/`null` at key "(.+)"/)?.[1];
+        if (key) {
+          throw new Error(`TOML has no null values. Give "${key}" a value or remove it.`);
+        }
+        throw e;
+      }
     }
     case "xml": {
       const { toXML } = await import("jstoxml");
@@ -58,7 +81,7 @@ async function stringifyOutput(data: unknown, outputFormat: Converter) {
     case "csv": {
       if (!Array.isArray(data)) {
         throw new Error(
-          "CSV output requires array data. Please convert from a format that produces arrays.",
+          "CSV needs a list of records, such as [{ ... }, { ... }]. To get a single row, wrap your object in [ ].",
         );
       }
       const { stringify } = await import("csv/sync");
@@ -67,117 +90,112 @@ async function stringifyOutput(data: unknown, outputFormat: Converter) {
   }
 }
 
-export default function DataFormatConverter({ tool, from, to, sample }: Props) {
+export default function DataFormatConverter({ tool, from, to, sample, swapHref }: Props) {
   const [input, setInput] = useState(sample);
   const [output, setOutput] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<ConversionError | null>(null);
   const [isCopied, setIsCopied] = useState(false);
-  const [inputFormat, setInputFormat] = useState<Converter>(from);
-  const [outputFormat, setOutputFormat] = useState<Converter>(to);
 
   useEffect(() => {
     let isCurrent = true;
 
     if (!input.trim()) {
-      setError("");
+      setError(null);
       setOutput("");
-      if (input !== "") {
-        setInput("");
-      }
-      return () => {
-        isCurrent = false;
-      };
-    }
-    if (inputFormat === outputFormat) {
-      setOutput(input);
-      setError("");
-      return () => {
-        isCurrent = false;
-      };
+      return;
     }
 
-    setError("");
-
-    parseInput(input, inputFormat)
-      .then((data) => stringifyOutput(data, outputFormat))
-      .then((converted) => {
-        if (!isCurrent) return;
-        setOutput(converted);
-        setError("");
-      })
-      .catch((e: unknown) => {
+    (async () => {
+      let data: unknown;
+      try {
+        data = await parseInput(input, from);
+      } catch (e) {
         if (!isCurrent) return;
         setOutput("");
-        setError(e instanceof Error ? e.message : String(e));
-      });
+        // The parser's own wording is technical, so it goes under a plain summary
+        setError({
+          message: `This is not valid ${label(from)}.`,
+          detail: e instanceof Error ? e.message : String(e),
+        });
+        return;
+      }
+      try {
+        const converted = await stringifyOutput(data, to);
+        if (!isCurrent) return;
+        setOutput(converted);
+        setError(null);
+      } catch (e) {
+        if (!isCurrent) return;
+        setOutput("");
+        setError({ message: e instanceof Error ? e.message : String(e) });
+      }
+    })();
 
     return () => {
       isCurrent = false;
     };
-  }, [inputFormat, outputFormat, input]);
+  }, [from, to, input]);
 
   return (
     <div className="flex flex-col space-y-10">
       <ToolsHeader tool={tool} />
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
-        <div className="flex flex-col lg:items-start">
-          <div className="flex justify-between w-full">
-            <p className="mb-2 text-lg font-semibold">Input</p>
-
-            <select
-              value={inputFormat}
-              onChange={(event) => setInputFormat(event.target.value as Converter)}
-              className="border border-b-0 border-border rounded bg-background px-3 py-2 hover:bg-muted"
+        {/* Fixed width: the editor fills its column, which would otherwise shrink to fit */}
+        <div className="flex w-full flex-col lg:w-[529px] lg:items-start">
+          <div className="mb-2 flex w-full items-center justify-between">
+            <p className="text-lg font-semibold">
+              Input <span className="text-muted-foreground">({label(from)})</span>
+            </p>
+            <Link
+              href={swapHref}
+              aria-label={`Swap: convert ${label(to)} to ${label(from)}`}
+              className="inline-flex items-center gap-1.5 rounded border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted hover:no-underline transition-colors"
             >
-              {converters.map((item) => (
-                <option value={item} key={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
+              <ArrowLeftRight aria-hidden="true" className="h-3.5 w-3.5" />
+              {label(to)} to {label(from)}
+            </Link>
           </div>
           <LazyCodeEditor
             value={input}
             onChange={setInput}
-            language={inputFormat === "json" ? "javascript" : "json"}
-            placeholder={`Paste your ${inputFormat.toUpperCase()} here...`}
+            language={from === "json" ? "javascript" : "json"}
+            placeholder={`Paste your ${label(from)} here...`}
           />
-          {error && <p className="text-destructive mt-2">{error}</p>}
+          {/* w-0 min-w-full: wrap long messages instead of widening the column */}
+          {error && (
+            <div role="alert" className="mt-2 w-0 min-w-full text-sm">
+              <p className="text-destructive">{error.message}</p>
+              {error.detail && (
+                <p className="mt-1 font-mono text-xs text-muted-foreground">
+                  {error.detail}
+                </p>
+              )}
+            </div>
+          )}
         </div>
         <div className="flex flex-col items-start">
-          <div className="flex justify-between w-full">
-            <p className="text-lg font-semibold">Output</p>
-            <div className="flex gap-2">
-              <select
-                value={outputFormat}
-                onChange={(event) => setOutputFormat(event.target.value as Converter)}
-                className="border border-b-0 border-border rounded bg-background px-3 py-2 hover:bg-muted"
-              >
-                {converters.map((item) => (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-              <button
-                type={"button"}
-                onClick={() => {
-                  copyToClipboard(output);
-                  setIsCopied(true);
-                }}
-                className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm"
-              >
-                {isCopied ? (
-                  <div className="text-success">
-                    Copied <CheckIcon className="inline-block" />
-                  </div>
-                ) : (
-                  <>
-                    Copy to clipboard <CopyIcon className="inline-block" />
-                  </>
-                )}
-              </button>
-            </div>
+          <div className="mb-2 flex w-full items-center justify-between">
+            <p className="text-lg font-semibold">
+              Output <span className="text-muted-foreground">({label(to)})</span>
+            </p>
+            <button
+              type={"button"}
+              onClick={() => {
+                copyToClipboard(output);
+                setIsCopied(true);
+              }}
+              className="cursor-pointer rounded border border-border px-3 py-1.5 text-sm hover:bg-muted transition-colors"
+            >
+              {isCopied ? (
+                <span className="text-success">
+                  Copied <CheckIcon className="inline-block" />
+                </span>
+              ) : (
+                <>
+                  Copy to clipboard <CopyIcon className="inline-block" />
+                </>
+              )}
+            </button>
           </div>
           <textarea
             className="border border-border p-3 bg-muted text-foreground cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"

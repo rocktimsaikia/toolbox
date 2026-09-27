@@ -313,34 +313,6 @@ export const HOME_PAGE_FAQ: Faq[] = [
   },
 ];
 
-export const YAMLC_FAQ: Faq[] = [
-  {
-    question: "What formats does the Data Format Converter support?",
-    answer:
-      "The Data Format Converter supports JSON, YAML, TOML, XML, and CSV formats. You can convert between any of these formats seamlessly using the dropdown selectors.",
-  },
-  {
-    question: "How do I use the Data Format Converter?",
-    answer:
-      "Select your input format from the left dropdown, paste your data in the input field, then choose your desired output format from the right dropdown. The conversion happens automatically as you type.",
-  },
-  {
-    question: "Can I convert CSV data to other formats?",
-    answer:
-      "Yes! You can convert CSV data to JSON, YAML, TOML, or XML. When converting TO CSV, note that the input data should be in array format for proper CSV generation.",
-  },
-  {
-    question: "What should I do if I get a conversion error?",
-    answer:
-      "Check that your input data is valid for the selected format. Common issues include malformed JSON, incorrect YAML indentation, or invalid XML structure. The error message will help identify the specific issue.",
-  },
-  {
-    question: "Is my data secure when using this converter?",
-    answer:
-      "Yes, all conversions happen entirely in your browser. No data is sent to any server, ensuring your information remains private and secure.",
-  },
-];
-
 const TEXT_TRIMMER_FAQ: Faq[] = [
   {
     question: "What does the Text Trimmer tool do?",
@@ -469,7 +441,6 @@ export const Faqs: Record<Slug, Faq[]> = {
   "lorem-ipsum": LOREM_IPSUM_FAQ,
   "blank-character": BLANK_CHARACTER_FAQ,
   "cron-expression-generator": CRON_EXPRESSION_GENERATOR_FAQ,
-  "data-format-converter": YAMLC_FAQ,
   "text-trimmer": TEXT_TRIMMER_FAQ,
   "find-replace": FIND_REPLACE_FAQ,
   "case-converter": CASE_CONVERTER_FAQ,
@@ -573,6 +544,71 @@ export const Faqs: Record<Slug, Faq[]> = {
       question: "Does it add an XML declaration?",
       answer:
         'No. Add <?xml version="1.0" encoding="UTF-8"?> to the first line if you need one.',
+    },
+  ],
+  "toml-to-json": [
+    {
+      question: "Why did my date turn into a string?",
+      answer:
+        "JSON has no date type, so TOML dates and times are written as ISO 8601 strings.",
+    },
+    {
+      question: 'Why do I get "Cannot redefine existing key"?',
+      answer:
+        "The same key or table appears twice in your TOML. Each key can only be set once.",
+    },
+    {
+      question: "Are my TOML comments kept?",
+      answer: "No. JSON has no comments, so they are removed during conversion.",
+    },
+  ],
+  "json-to-toml": [
+    {
+      question: 'Why do I get "TOML needs an object at the top level"?',
+      answer:
+        'A TOML file is a set of keys, so the JSON must be an object. If your data is a list, put it under a key, such as { "items": [...] }.',
+    },
+    {
+      question: 'Why do I get "TOML has no null values"?',
+      answer:
+        "TOML cannot store null. Replace it with a real value, such as an empty string, or remove the key.",
+    },
+    {
+      question: "Why are the sections in a different order?",
+      answer:
+        "Plain keys are written first and [table] sections after them, because in TOML every key after a table header belongs to that table.",
+    },
+  ],
+  "yaml-to-toml": [
+    {
+      question: 'Why do I get "TOML has no null values"?',
+      answer:
+        "A YAML key with nothing after the colon, or with ~ or null, has no value. TOML cannot store that, so give it a value or remove it.",
+    },
+    {
+      question: 'Why do I get "TOML needs an object at the top level"?',
+      answer:
+        "Your YAML starts with a list (lines beginning with -). Put the list under a key first.",
+    },
+    {
+      question: "Are YAML comments kept?",
+      answer: "No. Comments are dropped during conversion.",
+    },
+  ],
+  "toml-to-yaml": [
+    {
+      question: 'Why is "2021" in quotes in the YAML?',
+      answer:
+        "The value was a string in TOML. Without quotes YAML would read 2021 as a number, so it is quoted to stay a string.",
+    },
+    {
+      question: "Are TOML comments kept?",
+      answer: "No. Comments are dropped during conversion.",
+    },
+    {
+      question: 'Why do I get "Cannot redefine existing key"?',
+      answer:
+        "The same key or table appears twice in your TOML. Each key can only be set once.",
     },
   ],
 };

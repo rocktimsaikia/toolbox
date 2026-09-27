@@ -539,58 +539,6 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
-  "data-format-converter": {
-    intro:
-      "Config files, APIs, and spreadsheets all use different formats. This converter turns data in JSON, YAML, TOML, XML, or CSV into any of the others, in your browser, so you can move a config between tools or turn an API response into a spreadsheet.",
-    sections: [
-      {
-        heading: "How to use it",
-        paragraphs: [
-          "Pick the input format on the left and the output format on the right, then paste your data. The result updates as you type. If the input has a syntax error, the parser's message is shown so you can find the problem.",
-        ],
-      },
-      {
-        heading: "Format notes",
-        list: [
-          {
-            term: "JSON.",
-            text: "Strict JSON only: keys need double quotes and trailing commas are not allowed.",
-          },
-          {
-            term: "YAML.",
-            text: "Output uses 4-space indentation. Comments in YAML input are dropped, because the data passes through a plain object.",
-          },
-          {
-            term: "TOML.",
-            text: "Tables become nested objects, which makes it a good bridge between TOML config files and JSON.",
-          },
-          {
-            term: "XML.",
-            text: "Element names become keys. Attributes are ignored, so only element content is converted.",
-          },
-          {
-            term: "CSV.",
-            text: "The first row is used as the headers and each row becomes an object. CSV output needs a list of flat records, such as a JSON array of objects; nested values do not fit into columns.",
-          },
-        ],
-      },
-      {
-        heading: "Example",
-        paragraphs: ["A JSON array of records converts straight to CSV:"],
-        code: '[{ "name": "Ann", "age": 31 }, { "name": "Raj", "age": 27 }]\n\n// converts to\n\nname,age\nAnn,31\nRaj,27',
-      },
-      {
-        heading: "When it helps",
-        list: [
-          { text: "Turning Kubernetes or Docker Compose YAML into JSON for a script." },
-          { text: "Exporting a JSON API response to CSV to open in a spreadsheet." },
-          {
-            text: "Moving settings between JSON files and TOML files such as pyproject.toml or Cargo.toml.",
-          },
-        ],
-      },
-    ],
-  },
   "text-trimmer": {
     intro:
       "Stray spaces at the start or end of a line are invisible but cause real problems: failed string comparisons, noisy diffs, broken indentation, and CSV values that do not match. The Text Trimmer removes that whitespace from every line at once.",
@@ -926,6 +874,121 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       {
         heading: "Example",
         code: '{ "note": { "to": "Ann", "tags": ["a", "b"] } }\n\n// converts to\n\n<note>\n  <to>Ann</to>\n  <tags>a</tags>\n  <tags>b</tags>\n</note>',
+      },
+    ],
+  },
+  "toml-to-json": {
+    intro:
+      "TOML is the config format of Python (pyproject.toml), Rust (Cargo.toml), and Hugo. When a script or tool needs that config as JSON, paste it here.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          {
+            term: "Tables.",
+            text: "Each [table] becomes a nested object, and dotted headers like [tool.ruff] become deeper nesting.",
+          },
+          {
+            term: "Arrays of tables.",
+            text: "Repeated [[name]] blocks become a list of objects.",
+          },
+          {
+            term: "Dates.",
+            text: "TOML dates and times become ISO 8601 strings, such as 1979-05-27T07:32:00.000Z, because JSON has no date type.",
+          },
+          {
+            term: "Comments.",
+            text: "Dropped, because the data passes through a plain object.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        code: '[project]\nname = "my-app"\n\n[tool.ruff]\nline-length = 90\n\n// converts to\n\n{\n  "project": { "name": "my-app" },\n  "tool": { "ruff": { "line-length": 90 } }\n}',
+      },
+    ],
+  },
+  "json-to-toml": {
+    intro:
+      "TOML is easier to read and edit by hand than JSON, which is why tools like Cargo, Poetry, and Hugo use it. Paste a JSON object and get a TOML config back.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          {
+            term: "Top level.",
+            text: "TOML needs an object at the top, so a list or a single value cannot be converted.",
+          },
+          { term: "Nested objects.", text: "Each one becomes a [table] section." },
+          {
+            term: "Lists of objects.",
+            text: "These become [[arrays of tables]], one block per item.",
+          },
+          {
+            term: "Null values.",
+            text: "TOML has no null, so give those keys a value or remove them first.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        code: '{ "title": "my-app", "server": { "port": 8080 }, "owners": [{ "name": "Ann" }] }\n\n// converts to\n\ntitle = "my-app"\n[[owners]]\nname = "Ann"\n[server]\nport = 8080',
+      },
+    ],
+  },
+  "yaml-to-toml": {
+    intro:
+      "Moving a project from YAML config to TOML, for example to pyproject.toml or a Hugo site, is tedious by hand. Paste the YAML and get equivalent TOML.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          { term: "Maps.", text: "Nested YAML maps become [table] sections." },
+          {
+            term: "Lists.",
+            text: 'Lists of plain values stay inline, such as features = ["search","export"]. Lists of maps become [[arrays of tables]].',
+          },
+          {
+            term: "Anchors.",
+            text: "YAML anchors and merge keys are expanded, since TOML has no references.",
+          },
+          {
+            term: "Empty values.",
+            text: "A YAML key with no value is null, which TOML cannot store. Fill it in or remove it first.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        code: 'title: my-app\nserver:\n  port: 8080\nfeatures:\n  - search\n\n// converts to\n\ntitle = "my-app"\nfeatures = ["search"]\n[server]\nport = 8080',
+      },
+    ],
+  },
+  "toml-to-yaml": {
+    intro:
+      "Some tools want YAML where your project has TOML, such as CI config or Kubernetes values built from a Cargo.toml or pyproject.toml. Paste the TOML and get indented YAML.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          {
+            term: "Tables.",
+            text: "Each [table] becomes a nested YAML map, indented 4 spaces.",
+          },
+          {
+            term: "Arrays of tables.",
+            text: "Repeated [[name]] blocks become a YAML list of maps.",
+          },
+          {
+            term: "Dates.",
+            text: "TOML dates become YAML timestamps in ISO 8601 form, such as 1979-05-27T07:32:00.000Z.",
+          },
+          { term: "Comments.", text: "Dropped during conversion." },
+        ],
+      },
+      {
+        heading: "Example",
+        code: '[package]\nname = "my-crate"\nedition = "2021"\n\n// converts to\n\npackage:\n    name: my-crate\n    edition: \'2021\'',
       },
     ],
   },
