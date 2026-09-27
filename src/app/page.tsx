@@ -32,7 +32,7 @@ export default function Home() {
       <ToolDirectory tools={visibleTools} />
 
       <section className="mb-16">
-        <Faq faq={HOME_PAGE_FAQ} className="" />
+        <Faq faq={HOME_PAGE_FAQ} />
       </section>
     </div>
   );

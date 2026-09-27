@@ -32,7 +32,7 @@ export default function BlankCharacterTool() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["blank-character"]} />
-      <div className="flex justify-center">
+      <div className="flex">
         <div className="w-full max-w-md">
           {BLANK_CHARACTERS.map((blank, index) => (
             <div

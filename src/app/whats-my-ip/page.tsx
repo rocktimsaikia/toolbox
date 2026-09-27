@@ -14,7 +14,7 @@ export default async function WhatsMyIp() {
   return (
     <div className="flex flex-col">
       <ToolsHeader tool={TOOLS["whats-my-ip"]} />
-      <div className="flex flex-col w-[240px] mx-auto">
+      <div className="flex flex-col w-[240px]">
         <PanelHeader label="Your IP">
           <Clipboard text={ipv4} />
         </PanelHeader>

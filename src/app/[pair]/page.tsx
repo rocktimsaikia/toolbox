@@ -1,16 +1,11 @@
 import DataFormatConverter from "@/components/data-format-converter";
-import Faq from "@/components/faq";
-import RelatedTools from "@/components/related-tools";
-import { ToolStructuredData } from "@/components/structured-data";
-import ToolGuide from "@/components/tool-guide";
+import ToolLayout, { toolMetadata } from "@/components/tool-layout";
 import {
   CONVERSIONS,
   type ConversionSlug,
   conversionSlugs,
 } from "@/constants/conversions";
-import { Faqs } from "@/constants/faq";
 import { TOOLS } from "@/constants/tools";
-import { generateSeo } from "@/lib/seo";
 
 // One page per conversion in CONVERSIONS. Static routes like /json-to-ts take
 // precedence over this segment, and anything not listed is a 404.
@@ -24,12 +19,7 @@ type Props = { params: Promise<{ pair: ConversionSlug }> };
 
 export async function generateMetadata({ params }: Props) {
   const { pair } = await params;
-  const tool = TOOLS[pair];
-  return generateSeo({
-    title: tool.seoTitle,
-    description: tool.seoDescription,
-    path: `/${pair}`,
-  });
+  return toolMetadata(pair);
 }
 
 export default async function Page({ params }: Props) {
@@ -37,7 +27,7 @@ export default async function Page({ params }: Props) {
   const { from, to, sample } = CONVERSIONS[pair];
 
   return (
-    <div>
+    <ToolLayout slug={pair}>
       {/* key: a new pair is a new tool, so state starts fresh (or from the carry) */}
       <DataFormatConverter
         key={pair}
@@ -47,10 +37,6 @@ export default async function Page({ params }: Props) {
         sample={sample}
         swapHref={`/${to}-to-${from}`}
       />
-      <ToolGuide slug={pair} />
-      <Faq faq={Faqs[pair]} />
-      <RelatedTools slug={pair} />
-      <ToolStructuredData slug={pair} />
-    </div>
+    </ToolLayout>
   );
 }

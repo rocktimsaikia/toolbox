@@ -6,7 +6,9 @@ export default function ToolGuide({ slug }: { slug: Slug }) {
   if (!guide) return null;
 
   return (
-    <section className="mx-auto mt-16 w-full max-w-2xl text-sm leading-relaxed">
+    // 33rem is about 74 characters of 14px Geist per line (ch-based widths run long in
+    // this font), left-aligned with the tool above
+    <section className="mt-16 max-w-[33rem] text-sm leading-relaxed">
       <h2 className="mb-3 text-xl font-semibold text-foreground">
         {TOOLS[slug].name} guide
       </h2>

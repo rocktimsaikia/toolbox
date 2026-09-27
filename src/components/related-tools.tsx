@@ -15,7 +15,7 @@ export default function RelatedTools({ slug }: { slug: Slug }) {
   ].slice(0, Math.max(sameCategory.length, MIN_LINKS));
 
   return (
-    <nav aria-labelledby="related-tools" className="mx-auto mt-16 w-full max-w-2xl">
+    <nav aria-labelledby="related-tools" className="mt-16 w-full max-w-2xl">
       <h2 id="related-tools" className="mb-3 text-xl font-semibold text-foreground">
         Related tools
       </h2>

@@ -187,7 +187,7 @@ export default function CronExpressionGenerator() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["cron-expression-generator"]} />
-      <div className="flex justify-center">
+      <div className="flex">
         <div className="flex w-full max-w-2xl flex-col">
           <PanelHeader htmlFor="cron-input" label="Cron expression">
             <Clipboard text={cronExpression} />

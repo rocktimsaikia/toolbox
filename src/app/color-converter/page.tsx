@@ -77,8 +77,8 @@ export default function ColorConverter() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["color-converter"]} />
-      <div className="flex flex-col items-center">
-        <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center w-full">
+      <div className="flex flex-col">
+        <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 w-full">
           <div className="flex flex-col items-start w-full">
             <PanelHeader htmlFor="color-input" label="Color" />
             <input
@@ -97,7 +97,7 @@ export default function ColorConverter() {
 
         {!error && inputColor.trim() && (
           <>
-            <div className="mt-8 flex flex-col items-center">
+            <div className="mt-8 flex flex-col items-start">
               <h3 className="mb-3 font-semibold text-sm text-foreground">
                 Color Preview
               </h3>

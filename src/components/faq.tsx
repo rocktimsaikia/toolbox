@@ -4,7 +4,6 @@ import type { FAQPage, WithContext } from "schema-dts";
 
 type Props = {
   faq: FaqType[];
-  // Tool pages center the FAQ; the homepage aligns it to the tool list
   className?: string;
 };
 
@@ -26,7 +25,7 @@ function generateFaqSchema(faqs: FaqType[]) {
   return jsonLd;
 }
 
-export default function Faq({ faq, className = "mx-auto" }: Props) {
+export default function Faq({ faq, className = "" }: Props) {
   const jsonLd = generateFaqSchema(faq);
 
   return (

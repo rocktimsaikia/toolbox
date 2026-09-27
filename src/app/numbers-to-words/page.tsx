@@ -174,7 +174,7 @@ export default function NumbersToWords() {
           <textarea
             id="numbers-input"
             {...errorProps("numbers-error", !!error)}
-            className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
+            className="w-full lg:w-[530px] lg:h-[185px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             onChange={handleOnChange}
             value={numbers}
             spellCheck={false}
@@ -188,7 +188,7 @@ export default function NumbersToWords() {
           </PanelHeader>
           <textarea
             aria-labelledby="words-output"
-            className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
+            className="w-full lg:w-[530px] lg:h-[185px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={words}
             readOnly
             placeholder="Words will appear here…"

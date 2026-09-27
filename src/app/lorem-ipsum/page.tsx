@@ -207,7 +207,7 @@ export default function LoremIpsumGenerator() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["lorem-ipsum"]} />
-      <div className="flex gap-x-6 justify-center">
+      <div className="flex gap-x-6">
         <div className="flex w-full flex-col items-start lg:w-[572px]">
           <PanelHeader id="lorem-output" label="Placeholder text">
             <Clipboard text={loremText} />
@@ -219,7 +219,7 @@ export default function LoremIpsumGenerator() {
             readOnly
             placeholder="Your Lorem Ipsum text will appear here…"
           ></textarea>
-          <div className="mt-4 flex lg:flex-row flex-col lg:space-y-0 space-y-4 items-start justify-center lg:gap-x-6 gap-y-2">
+          <div className="mt-4 flex lg:flex-row flex-col lg:space-y-0 space-y-4 items-start lg:gap-x-6 gap-y-2">
             <div className="flex flex-col items-center max-w-[100px]">
               <Input
                 id="paragraphs"
@@ -274,7 +274,7 @@ export default function LoremIpsumGenerator() {
               </label>
             </div>
           </div>
-          <Button className="mt-6 cursor-pointer mx-auto" onClick={handleGenerateText}>
+          <Button className="mt-6 cursor-pointer" onClick={handleGenerateText}>
             Generate New Text <ReloadIcon className="inline-block ml-1" />
           </Button>
         </div>

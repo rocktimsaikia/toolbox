@@ -38,7 +38,7 @@ export default function JSONToJavascript() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["password-generator"]} />
-      <div className="flex gap-x-6 justify-center">
+      <div className="flex gap-x-6">
         <div className="flex w-full flex-col items-start lg:w-[572px]">
           <PanelHeader id="password-output" label="Password">
             <Clipboard text={password} />
@@ -50,7 +50,7 @@ export default function JSONToJavascript() {
             readOnly
             placeholder="Your password will appear here…"
           ></textarea>
-          <div className="mt-1 flex lg:flex-row flex-col lg:space-y-0 space-y-2 items-start justify-center lg:gap-x-4">
+          <div className="mt-1 flex lg:flex-row flex-col lg:space-y-0 space-y-2 items-start lg:gap-x-4">
             <div className="flex flex-col items-center max-w-[70px]">
               <Input
                 id="length"
@@ -104,7 +104,7 @@ export default function JSONToJavascript() {
             </div>
           </div>
           <Button
-            className="mt-5 cursor-pointer mx-auto"
+            className="mt-5 cursor-pointer"
             onClick={() => void handleGeneratePassword()}
           >
             Generate Password <ReloadIcon className="inline-block" />
