@@ -162,8 +162,9 @@ function ParamRows({
 }
 
 export default function UrlParser() {
-  const [input, setInput] = useState("");
-  const [parsed, setParsed] = useState<ParsedUrl | null>(null);
+  // Opens on the example so the page shows a result right away, and the server HTML has it
+  const [input, setInput] = useState(EXAMPLE_URL);
+  const [parsed, setParsed] = useState<ParsedUrl | null>(() => parseUrl(EXAMPLE_URL));
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -197,7 +198,7 @@ export default function UrlParser() {
             onClick={() => setInput(EXAMPLE_URL)}
             className="inline-flex h-11 cursor-pointer items-center rounded px-3 text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline lg:h-9"
           >
-            Try an example
+            Load example
           </button>
         </PanelHeader>
         <textarea

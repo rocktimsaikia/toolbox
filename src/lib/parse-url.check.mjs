@@ -59,4 +59,11 @@ assert.equal(enc.hashDecoded.text, "fragment text");
 assert.equal(detectEncoded("deadbeef"), undefined);
 assert.equal(detectEncoded("abc"), undefined);
 
+// Chrome escapes spaces into the host where Node rejects them; either way it is not a URL
+assert.throws(() => parseUrl("not a url at all"));
+assert.throws(() => parseUrl("https://intranet"), /isn't a valid host/);
+assert.equal(parseUrl("http://localhost:3000/x").port, "3000");
+assert.equal(parseUrl("http://127.0.0.1/").hostname, "127.0.0.1");
+assert.equal(parseUrl("mailto:someone@example.com").protocol, "mailto");
+
 console.log("parse-url: ok");

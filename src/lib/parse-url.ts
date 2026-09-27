@@ -120,6 +120,14 @@ export function parseUrl(input: string): ParsedUrl {
   // ponytail: bare "example.com/x" gets https://, anything with a scheme is taken as-is
   const schemeAdded = !/^[a-z][a-z\d+.-]*:/i.test(trimmed);
   const url = new URL(schemeAdded ? `https://${trimmed}` : trimmed);
+  // new URL() percent-encodes spaces into the host, so "not a url" would parse. Web hosts
+  // need a dot, apart from localhost and IP addresses; other schemes are taken as-is.
+  if (/^(https?|wss?|ftp):$/.test(url.protocol)) {
+    const host = url.hostname;
+    const looksLikeHost =
+      host === "localhost" || host.startsWith("[") || /^[^%.]+(\.[^%.]+)+$/.test(host);
+    if (!looksLikeHost) throw new TypeError(`"${safeDecode(host)}" isn't a valid host`);
+  }
   const hash = url.hash.replace(/^#/, "");
   // Hash routers (#/page?x=1) and OAuth fragments (#access_token=...) carry params too
   const hashQuery = hash.includes("?") ? hash.slice(hash.indexOf("?") + 1) : hash;
