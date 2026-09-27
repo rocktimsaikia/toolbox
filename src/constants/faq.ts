@@ -670,4 +670,74 @@ export const Faqs: Record<Slug, Faq[]> = {
         "Anything below ₹1,00,000 crore (one lakh crore), which covers any amount you would write on a cheque.",
     },
   ],
+  "json-formatter": [
+    {
+      question: "How do I pretty print JSON?",
+      answer:
+        "Paste it into the input. The formatted version appears on the right straight away, indented with 2 spaces by default and ready to copy.",
+    },
+    {
+      question: "Should I use 2 or 4 spaces for JSON?",
+      answer:
+        "Either is valid. 2 spaces is the most common; 4 spaces is easier to follow in deeply nested data. Pick one per project and stay consistent.",
+    },
+    {
+      question: "Is my JSON sent to a server?",
+      answer:
+        "No. Formatting runs in your browser, so the data never leaves your device. That makes it safe for API responses that contain personal data or tokens.",
+    },
+    {
+      question: "Why did a large ID number change?",
+      answer:
+        "JavaScript numbers are exact only up to 9,007,199,254,740,991. Bigger integers are rounded when the JSON is read, and the tool shows a note when that happens. Store long IDs as strings to keep every digit.",
+    },
+  ],
+  "json-validator": [
+    {
+      question: "How do I check if JSON is valid?",
+      answer:
+        "Paste it into the input. Valid JSON shows a green Valid JSON line with a summary, such as an object with 7 keys. Invalid JSON shows the first error with its line and column.",
+    },
+    {
+      question: 'What does "Unexpected token" in JSON mean?',
+      answer:
+        "The parser reached a character it didn't expect at that point, such as a } after a trailing comma, or a ' where a double quote belongs. The validator names the character and how to fix it.",
+    },
+    {
+      question: "Does it check against a JSON Schema?",
+      answer:
+        "No. It checks that the text is valid JSON syntax. Checking that fields have the right names and types needs a JSON Schema validator.",
+    },
+    {
+      question: "Why does it show only one error?",
+      answer:
+        "The first error often causes the ones after it, so it is shown alone. Fix it and the check moves on to the next problem as you type.",
+    },
+    {
+      question: "Is my JSON uploaded anywhere?",
+      answer: "No. The check runs in your browser and nothing is sent to a server.",
+    },
+  ],
+  "json-minifier": [
+    {
+      question: "How do I minify JSON?",
+      answer:
+        "Paste it into the input. The minified version appears on the right with the size before and after, ready to copy.",
+    },
+    {
+      question: "Does minifying change my data?",
+      answer:
+        "No. Only whitespace outside strings is removed, so a program reading the JSON gets the same values. The exception is integers too large for JavaScript, which the tool warns about.",
+    },
+    {
+      question: "How do I make minified JSON readable again?",
+      answer:
+        "Use the JSON Formatter, which re-indents minified JSON with 2 spaces, 4 spaces, or tabs.",
+    },
+    {
+      question: "Is minified JSON faster?",
+      answer:
+        "It is smaller, so it transfers faster, especially without gzip or Brotli. Parsing takes about the same time.",
+    },
+  ],
 };

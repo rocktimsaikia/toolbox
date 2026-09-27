@@ -217,6 +217,36 @@ export const TOOLS = {
     category: "Text",
     icon: "fileText",
   },
+  "json-formatter": {
+    name: "JSON Formatter",
+    seoTitle: "JSON Formatter and Beautifier, Pretty Print Online",
+    description: "Pretty print JSON with the indentation you want",
+    seoDescription:
+      "Format and beautify JSON online. Paste minified or messy JSON and get readable, indented output, with any error pointed out by line. Free and private.",
+    slug: "json-formatter",
+    category: "Data formats",
+    icon: "braces",
+  },
+  "json-validator": {
+    name: "JSON Validator",
+    seoTitle: "JSON Validator: Check JSON and Find Errors Online",
+    description: "Check JSON and see exactly where it breaks",
+    seoDescription:
+      "Validate JSON online and find errors fast. See the exact line and column of the problem, with a plain explanation of how to fix it. Free and private.",
+    slug: "json-validator",
+    category: "Data formats",
+    icon: "braces",
+  },
+  "json-minifier": {
+    name: "JSON Minifier",
+    seoTitle: "JSON Minifier: Compress and Minify JSON Online",
+    description: "Strip whitespace and see how many bytes you save",
+    seoDescription:
+      "Minify JSON online by removing spaces and line breaks. See the size before and after, then copy compact JSON for APIs and configs. Free and private.",
+    slug: "json-minifier",
+    category: "Data formats",
+    icon: "braces",
+  },
   "json-to-yaml": {
     name: "JSON to YAML Converter",
     seoTitle: "JSON to YAML Converter Online, Free and Private",

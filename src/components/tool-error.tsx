@@ -4,20 +4,27 @@ type Props = {
   message: string;
   // Parser output or other technical detail, shown smaller under the plain message
   detail?: string;
+  // Keep whitespace in the detail, for a code excerpt with a caret under the problem
+  preformatted?: boolean;
 };
 
 // The one error style for every tool: a plain sentence naming the problem and the fix,
 // with the technical detail underneath
-export default function ToolError({ id, message, detail }: Props) {
+export default function ToolError({ id, message, detail, preformatted }: Props) {
   return (
     // w-0 min-w-full: wrap long messages instead of widening the column
     <div id={id} role="alert" className="mt-2 w-0 min-w-full text-sm">
       <p className="text-destructive">{message}</p>
-      {detail && (
-        <p className="mt-1 break-words font-mono text-xs text-muted-foreground">
-          {detail}
-        </p>
-      )}
+      {detail &&
+        (preformatted ? (
+          <pre className="mt-1 overflow-x-auto font-mono text-xs text-muted-foreground">
+            {detail}
+          </pre>
+        ) : (
+          <p className="mt-1 break-words font-mono text-xs text-muted-foreground">
+            {detail}
+          </p>
+        ))}
     </div>
   );
 }

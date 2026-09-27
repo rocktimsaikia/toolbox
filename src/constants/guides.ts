@@ -1067,4 +1067,129 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
+  "json-formatter": {
+    intro:
+      "APIs, logs, and config files often hand you JSON on one long line. The JSON Formatter re-indents it so you can read the structure, spot missing fields, and compare values, and if the JSON is broken it points to the exact line.",
+    sections: [
+      {
+        heading: "Options",
+        list: [
+          {
+            term: "Indentation.",
+            text: "2 spaces is the most common style and the default. 4 spaces is easier to follow in deeply nested data, and tabs let each reader's editor choose the width.",
+          },
+          {
+            term: "Sort keys A to Z.",
+            text: "Orders the keys of every object alphabetically, which makes two versions of the same data easier to compare. Array order never changes.",
+          },
+        ],
+      },
+      {
+        heading: "What changes when you format",
+        paragraphs: [
+          "Formatting changes whitespace only, apart from a few things that come from how JSON is read:",
+        ],
+        list: [
+          {
+            term: "Number style.",
+            text: "1.0 becomes 1 and 1e2 becomes 100, because they are the same number.",
+          },
+          { term: "Escapes.", text: "\\u00e9 is written as é." },
+          {
+            term: "Large integers.",
+            text: "Very large integers, beyond 9,007,199,254,740,991, lose precision when JSON is read. The tool shows a note when that happens; store long IDs as strings to keep every digit.",
+          },
+          {
+            term: "Duplicate keys.",
+            text: "Only the last value is kept, and the tool shows a note naming the key.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        code: '{"id":1042,"roles":["admin","editor"]}\n\n// formatted with 2 spaces\n\n{\n  "id": 1042,\n  "roles": [\n    "admin",\n    "editor"\n  ]\n}',
+      },
+    ],
+  },
+  "json-validator": {
+    intro:
+      "A single missing comma or stray quote makes a whole JSON file unreadable to a program, and parser error messages are often cryptic. The JSON Validator checks your JSON as you type and, if it is broken, names the exact line and column with a plain explanation of the fix.",
+    sections: [
+      {
+        heading: "Common JSON errors",
+        list: [
+          {
+            term: "Trailing comma.",
+            text: "JSON doesn't allow a comma after the last item, as in [1, 2,]. Remove it.",
+          },
+          {
+            term: "Single quotes.",
+            text: "Strings and keys need double quotes: \"name\", not 'name'.",
+          },
+          {
+            term: "Unquoted keys.",
+            text: 'JavaScript allows {name: 1}, but JSON needs {"name": 1}.',
+          },
+          {
+            term: "Comments.",
+            text: "JSON has no // or /* */ comments. Remove them, or use a format that allows them, such as YAML.",
+          },
+          {
+            term: "Missing comma.",
+            text: 'Two values side by side, as in "a": 1 "b": 2, need a comma between them.',
+          },
+          {
+            term: "Cut-off JSON.",
+            text: "A missing } or ] at the end, often from copying only part of a response.",
+          },
+        ],
+      },
+      {
+        heading: "Reading the error",
+        paragraphs: [
+          "The message says what is wrong first. Below it are the line and column, and the line itself with a ^ under the character where the problem starts. Fix that spot and the check runs again as you type.",
+        ],
+      },
+      {
+        heading: "Unexpected token errors",
+        paragraphs: [
+          'Messages like "Unexpected token } in JSON at position 42" come from JSON.parse in browsers and Node.js. Paste the same text here to see which line that position is on and what should have been there.',
+        ],
+      },
+    ],
+  },
+  "json-minifier": {
+    intro:
+      "Whitespace makes JSON readable for people but adds bytes for machines. The JSON Minifier removes every space, tab, and line break outside strings, so the data is as small as it can be for an API payload, a config value, or a URL, and it shows how much you saved.",
+    sections: [
+      {
+        heading: "What minifying removes",
+        paragraphs: [
+          "Only whitespace between values is removed. Text inside strings, spaces included, stays exactly as it was, and the data itself doesn't change. The same exceptions as formatting apply: 1.0 is written as 1, and very large integers lose precision, which the tool warns about.",
+        ],
+      },
+      {
+        heading: "When it helps",
+        list: [
+          {
+            text: "Sending JSON in an API request or response, where every byte is transferred.",
+          },
+          {
+            text: "Storing JSON in a database column, an environment variable, or a query parameter.",
+          },
+          { text: "Embedding data in HTML or JavaScript." },
+        ],
+      },
+      {
+        heading: "Minifying and gzip",
+        paragraphs: [
+          "If your server already compresses responses with gzip or Brotli, minifying saves less, because compression removes most of the repeated whitespace too. It still helps wherever the JSON is stored or sent uncompressed.",
+        ],
+      },
+      {
+        heading: "Example",
+        code: '{\n  "id": 1042,\n  "active": true\n}\n\n// minified\n\n{"id":1042,"active":true}',
+      },
+    ],
+  },
 };

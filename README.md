@@ -14,6 +14,9 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [HTML Escape](https://toolbelt.fyi/html-escape) | Escape and unescape HTML entities |
 | [URL Parser](https://toolbelt.fyi/url-parser) | Break a messy URL into host, path segments, and every query param, with base64 and JWT values decoded |
 | [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Generate TypeScript types from a JavaScript object or JSON |
+| [JSON Formatter](https://toolbelt.fyi/json-formatter) | Pretty print JSON with 2 spaces, 4 spaces, or tabs |
+| [JSON Validator](https://toolbelt.fyi/json-validator) | Check JSON and see the exact line and column of any error |
+| [JSON Minifier](https://toolbelt.fyi/json-minifier) | Strip whitespace from JSON and see the bytes saved |
 | [JSON to YAML](https://toolbelt.fyi/json-to-yaml) | Convert JSON to YAML |
 | [YAML to JSON](https://toolbelt.fyi/yaml-to-json) | Convert YAML to JSON |
 | [JSON to CSV](https://toolbelt.fyi/json-to-csv) | Turn a JSON array of records into CSV |
