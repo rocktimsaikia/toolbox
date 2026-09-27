@@ -206,6 +206,78 @@ export const TOOLS = {
     category: "Text",
     icon: "fileText",
   },
+  "json-to-yaml": {
+    name: "JSON to YAML Converter",
+    seoTitle: "JSON to YAML Converter Online, Free and Private",
+    description: "Paste JSON, get clean YAML",
+    seoDescription:
+      "Convert JSON to YAML online. Paste an object or API response and get readable YAML for Kubernetes, Docker Compose, or CI config. Runs in your browser.",
+    slug: "json-to-yaml",
+    category: "Convert",
+    // Landing page for one preset pair; the directory lists the main converter instead
+    hide: true,
+    icon: "arrowUpDown",
+  },
+  "yaml-to-json": {
+    name: "YAML to JSON Converter",
+    seoTitle: "YAML to JSON Converter Online, Free and Private",
+    description: "Paste YAML, get formatted JSON",
+    seoDescription:
+      "Convert YAML to JSON online. Paste a Kubernetes manifest, Compose file, or config and get formatted JSON, with anchors resolved. Runs in your browser.",
+    slug: "yaml-to-json",
+    category: "Convert",
+    // Landing page for one preset pair; the directory lists the main converter instead
+    hide: true,
+    icon: "arrowUpDown",
+  },
+  "json-to-csv": {
+    name: "JSON to CSV Converter",
+    seoTitle: "JSON to CSV Converter Online, Open in Excel",
+    description: "Turn a JSON array of records into CSV",
+    seoDescription:
+      "Convert a JSON array to CSV online. Each object becomes a row and each key a column, ready for Excel or Google Sheets. Free, private, and instant.",
+    slug: "json-to-csv",
+    category: "Convert",
+    // Landing page for one preset pair; the directory lists the main converter instead
+    hide: true,
+    icon: "arrowUpDown",
+  },
+  "csv-to-json": {
+    name: "CSV to JSON Converter",
+    seoTitle: "CSV to JSON Converter Online, Free and Private",
+    description: "Turn CSV rows into a JSON array",
+    seoDescription:
+      "Convert CSV to JSON online. The header row becomes the keys and each row becomes an object in a JSON array. Free, private, and runs in your browser.",
+    slug: "csv-to-json",
+    category: "Convert",
+    // Landing page for one preset pair; the directory lists the main converter instead
+    hide: true,
+    icon: "arrowUpDown",
+  },
+  "xml-to-json": {
+    name: "XML to JSON Converter",
+    seoTitle: "XML to JSON Converter Online, Free and Private",
+    description: "Paste XML, get formatted JSON",
+    seoDescription:
+      "Convert XML to JSON online. Elements become keys and repeated elements become arrays, so you can work with XML feeds and SOAP responses as JSON.",
+    slug: "xml-to-json",
+    category: "Convert",
+    // Landing page for one preset pair; the directory lists the main converter instead
+    hide: true,
+    icon: "arrowUpDown",
+  },
+  "json-to-xml": {
+    name: "JSON to XML Converter",
+    seoTitle: "JSON to XML Converter Online, Free and Private",
+    description: "Paste JSON, get indented XML",
+    seoDescription:
+      "Convert JSON to XML online. Keys become elements and arrays become repeated elements, with readable indentation. Free, private, and in your browser.",
+    slug: "json-to-xml",
+    category: "Convert",
+    // Landing page for one preset pair; the directory lists the main converter instead
+    hide: true,
+    icon: "arrowUpDown",
+  },
 } as const;
 
 export const tools = Object.values(TOOLS);

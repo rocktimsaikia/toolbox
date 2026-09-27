@@ -766,4 +766,167 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
+  "json-to-yaml": {
+    intro:
+      "YAML is the config language of Kubernetes, Docker Compose, GitHub Actions, and most CI tools, but APIs and scripts speak JSON. This converter turns JSON into YAML you can drop straight into a config file.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          {
+            term: "Objects.",
+            text: "Each key becomes a YAML key, with nested objects indented 4 spaces.",
+          },
+          { term: "Arrays.", text: "Each item becomes a line starting with a dash." },
+          {
+            term: "Strings.",
+            text: "Values that YAML would misread, such as dates or numbers stored as text, are quoted so they stay strings.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        paragraphs: ["A small JSON object:"],
+        code: '{ "app": { "port": 8080, "hosts": ["a.local", "b.local"] } }\n\n// converts to\n\napp:\n    port: 8080\n    hosts:\n        - a.local\n        - b.local',
+      },
+    ],
+  },
+  "yaml-to-json": {
+    intro:
+      "YAML is easy to write by hand, but most scripts, APIs, and tools like jq expect JSON. Paste a Kubernetes manifest, Compose file, or any YAML config and get formatted JSON back.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          {
+            term: "Anchors and merge keys.",
+            text: "References like <<: *defaults are expanded, so the JSON contains the full values.",
+          },
+          { term: "Comments.", text: "Dropped, because JSON has no comments." },
+          {
+            term: "Multiple documents.",
+            text: "Only one document is supported. If your file has several separated by ---, convert them one at a time.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        paragraphs: ["A config with a shared anchor:"],
+        code: 'base: &base\n  replicas: 2\nprod:\n  <<: *base\n  region: eu\n\n// converts to\n\n{\n  "base": { "replicas": 2 },\n  "prod": { "replicas": 2, "region": "eu" }\n}',
+      },
+    ],
+  },
+  "json-to-csv": {
+    intro:
+      "A JSON API response is hard to scan, but the same data in a spreadsheet is easy to sort and filter. This converter turns a JSON array of objects into CSV you can open in Excel, Numbers, or Google Sheets.",
+    sections: [
+      {
+        heading: "What the input needs",
+        list: [
+          {
+            term: "An array.",
+            text: "The top level must be a list, such as [{...}, {...}]. A single object cannot become rows.",
+          },
+          {
+            term: "Matching keys.",
+            text: "The columns come from the keys of the first object. Keys that appear only in later objects are left out, so give every object the same keys.",
+          },
+          {
+            term: "Flat values.",
+            text: "Nested objects and arrays are written into one cell as JSON text.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        code: '[{ "name": "Ann", "age": 31 }, { "name": "Raj", "age": 27 }]\n\n// converts to\n\nname,age\nAnn,31\nRaj,27',
+      },
+    ],
+  },
+  "csv-to-json": {
+    intro:
+      "CSV exports from spreadsheets and databases are easy to produce but awkward to use in code. This converter turns each row into a JSON object, keyed by the header row, so you can feed the data to a script or API.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          { term: "Header row.", text: "The first line gives the key names." },
+          {
+            term: "Rows.",
+            text: "Every following line becomes one object in a JSON array. Empty lines are skipped.",
+          },
+          {
+            term: "Values.",
+            text: 'Every value stays a string, including numbers, so "31" is not turned into 31. Convert types in your code if you need them.',
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        code: 'name,age\nAnn,31\nRaj,27\n\n// converts to\n\n[\n  { "name": "Ann", "age": "31" },\n  { "name": "Raj", "age": "27" }\n]',
+      },
+    ],
+  },
+  "xml-to-json": {
+    intro:
+      "XML still shows up in RSS feeds, SOAP APIs, sitemaps, and older config files. This converter turns XML into JSON so you can inspect it or use it from JavaScript.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          {
+            term: "Elements.",
+            text: "Each element name becomes a key, and nested elements become nested objects.",
+          },
+          {
+            term: "Repeated elements.",
+            text: "Two or more elements with the same name become an array.",
+          },
+          {
+            term: "Attributes.",
+            text: "Ignored. Only element content is converted, so move attribute values into child elements if you need them.",
+          },
+          {
+            term: "Numbers.",
+            text: "Numeric text becomes a JSON number, so 042 becomes 42.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        code: '<note>\n  <to>Ann</to>\n  <tag>a</tag>\n  <tag>b</tag>\n</note>\n\n// converts to\n\n{\n  "note": { "to": "Ann", "tag": ["a", "b"] }\n}',
+      },
+    ],
+  },
+  "json-to-xml": {
+    intro:
+      "Some APIs, feeds, and enterprise systems still require XML. This converter turns a JSON object into indented XML, with each key becoming an element.",
+    sections: [
+      {
+        heading: "How it converts",
+        list: [
+          {
+            term: "Keys.",
+            text: "Each key becomes an element, and nested objects become nested elements.",
+          },
+          {
+            term: "Arrays.",
+            text: 'Each item in an array becomes its own element with the key\'s name, so "tags": ["a", "b"] becomes two <tags> elements.',
+          },
+          {
+            term: "Root element.",
+            text: 'XML needs one root. Wrap your data in a single top-level key, such as { "order": { ... } }.',
+          },
+          {
+            term: "Declaration.",
+            text: "The <?xml ?> header is not added. Put it at the top yourself if your target needs it.",
+          },
+        ],
+      },
+      {
+        heading: "Example",
+        code: '{ "note": { "to": "Ann", "tags": ["a", "b"] } }\n\n// converts to\n\n<note>\n  <to>Ann</to>\n  <tags>a</tags>\n  <tags>b</tags>\n</note>',
+      },
+    ],
+  },
 };

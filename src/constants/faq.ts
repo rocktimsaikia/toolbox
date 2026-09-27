@@ -475,4 +475,104 @@ export const Faqs: Record<Slug, Faq[]> = {
   "case-converter": CASE_CONVERTER_FAQ,
   "color-converter": COLOR_CONVERTER_FAQ,
   "word-counter": WORD_COUNTER_FAQ,
+  "json-to-yaml": [
+    {
+      question: "Does it keep the order of my keys?",
+      answer: "Yes. Keys come out in the same order they appear in your JSON.",
+    },
+    {
+      question: "Why are some of my values in quotes?",
+      answer:
+        "YAML treats unquoted text like 2024-01-01 or 042 as dates or numbers. The converter quotes those values so they stay strings, exactly as they were in your JSON.",
+    },
+    {
+      question: "Can I paste a JavaScript object instead of JSON?",
+      answer:
+        "No. The input must be strict JSON, so keys need double quotes and trailing commas are not allowed. For a JavaScript object, quote the keys first.",
+    },
+  ],
+  "yaml-to-json": [
+    {
+      question: 'Why do I get "expected a single document"?',
+      answer:
+        "Your YAML contains more than one document separated by ---. Paste one document at a time.",
+    },
+    {
+      question: "Does yes become true?",
+      answer:
+        "No. The converter follows YAML 1.2, where only true and false are booleans, so yes, no, on, and off stay strings.",
+    },
+    {
+      question: "Are my YAML comments kept?",
+      answer:
+        "No. JSON has no comment syntax, so comments are removed during conversion.",
+    },
+  ],
+  "json-to-csv": [
+    {
+      question: 'Why do I get "CSV output requires array data"?',
+      answer:
+        'CSV is a list of rows, so the input must be a JSON array. If your records are inside a field, such as { "users": [...] }, paste just the array.',
+    },
+    {
+      question: "Why is a column missing?",
+      answer:
+        "Columns are taken from the first object. Add the missing key to the first object, even with an empty value, and it will appear.",
+    },
+    {
+      question: "How do I open the result in Excel?",
+      answer:
+        "Copy the output, save it as a .csv file, and open that file, or paste it into Google Sheets and split the text into columns.",
+    },
+  ],
+  "csv-to-json": [
+    {
+      question: "Why are my numbers in quotes?",
+      answer:
+        "CSV has no types, so every value is read as text. Keeping them as strings avoids surprises such as zip codes losing their leading zero.",
+    },
+    {
+      question: "Does it handle commas inside values?",
+      answer:
+        'Yes. Values wrapped in double quotes, such as "Doe, John", are read as one field.',
+    },
+    {
+      question: "Does my CSV need a header row?",
+      answer: "Yes. The first row is always used for the key names.",
+    },
+  ],
+  "xml-to-json": [
+    {
+      question: "Why are my XML attributes missing?",
+      answer:
+        'The converter reads element content only. Attributes like id="7" are not included in the JSON.',
+    },
+    {
+      question: "Why did a value lose its leading zero?",
+      answer:
+        "Numeric text is converted to a JSON number, and numbers do not keep leading zeros. Values like zip codes or IDs are affected.",
+    },
+    {
+      question: "Why is one element an array and another not?",
+      answer:
+        "An element becomes an array only when it appears more than once under the same parent. A single element stays a plain value.",
+    },
+  ],
+  "json-to-xml": [
+    {
+      question: "How do I add XML attributes?",
+      answer:
+        "The converter writes elements only. Add attributes to the output by hand if your target format needs them.",
+    },
+    {
+      question: "Why does my output have more than one root element?",
+      answer:
+        'Each top-level key becomes an element. Wrap everything in one key, such as { "root": { ... } }, to get a single root.',
+    },
+    {
+      question: "Does it add an XML declaration?",
+      answer:
+        'No. Add <?xml version="1.0" encoding="UTF-8"?> to the first line if you need one.',
+    },
+  ],
 };
