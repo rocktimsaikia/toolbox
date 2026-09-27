@@ -1,4 +1,5 @@
 import Faq from "@/components/faq";
+import RelatedTools from "@/components/related-tools";
 import ToolGuide from "@/components/tool-guide";
 import { Faqs } from "@/constants/faq";
 import { TOOLS } from "@/constants/tools";
@@ -21,6 +22,7 @@ export default function Layout({ children }: Readonly<{ children: React.ReactNod
       {children}
       <ToolGuide slug={slug} />
       <Faq faq={faq} />
+      <RelatedTools slug={slug} />
     </div>
   );
 }
