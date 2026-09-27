@@ -34,8 +34,11 @@ export default function RootLayout({
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: theme init must run before paint to avoid FOUC */}
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
+      {/* Extensions such as ColorZilla add attributes to <body> before React loads; this
+          ignores those on body only, never in the page content */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        suppressHydrationWarning
       >
         {gaId ? (
           <>
