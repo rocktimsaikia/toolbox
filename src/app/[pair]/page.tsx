@@ -38,7 +38,9 @@ export default async function Page({ params }: Props) {
 
   return (
     <div>
+      {/* key: a new pair is a new tool, so state starts fresh (or from the carry) */}
       <DataFormatConverter
+        key={pair}
         tool={TOOLS[pair]}
         from={from}
         to={to}

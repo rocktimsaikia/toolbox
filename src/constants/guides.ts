@@ -245,8 +245,8 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       {
         heading: "Decoding",
         paragraphs: [
-          "Flip the switch to Decode and paste a Base64 string. The decoder also accepts the URL-safe variant, which uses - and _ instead of + and /, and strings with the padding left off, as found in JWTs and many URLs.",
-          "If the decoded bytes are not valid text, for example when the Base64 holds an image, you get an error instead of garbled characters. Flipping the switch also moves the current output into the input, so checking a round trip takes one click.",
+          "Choose Decode and paste a Base64 string. The decoder also accepts the URL-safe variant, which uses - and _ instead of + and /, and strings with the padding left off, as found in JWTs and many URLs.",
+          "If the decoded bytes are not valid text, for example when the Base64 holds an image, you get an error instead of garbled characters. Switching between Encode and Decode also moves the current output into the input, so checking a round trip takes one click.",
         ],
       },
       {

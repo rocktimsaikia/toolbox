@@ -21,6 +21,10 @@ type Props = {
 
 type ConversionError = { message: string; detail?: string };
 
+// The swap link opens the reverse conversion, whose input format is this page's output,
+// so the output carries over as the next page's input (client navigation keeps modules)
+let carriedInput: string | undefined;
+
 const label = (format: Format) => format.toUpperCase();
 
 const isPlainObject = (data: unknown): data is Record<string, unknown> =>
@@ -92,7 +96,11 @@ async function stringifyOutput(data: unknown, format: Format) {
 }
 
 export default function DataFormatConverter({ tool, from, to, sample, swapHref }: Props) {
-  const [input, setInput] = useState(sample);
+  const [input, setInput] = useState(() => carriedInput ?? sample);
+  // Cleared after mount, not in the initializer, which Strict Mode runs twice
+  useEffect(() => {
+    carriedInput = undefined;
+  }, []);
   const [output, setOutput] = useState("");
   const [error, setError] = useState<ConversionError | null>(null);
 
@@ -145,6 +153,9 @@ export default function DataFormatConverter({ tool, from, to, sample, swapHref }
           <PanelHeader id="converter-input" label="Input" format={label(from)}>
             <Link
               href={swapHref}
+              onClick={() => {
+                carriedInput = output || undefined;
+              }}
               aria-label={`Swap: convert ${label(to)} to ${label(from)}`}
               className="inline-flex h-11 items-center gap-1.5 rounded border border-border px-3 text-sm font-medium text-foreground hover:bg-muted hover:no-underline transition-colors lg:h-9"
             >

@@ -45,7 +45,7 @@ const PASSWORD_GENERATOR_FAQ: Faq[] = [
   {
     question: "How do I customize my password?",
     answer:
-      "Use the toggles for uppercase, lowercase, numbers, and symbols, and adjust the length slider. Our tool generates a random password based on your settings.",
+      "Set the length, tick uppercase, lowercase, numbers, and symbols as needed, then click Generate Password. The password is created on your device from those settings.",
   },
   {
     question: "Why use a random password generator?",
@@ -55,7 +55,7 @@ const PASSWORD_GENERATOR_FAQ: Faq[] = [
   {
     question: "How do I save my generated password?",
     answer:
-      "After generating, click 'Copy to clipboard' to save your password. Store it securely, as the tool doesn’t save it for you.",
+      "After generating, click Copy to take your password. Store it securely, as the tool doesn’t save it for you.",
   },
 ];
 
@@ -68,7 +68,7 @@ const BASE64_CONVERTER_FAQ: Faq[] = [
   {
     question: "How do I use the Base64 Converter?",
     answer:
-      "Enter your text in the input field, toggle between 'Encode' or 'Decode,' and the tool will convert it instantly. Use the 'Copy to Clipboard' button to save the result.",
+      "Choose Encode or Decode above the boxes, then type or paste into the input. The result updates as you type; click Copy to take it.",
   },
   {
     question: "Why would I need to convert text to Base64?",
@@ -119,7 +119,7 @@ const URL_ENCODER_DECODER_FAQ: Faq[] = [
   {
     question: "How do I use the URL Encoder/Decoder?",
     answer:
-      "Paste your URL into the input box, toggle between 'Encode' or 'Decode,' and the tool will instantly convert your URL. Use the 'Copy to Clipboard' button to save the result.",
+      "Choose Encode or Decode above the boxes, then paste your text or URL into the input. The result updates as you type; click Copy to take it.",
   },
   {
     question: "Is URL encoding the same as encryption?",
@@ -160,7 +160,7 @@ const JSON_TO_TYPES_FAQ: Faq[] = [
   {
     question: "How do I use the JavaScript/JSON to TypeScript Types converter?",
     answer:
-      "Paste your JavaScript object or JSON data into the input field, and the tool will automatically generate the corresponding TypeScript types. Copy the result using the 'Copy to Clipboard' button.",
+      "Paste your JavaScript object or JSON data into the input field, and the tool will automatically generate the corresponding TypeScript types. Click Copy to take the result.",
   },
   {
     question: "Why should I convert JSON to TypeScript types?",
@@ -188,7 +188,7 @@ const HTML_ESCAPE_FAQ: Faq[] = [
   {
     question: "How do I use the HTML Escape tool?",
     answer:
-      "Enter your text in the input field, and the tool will automatically escape the special characters. Toggle between 'Escape' and 'Unescape' to convert in either direction, and use 'Copy to Clipboard' for the result.",
+      "Enter your text in the input field, and the tool will automatically escape the special characters. Choose Escape or Unescape to convert in either direction, and click Copy to take the result.",
   },
   {
     question: "What characters does HTML escaping convert?",

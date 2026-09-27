@@ -1,11 +1,10 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import SegmentedControl from "@/components/segmented-control";
 import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
-import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
-import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 // decodeURIComponent only says "URI malformed", so find the sequence it choked on
@@ -55,6 +54,20 @@ export default function UrlEncoder() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["url-encoder-decoder"]} />
+      <div className="mb-6">
+        <SegmentedControl
+          label="Direction"
+          name="url-direction"
+          value={encode ? "encode" : "decode"}
+          options={[
+            { value: "encode", label: "Encode" },
+            { value: "decode", label: "Decode" },
+          ]}
+          onChange={(value) => {
+            if ((value === "encode") !== encode) handleConversionSwitch();
+          }}
+        />
+      </div>
       <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center">
         <div className="flex flex-col items-start w-full">
           <PanelHeader
@@ -90,27 +103,6 @@ export default function UrlEncoder() {
             placeholder={`Your ${encode ? "encoded" : "decoded"} URL will appear here...`}
           ></textarea>
         </div>
-      </div>
-      <div className="mt-4 flex items-center justify-center">
-        <label
-          htmlFor="convert"
-          className={clsx("mr-2 text-sm font-medium", {
-            "text-muted-foreground": encode,
-            "text-foreground": !encode,
-          })}
-        >
-          Decode
-        </label>
-        <Switch id="convert" checked={encode} onCheckedChange={handleConversionSwitch} />
-        <label
-          htmlFor="convert"
-          className={clsx("ml-2 text-sm font-medium", {
-            "text-muted-foreground": !encode,
-            "text-foreground": encode,
-          })}
-        >
-          Encode
-        </label>
       </div>
     </div>
   );
