@@ -241,7 +241,7 @@ function SegmentedControl<T extends string>({
           <label
             key={option.value}
             className={clsx(
-              "inline-flex h-10 cursor-pointer items-center rounded-sm px-4 text-sm font-medium transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand lg:h-8",
+              "inline-flex h-11 cursor-pointer items-center rounded-sm px-4 text-sm font-medium transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand lg:h-8",
               value === option.value
                 ? "bg-brand text-brand-foreground"
                 : "text-muted-foreground hover:text-foreground",
@@ -434,7 +434,7 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
                     aria-pressed={selectedCase === caseType}
                     onClick={() => setSelectedCase(caseType)}
                     className={clsx(
-                      "h-10 rounded border px-3 font-mono text-sm transition-colors lg:h-8",
+                      "h-11 rounded border px-3 font-mono text-sm transition-colors lg:h-8",
                       selectedCase === caseType
                         ? "border-brand bg-brand text-brand-foreground"
                         : "border-border bg-card text-foreground hover:bg-muted",

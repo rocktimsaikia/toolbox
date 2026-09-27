@@ -143,8 +143,7 @@
   }
   /* Fields flagged by ToolError; the shadcn Input sets its own */
   textarea[aria-invalid="true"],
-  input[aria-invalid="true"],
-  .cm-editor:has(.cm-content[aria-invalid="true"]) {
+  input[aria-invalid="true"] {
     border-color: var(--destructive);
   }
   :root {
@@ -183,7 +182,23 @@
 }
 .cm-editor:focus,
 .cm-editor.cm-focused {
-  outline: 1px solid var(--ring);
+  outline: 2px solid var(--brand);
+}
+/* The editor draws its frame with outline, so the invalid state recolors that */
+.cm-editor:has(.cm-content[aria-invalid="true"]) {
+  outline-color: var(--destructive);
+}
+/* Match the site's own fields instead of the editor theme's bluish surface */
+.dark .cm-editor,
+.dark .cm-gutters {
+  background-color: color-mix(in srgb, white 7%, var(--background)) !important;
+}
+.cm-editor .cm-cursor {
+  border-left-color: var(--brand);
+}
+.cm-editor .cm-selectionBackground,
+.cm-editor.cm-focused .cm-selectionBackground {
+  background: color-mix(in oklch, var(--brand) 30%, transparent) !important;
 }
 @media (max-width: 640px) {
   .cm-editor {

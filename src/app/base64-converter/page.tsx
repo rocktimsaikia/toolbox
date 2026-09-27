@@ -39,9 +39,13 @@ function decodeBase64(base64: string) {
   }
 }
 
+// Prefilled so the page opens on a working result; the emoji shows UTF-8 support
+const SAMPLE = "Hello, Toolbelt! 👋";
+
 export default function Base64Converter() {
-  const [inputString, setInputString] = useState("");
-  const [outputString, setOutputString] = useState("");
+  const [inputString, setInputString] = useState(SAMPLE);
+  // Computed up front so the server HTML already has the output
+  const [outputString, setOutputString] = useState(() => encodeBase64(SAMPLE));
   const [encode, setEncode] = useState(true);
   const [error, setError] = useState("");
 

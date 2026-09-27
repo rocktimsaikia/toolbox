@@ -26,7 +26,10 @@ export default function RelatedTools({ slug }: { slug: Slug }) {
           </li>
         ))}
       </ul>
-      <Link href="/" className="mt-4 inline-block text-sm text-muted-foreground">
+      <Link
+        href="/"
+        className="mt-2 inline-flex min-h-11 items-center text-sm text-muted-foreground"
+      >
         All tools
       </Link>
     </nav>
