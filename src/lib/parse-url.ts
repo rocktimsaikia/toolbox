@@ -54,7 +54,7 @@ function safeDecode(value: string, plusAsSpace = true) {
 
 const isUrl = (value: string) => /^https?:\/\/\S+$/i.test(value);
 
-function base64ToText(value: string) {
+export function base64ToText(value: string) {
   const b64 = value.replace(/-/g, "+").replace(/_/g, "/");
   try {
     const bytes = Uint8Array.from(

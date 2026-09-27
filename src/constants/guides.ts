@@ -992,4 +992,44 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
+  "jwt-decoder": {
+    intro:
+      "A JSON Web Token (JWT) carries claims about a user or session, such as who they are and when the token expires. The claims are only base64url-encoded, not encrypted, so anyone holding the token can read them. Paste a token here to see its header, payload, and expiry.",
+    sections: [
+      {
+        heading: "The three parts",
+        list: [
+          {
+            term: "Header.",
+            text: "Says how the token was signed, for example alg HS256 or RS256, and often a key ID (kid).",
+          },
+          {
+            term: "Payload.",
+            text: "The claims: registered ones like sub, iss, aud, iat, and exp, plus any custom fields the issuer added.",
+          },
+          {
+            term: "Signature.",
+            text: "Proves the token was issued by someone holding the signing key and has not been changed. It can only be checked with that key.",
+          },
+        ],
+      },
+      {
+        heading: "Reading the time claims",
+        paragraphs: [
+          "iat (issued at), nbf (not before), and exp (expires) are Unix timestamps in seconds. The decoder shows them as UTC dates and tells you whether the token has expired or is not valid yet, based on your device's clock.",
+        ],
+      },
+      {
+        heading: "Decoding is not verifying",
+        paragraphs: [
+          "This tool reads the token without checking the signature, so a decoded token proves nothing about who issued it. Anyone can change the payload and re-encode it. Your server must verify the signature with the right key, and check exp, before trusting any claim.",
+        ],
+      },
+      {
+        heading: "Example",
+        paragraphs: ["The payload part of a token is base64url JSON:"],
+        code: 'eyJzdWIiOiI0MiIsImV4cCI6MTkyNDk5MjAwMH0\n\n// decodes to\n\n{ "sub": "42", "exp": 1924992000 }',
+      },
+    ],
+  },
 };

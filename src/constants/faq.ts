@@ -611,4 +611,31 @@ export const Faqs: Record<Slug, Faq[]> = {
         "The same key or table appears twice in your TOML. Each key can only be set once.",
     },
   ],
+  "jwt-decoder": [
+    {
+      question: "Is it safe to paste my token here?",
+      answer:
+        "The token is decoded in your browser and never sent anywhere. Still, a live token works like a password until it expires, so avoid pasting production tokens into any site you do not trust, and prefer expired or test tokens.",
+    },
+    {
+      question: "Does this verify the signature?",
+      answer:
+        "No. It only decodes the header and payload. Verifying needs the secret or public key, and should happen on your server.",
+    },
+    {
+      question: "Why does it say my token is encrypted?",
+      answer:
+        "A token with five parts is a JWE, an encrypted JWT. Its payload cannot be read without the decryption key.",
+    },
+    {
+      question: "Can I paste the Authorization header value?",
+      answer:
+        'Yes. A leading "Bearer " is removed automatically, along with surrounding spaces and line breaks.',
+    },
+    {
+      question: "Why is my token expired when it should still be valid?",
+      answer:
+        "The status uses your device's clock. If the clock is off, or the issuer's clock was, the result can differ by that amount.",
+    },
+  ],
 };

@@ -10,6 +10,7 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [Text Trimmer](https://toolbelt.fyi/text-trimmer) | Remove leading and trailing whitespace from text |
 | [Find and Replace Text](https://toolbelt.fyi/find-replace) | Find and replace with case sensitivity and whole word options |
 | [Line Break Remover](https://toolbelt.fyi/line-break-remover) | Remove line breaks, optionally keeping paragraphs |
+| [JWT Decoder](https://toolbelt.fyi/jwt-decoder) | Read a JWT header, payload claims, and expiry |
 | [HTML Escape](https://toolbelt.fyi/html-escape) | Escape and unescape HTML entities |
 | [URL Parser](https://toolbelt.fyi/url-parser) | Break a messy URL into host, path segments, and every query param, with base64 and JWT values decoded |
 | [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Generate TypeScript types from a JavaScript object or JSON |

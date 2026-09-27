@@ -97,6 +97,16 @@ export const TOOLS = {
     category: "Web",
     icon: "wifi",
   },
+  "jwt-decoder": {
+    name: "JWT Decoder",
+    seoTitle: "JWT Decoder: Decode JSON Web Tokens Online",
+    description: "Read a token's header, claims, and expiry",
+    seoDescription:
+      "Decode a JWT to read its header, payload claims, and expiry date. Paste a token and see it decoded instantly. Runs in your browser, nothing is sent.",
+    slug: "jwt-decoder",
+    category: "Encode & decode",
+    icon: "braces",
+  },
   "html-escape": {
     name: "HTML Escape",
     seoTitle: "HTML Escape and Unescape, HTML Entity Encoder",
