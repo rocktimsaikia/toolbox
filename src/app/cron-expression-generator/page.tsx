@@ -1,5 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { Input } from "@/components/ui/input";
 import { TOOLS } from "@/constants/tools";
@@ -237,10 +238,12 @@ export default function CronExpressionGenerator() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["cron-expression-generator"]} />
-      <div className="flex gap-x-6 justify-center mt-20">
+      <div className="flex gap-x-6 justify-center">
         <div className="flex flex-col items-start w-full max-w-2xl">
           <div className="w-full mb-6 relative">
-            <Clipboard text={cronExpression} />
+            <PanelHeader htmlFor="cron-input" label="Cron expression">
+              <Clipboard text={cronExpression} />
+            </PanelHeader>
             <Input
               id="cron-input"
               type="text"

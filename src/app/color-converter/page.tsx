@@ -71,7 +71,7 @@ export default function ColorConverter() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["color-converter"]} />
-      <div className="flex flex-col items-center mt-20">
+      <div className="flex flex-col items-center">
         <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center w-full">
           <div className="flex flex-col items-start w-full">
             <p className="mb-2 lg:text-lg font-semibold">Input Color</p>

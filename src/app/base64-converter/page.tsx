@@ -1,5 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
@@ -54,13 +55,15 @@ export default function Base64Converter() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["base64-converter"]} />
-      <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center mt-20">
+      <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center">
         <div className="flex flex-col items-start w-full">
-          <p className="mb-2 lg:text-lg font-semibold">
-            Input{" "}
-            <span className="text-muted-foreground">({encode ? "Text" : "Base64"})</span>
-          </p>
+          <PanelHeader
+            htmlFor="base64-input"
+            label="Input"
+            format={encode ? "Text" : "Base64"}
+          />
           <textarea
+            id="base64-input"
             className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputString}
             spellCheck={false}
@@ -70,16 +73,15 @@ export default function Base64Converter() {
           {error && <p className="text-destructive mt-2">{error}</p>}
         </div>
         <div className="flex flex-col items-start">
-          <div className="flex justify-between w-full">
-            <p className="text-lg font-semibold flex gap-x-1">
-              <span>Output</span>
-              <span className="text-muted-foreground">
-                ({encode ? "Base64" : "Text"})
-              </span>
-            </p>
+          <PanelHeader
+            id="base64-output"
+            label="Output"
+            format={encode ? "Base64" : "Text"}
+          >
             <Clipboard text={outputString} />
-          </div>
+          </PanelHeader>
           <textarea
+            aria-labelledby="base64-output"
             className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputString}
             spellCheck={false}

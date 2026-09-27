@@ -1,5 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
@@ -39,10 +40,15 @@ export default function UrlEncoder() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["url-encoder-decoder"]} />
-      <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center mt-20">
+      <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center">
         <div className="flex flex-col items-start w-full">
-          <p className="mb-2 lg:text-lg font-semibold">Input</p>
+          <PanelHeader
+            htmlFor="url-input"
+            label="Input"
+            format={encode ? "Text" : "Encoded"}
+          />
           <textarea
+            id="url-input"
             className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             spellCheck={false}
             value={inputString}
@@ -52,16 +58,15 @@ export default function UrlEncoder() {
           {error && <p className="text-destructive mt-2">{error}</p>}
         </div>
         <div className="flex flex-col items-start">
-          <div className="flex justify-between w-full">
-            <p className="lg:text-lg font-semibold flex gap-x-1">
-              <span>Output</span>
-              <span className="text-muted-foreground">
-                ({encode ? "Encoded" : "Decoded"})
-              </span>
-            </p>
+          <PanelHeader
+            id="url-output"
+            label="Output"
+            format={encode ? "Encoded" : "Decoded"}
+          >
             <Clipboard text={outputString} />
-          </div>
+          </PanelHeader>
           <textarea
+            aria-labelledby="url-output"
             className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={outputString}
             readOnly

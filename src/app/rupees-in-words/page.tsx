@@ -1,5 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { type RupeeAmount, rupeesInWords } from "@/lib/rupees.ts";
@@ -27,10 +28,8 @@ export default function RupeesInWords() {
   return (
     <div className="w-full max-w-3xl">
       <ToolsHeader tool={TOOLS["rupees-in-words"]} />
-      <div className="mt-20">
-        <label htmlFor="amount" className="mb-2 block text-lg font-semibold">
-          Amount in rupees
-        </label>
+      <div>
+        <PanelHeader htmlFor="amount" label="Amount in rupees" />
         <input
           id="amount"
           type="text"
@@ -52,8 +51,9 @@ export default function RupeesInWords() {
         <dl className="mt-8 flex flex-col gap-6">
           {ROWS.map(({ key, label }) => (
             <div key={key}>
-              <div className="mb-2 flex items-center justify-between">
-                <dt className="shrink-0 text-lg font-semibold">{label}</dt>
+              {/* Same row as PanelHeader, kept as dt/dd for the label-value list */}
+              <div className="mb-2 flex min-h-11 items-end justify-between gap-2 lg:min-h-9">
+                <dt className="text-base font-semibold lg:text-lg">{label}</dt>
                 <Clipboard text={amount[key]} />
               </div>
               <dd className="rounded border border-border bg-muted p-3 font-mono text-sm text-foreground">

@@ -1,5 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { type DecodedJwt, TIME_CLAIMS, decodeJwt, expiryStatus } from "@/lib/jwt.ts";
@@ -40,10 +41,9 @@ function JsonBlock({ title, value }: { title: string; value: object }) {
   const text = JSON.stringify(value, null, 2);
   return (
     <div className="w-full">
-      <div className="mb-2 flex items-center justify-between">
-        <p className="text-lg font-semibold">{title}</p>
+      <PanelHeader label={title}>
         <Clipboard text={text} />
-      </div>
+      </PanelHeader>
       <pre className="overflow-x-auto rounded border border-border bg-muted p-3 font-mono text-sm text-foreground">
         {text}
       </pre>
@@ -65,10 +65,8 @@ export default function JwtDecoder() {
   return (
     <div className="w-full max-w-4xl">
       <ToolsHeader tool={TOOLS["jwt-decoder"]} />
-      <div className="mt-20">
-        <label htmlFor="jwt-input" className="mb-2 block text-lg font-semibold">
-          Token
-        </label>
+      <div>
+        <PanelHeader htmlFor="jwt-input" label="Token" />
         <textarea
           id="jwt-input"
           className="h-32 w-full resize-y break-all rounded border border-border p-3 font-mono text-sm dark:bg-input/30"
@@ -106,7 +104,7 @@ export default function JwtDecoder() {
             <JsonBlock title="Payload" value={jwt.payload} />
           </div>
           <div>
-            <p className="mb-2 text-lg font-semibold">Signature</p>
+            <PanelHeader label="Signature" />
             <p className="break-all rounded border border-border bg-muted p-3 font-mono text-sm text-foreground">
               {jwt.signature || "(empty: this token is unsigned)"}
             </p>

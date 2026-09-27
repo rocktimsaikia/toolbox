@@ -1,10 +1,10 @@
 "use client";
+import Clipboard from "@/components/clipboard";
 import LazyCodeEditor from "@/components/lazy-code-editor";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import type { Format } from "@/constants/conversions";
 import type { Tool } from "@/constants/tools";
-import { copyToClipboard } from "@/libs/common";
-import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import { ArrowLeftRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -94,7 +94,6 @@ export default function DataFormatConverter({ tool, from, to, sample, swapHref }
   const [input, setInput] = useState(sample);
   const [output, setOutput] = useState("");
   const [error, setError] = useState<ConversionError | null>(null);
-  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     let isCurrent = true;
@@ -137,29 +136,27 @@ export default function DataFormatConverter({ tool, from, to, sample, swapHref }
   }, [from, to, input]);
 
   return (
-    <div className="flex flex-col space-y-10">
+    <div className="flex flex-col">
       <ToolsHeader tool={tool} />
-      <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
+      <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center">
         {/* Fixed width: the editor fills its column, which would otherwise shrink to fit */}
         <div className="flex w-full flex-col lg:w-[529px] lg:items-start">
-          <div className="mb-2 flex w-full items-center justify-between">
-            <p className="text-lg font-semibold">
-              Input <span className="text-muted-foreground">({label(from)})</span>
-            </p>
+          <PanelHeader id="converter-input" label="Input" format={label(from)}>
             <Link
               href={swapHref}
               aria-label={`Swap: convert ${label(to)} to ${label(from)}`}
-              className="inline-flex items-center gap-1.5 rounded border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted hover:no-underline transition-colors"
+              className="inline-flex h-11 items-center gap-1.5 rounded border border-border px-3 text-sm font-medium text-foreground hover:bg-muted hover:no-underline transition-colors lg:h-9"
             >
               <ArrowLeftRight aria-hidden="true" className="h-3.5 w-3.5" />
               {label(to)} to {label(from)}
             </Link>
-          </div>
+          </PanelHeader>
           <LazyCodeEditor
             value={input}
             onChange={setInput}
             language={from === "json" ? "javascript" : "json"}
             placeholder={`Paste your ${label(from)} here...`}
+            labelledBy="converter-input"
           />
           {/* w-0 min-w-full: wrap long messages instead of widening the column */}
           {error && (
@@ -174,30 +171,11 @@ export default function DataFormatConverter({ tool, from, to, sample, swapHref }
           )}
         </div>
         <div className="flex flex-col items-start">
-          <div className="mb-2 flex w-full items-center justify-between">
-            <p className="text-lg font-semibold">
-              Output <span className="text-muted-foreground">({label(to)})</span>
-            </p>
-            <button
-              type={"button"}
-              onClick={() => {
-                copyToClipboard(output);
-                setIsCopied(true);
-              }}
-              className="cursor-pointer rounded border border-border px-3 py-1.5 text-sm hover:bg-muted transition-colors"
-            >
-              {isCopied ? (
-                <span className="text-success">
-                  Copied <CheckIcon className="inline-block" />
-                </span>
-              ) : (
-                <>
-                  Copy to clipboard <CopyIcon className="inline-block" />
-                </>
-              )}
-            </button>
-          </div>
+          <PanelHeader id="converter-output" label="Output" format={label(to)}>
+            <Clipboard text={output} />
+          </PanelHeader>
           <textarea
+            aria-labelledby="converter-output"
             className="border border-border p-3 bg-muted text-foreground cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
             value={output}
             readOnly

@@ -1,8 +1,8 @@
 "use client";
+import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { LANGUAGE_OPTIONS, TOOLS } from "@/constants/tools";
-import { copyToClipboard } from "@/libs/common";
-import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 
 async function convertNumberToWords(
@@ -23,7 +23,6 @@ export default function NumbersToWords() {
   // Precomputed for the default input so the server HTML has the output (faster LCP);
   // the effect recomputes the same value after hydration. Update both together.
   const [words, setWords] = useState("Twelve Thousand Three Hundred Forty Five");
-  const [isCopied, setIsCopied] = useState(false);
   const [error, setError] = useState("");
   const [localeCode, setLocaleCode] = useState("en-US");
   const [currency, setCurrency] = useState(false);
@@ -66,14 +65,6 @@ export default function NumbersToWords() {
       setWords("");
     }
   }, [numbers, localeCode, currency]);
-
-  useEffect(() => {
-    if (isCopied) {
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    }
-  }, [isCopied]);
 
   const sanitizeNumber = (
     input: string,
@@ -143,10 +134,40 @@ export default function NumbersToWords() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["numbers-to-words"]} />
-      <div className="flex flex-col lg:flex-row gap-x-0 lg:gap-x-6 gap-y-5 justify-end items-end mt-20">
-        <div className="flex flex-col items-start w-full">
-          <p className="text-lg font-semibold">Numbers</p>
+      <div className="mb-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+        <label className="inline-flex min-h-11 cursor-pointer items-center gap-2 lg:min-h-9">
+          <input
+            type="checkbox"
+            name="currency"
+            checked={currency}
+            onChange={() => setCurrency(!currency)}
+            className="h-4 w-4"
+          />
+          Show currency
+        </label>
+        <div className="flex items-center gap-2">
+          <label htmlFor="locale" className="text-muted-foreground">
+            Locale
+          </label>
+          <select
+            id="locale"
+            value={localeCode}
+            onChange={(event) => setLocaleCode(event.target.value)}
+            className="h-11 rounded border border-border bg-background px-2 text-sm hover:bg-muted lg:h-9"
+          >
+            {LANGUAGE_OPTIONS.map((lang) => (
+              <option key={lang.locale} value={lang.locale}>
+                {lang.country} ({lang.language}, {lang.locale})
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="flex flex-col gap-y-5 lg:flex-row lg:gap-x-6">
+        <div className="flex w-full flex-col items-start lg:w-auto">
+          <PanelHeader htmlFor="numbers-input" label="Number" />
           <textarea
+            id="numbers-input"
             className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             onChange={handleOnChange}
             value={numbers}
@@ -155,52 +176,12 @@ export default function NumbersToWords() {
           />
           {error && <p className="text-destructive mt-2">{error}</p>}
         </div>
-        <div className="flex flex-col items-start">
-          <div className="flex justify-between w-full">
-            <div className="flex flex-col lg:flex-row lg:gap-x-4">
-              <div className="flex py-2 lg:py-0 items-center gap-x-2 text-sm border border-b-0 border-border rounded px-2 hover:bg-muted">
-                <input
-                  type="checkbox"
-                  id="currency"
-                  name="currency"
-                  checked={currency}
-                  onChange={() => setCurrency(!currency)}
-                />
-                <label htmlFor="currency">Show Currency</label>
-              </div>
-              <select
-                value={localeCode}
-                onChange={(event) => setLocaleCode(event.target.value)}
-                className="w-[200px] border border-b-0 border-border rounded px-2 py-2 bg-background hover:bg-muted text-sm"
-              >
-                {LANGUAGE_OPTIONS.map((lang) => (
-                  <option key={lang.locale} value={lang.locale}>
-                    {lang.country} ({lang.language}, {lang.locale})
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <button
-              onClick={() => {
-                copyToClipboard(words);
-                setIsCopied(true);
-              }}
-              type="button"
-              className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm"
-            >
-              {isCopied ? (
-                <div className="text-success">
-                  Copied <CheckIcon className="inline-block" />
-                </div>
-              ) : (
-                <>
-                  Copy to clipboard <CopyIcon className="inline-block" />
-                </>
-              )}
-            </button>
-          </div>
+        <div className="flex w-full flex-col items-start lg:w-auto">
+          <PanelHeader id="words-output" label="In words">
+            <Clipboard text={words} />
+          </PanelHeader>
           <textarea
+            aria-labelledby="words-output"
             className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={words}
             readOnly

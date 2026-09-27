@@ -1,5 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,10 +38,13 @@ export default function JSONToJavascript() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["password-generator"]} />
-      <div className="flex gap-x-6 justify-center mt-20">
-        <div className="flex flex-col items-start w-full">
-          <Clipboard text={password} />
+      <div className="flex gap-x-6 justify-center">
+        <div className="flex w-full flex-col items-start lg:w-[572px]">
+          <PanelHeader id="password-output" label="Password">
+            <Clipboard text={password} />
+          </PanelHeader>
           <textarea
+            aria-labelledby="password-output"
             className="w-full lg:w-[572px] lg:h-[126px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={password}
             readOnly

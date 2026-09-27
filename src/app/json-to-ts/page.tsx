@@ -1,9 +1,9 @@
 "use client";
+import Clipboard from "@/components/clipboard";
 import LazyCodeEditor from "@/components/lazy-code-editor";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
-import { copyToClipboard } from "@/libs/common";
-import { CheckIcon, CopyIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 
 // The default demo object as a string
@@ -28,7 +28,6 @@ export default function JsonToTypes() {
   const [inputString, setInputString] = useState(defaultObject);
   const [outputString, setOutputString] = useState("");
   const [error, setError] = useState("");
-  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     let isCurrent = true;
@@ -83,51 +82,28 @@ export default function JsonToTypes() {
     };
   }, [inputString]);
 
-  useEffect(() => {
-    if (isCopied) {
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    }
-  }, [isCopied]);
-
   return (
     <div>
       <ToolsHeader tool={TOOLS["json-to-ts"]} />
-      <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
-        <div className="flex flex-col lg:items-start">
-          <p className="mb-2 text-lg font-semibold">Object</p>
+      <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center">
+        {/* Fixed width: the editor fills its column, which would otherwise shrink to fit */}
+        <div className="flex w-full flex-col lg:w-[529px] lg:items-start">
+          <PanelHeader id="js-input" label="Input" format="JS object or JSON" />
           <LazyCodeEditor
             value={inputString}
             onChange={setInputString}
             language="javascript"
             placeholder="Paste your JavaScript object here…"
+            labelledBy="js-input"
           />
           {error && <p className="text-destructive mt-2">{error}</p>}
         </div>
         <div className="flex flex-col items-start">
-          <div className="flex justify-between w-full">
-            <p className="text-lg font-semibold">Typescript</p>
-            <button
-              type="button"
-              onClick={() => {
-                copyToClipboard(outputString);
-                setIsCopied(true);
-              }}
-              className="cursor-pointer border border-b-0 border-border rounded p-2 hover:bg-muted text-sm"
-            >
-              {isCopied ? (
-                <div className="text-success">
-                  Copied <CheckIcon className="inline-block" />
-                </div>
-              ) : (
-                <>
-                  Copy to clipboard <CopyIcon className="inline-block" />
-                </>
-              )}
-            </button>
-          </div>
+          <PanelHeader id="ts-output" label="Output" format="TypeScript">
+            <Clipboard text={outputString} />
+          </PanelHeader>
           <textarea
+            aria-labelledby="ts-output"
             className="border border-border p-3 bg-muted text-foreground cursor-default font-mono text-sm w-full h-[380px] lg:w-[529px] lg:h-[485px]"
             value={outputString}
             readOnly

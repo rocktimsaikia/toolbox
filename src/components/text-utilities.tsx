@@ -1,6 +1,7 @@
 "use client";
 
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS, type Tool } from "@/constants/tools";
 import { ArrowLeftIcon, ArrowUpIcon } from "@radix-ui/react-icons";
@@ -390,7 +391,7 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
       {/* inline-size containment stops the unwrapped mobile row from widening the page */}
       <nav
         aria-label="Text tools"
-        className="mx-auto mt-8 max-w-[1084px] [contain:inline-size]"
+        className="mx-auto max-w-[1084px] [contain:inline-size]"
       >
         <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:px-0">
           {(Object.keys(textUtilityModes) as TextUtilityMode[]).map((utilityMode) => (
@@ -526,11 +527,7 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
 
         <div className="flex flex-col gap-y-6 lg:flex-row lg:gap-x-6">
           <div className="flex w-full flex-col lg:w-auto">
-            <div className="mb-2 flex min-h-11 items-end lg:min-h-9">
-              <p className="font-semibold lg:text-lg">
-                <label htmlFor="text-input">{modeConfig.inputLabel}</label>
-              </p>
-            </div>
+            <PanelHeader htmlFor="text-input" label={modeConfig.inputLabel} />
             <textarea
               id="text-input"
               ref={inputRef}
@@ -548,24 +545,19 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
           </div>
 
           <div className="flex w-full flex-col lg:w-auto">
-            <div className="mb-2 flex min-h-11 flex-wrap items-end justify-between gap-2 lg:min-h-9">
-              <p id="output-heading" className="font-semibold lg:text-lg">
-                Output
-              </p>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleApplyToInput}
-                  disabled={!outputString || outputString === inputString}
-                  className="inline-flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded border border-border px-3 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:bg-transparent lg:h-9"
-                >
-                  <ArrowUpIcon aria-hidden="true" className="lg:hidden" />
-                  <ArrowLeftIcon aria-hidden="true" className="hidden lg:block" />
-                  Apply to Input
-                </button>
-                <Clipboard text={outputString} />
-              </div>
-            </div>
+            <PanelHeader id="output-heading" label="Output">
+              <button
+                type="button"
+                onClick={handleApplyToInput}
+                disabled={!outputString || outputString === inputString}
+                className="inline-flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded border border-border px-3 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:bg-transparent lg:h-9"
+              >
+                <ArrowUpIcon aria-hidden="true" className="lg:hidden" />
+                <ArrowLeftIcon aria-hidden="true" className="hidden lg:block" />
+                Apply to Input
+              </button>
+              <Clipboard text={outputString} />
+            </PanelHeader>
             <textarea
               aria-labelledby="output-heading"
               className={clsx(

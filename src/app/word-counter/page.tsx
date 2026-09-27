@@ -78,7 +78,7 @@ export default function WordCounter() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["word-counter"]} />
-      <div className="flex flex-col items-center mt-20">
+      <div className="flex flex-col items-center">
         <div className="flex flex-col items-start w-full max-w-[1100px]">
           <p className="mb-2 lg:text-lg font-semibold">Text</p>
           <textarea

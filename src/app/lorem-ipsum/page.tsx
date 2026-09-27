@@ -1,5 +1,6 @@
 "use client";
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -206,10 +207,13 @@ export default function LoremIpsumGenerator() {
   return (
     <div>
       <ToolsHeader tool={TOOLS["lorem-ipsum"]} />
-      <div className="flex gap-x-6 justify-center mt-20">
-        <div className="flex flex-col items-start w-full">
-          <Clipboard text={loremText} />
+      <div className="flex gap-x-6 justify-center">
+        <div className="flex w-full flex-col items-start lg:w-[572px]">
+          <PanelHeader id="lorem-output" label="Placeholder text">
+            <Clipboard text={loremText} />
+          </PanelHeader>
           <textarea
+            aria-labelledby="lorem-output"
             className="w-full lg:w-[572px] lg:h-[300px] border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default font-mono text-sm"
             value={loremText}
             readOnly

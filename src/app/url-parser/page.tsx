@@ -1,38 +1,14 @@
 "use client";
+import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
-import { copyToClipboard } from "@/libs/common";
 import { type Decoded, type ParsedUrl, type QueryParam, parseUrl } from "@/lib/parse-url";
-import { CheckIcon, ChevronDownIcon, CopyIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 
 const EXAMPLE_URL =
   "https://shop.example.com:8443/en/products/running%20shoes/?utm_source=newsletter&utm_medium=email&utm_campaign=spring_sale_2026&q=red+trail+shoes&size=42&size=43&sort=price_asc&redirect_uri=https%3A%2F%2Faccounts.example.com%2Fcallback%3Fstate%3Dxyz&state=eyJyZXR1cm5UbyI6Ii9jYXJ0IiwiY2FydElkIjoiYzE5MiJ9&ref=#reviews";
-
-function CopyValue({ value, label }: { value: string; label: string }) {
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (!copied) return;
-    const timer = setTimeout(() => setCopied(false), 1500);
-    return () => clearTimeout(timer);
-  }, [copied]);
-
-  return (
-    <button
-      type="button"
-      aria-label={copied ? `Copied ${label}` : `Copy ${label}`}
-      title="Copy value"
-      onClick={() => {
-        copyToClipboard(value);
-        setCopied(true);
-      }}
-      className="shrink-0 cursor-pointer rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-    >
-      {copied ? <CheckIcon /> : <CopyIcon />}
-    </button>
-  );
-}
 
 function Section({
   title,
@@ -86,7 +62,7 @@ function ParseButton({ url, onParse }: { url: string; onParse: (url: string) => 
     <button
       type="button"
       onClick={() => onParse(url)}
-      className="shrink-0 cursor-pointer rounded border border-border px-2 py-0.5 text-xs hover:bg-muted"
+      className="inline-flex h-11 shrink-0 cursor-pointer items-center rounded border border-border px-3 text-xs font-medium hover:bg-muted lg:h-8"
     >
       Parse
     </button>
@@ -113,7 +89,7 @@ function DecodedValue({
         </pre>
       </div>
       {decoded.isUrl && onParse && <ParseButton url={decoded.text} onParse={onParse} />}
-      <CopyValue value={decoded.text} label={`decoded ${name}`} />
+      <Clipboard text={decoded.text} label={`decoded ${name}`} />
     </div>
   );
 }
@@ -151,7 +127,7 @@ function Row({
             )}
           </div>
           {action}
-          {value !== "" && <CopyValue value={value} label={name} />}
+          {value !== "" && <Clipboard text={value} label={`${name} value`} />}
         </div>
         {decoded && <DecodedValue decoded={decoded} name={name} onParse={onParse} />}
       </div>
@@ -211,19 +187,16 @@ export default function UrlParser() {
   return (
     <div className="w-full max-w-4xl">
       <ToolsHeader tool={TOOLS["url-parser"]} />
-      <div className="mt-12 flex flex-col gap-2">
-        <div className="flex items-end justify-between">
-          <label htmlFor="url-input" className="text-lg font-semibold">
-            URL
-          </label>
+      <div className="flex flex-col">
+        <PanelHeader htmlFor="url-input" label="URL">
           <button
             type="button"
             onClick={() => setInput(EXAMPLE_URL)}
-            className="cursor-pointer text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+            className="inline-flex h-11 cursor-pointer items-center rounded px-3 text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline lg:h-9"
           >
             Try an example
           </button>
-        </div>
+        </PanelHeader>
         <textarea
           id="url-input"
           className="h-28 w-full resize-y rounded border border-border p-3 font-mono text-sm dark:bg-input/30"
@@ -232,7 +205,7 @@ export default function UrlParser() {
           placeholder="Paste a URL here…"
           onChange={(e) => setInput(e.target.value)}
         />
-        {error && <p className="text-destructive">{error}</p>}
+        {error && <p className="mt-2 text-destructive">{error}</p>}
       </div>
 
       {parsed && (

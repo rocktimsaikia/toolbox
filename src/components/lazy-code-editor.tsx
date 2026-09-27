@@ -20,6 +20,7 @@ type Props = {
   onChange: Dispatch<SetStateAction<string>>;
   language: "javascript" | "json";
   placeholder: string;
+  labelledBy?: string;
 };
 
 export default function LazyCodeEditor({
@@ -27,6 +28,7 @@ export default function LazyCodeEditor({
   onChange,
   language,
   placeholder,
+  labelledBy,
 }: Props) {
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
 
@@ -37,6 +39,7 @@ export default function LazyCodeEditor({
         onChange={onChange}
         language={language}
         placeholder={placeholder}
+        labelledBy={labelledBy}
       />
     );
   }
@@ -47,6 +50,7 @@ export default function LazyCodeEditor({
       value={value}
       spellCheck={false}
       placeholder={placeholder}
+      aria-labelledby={labelledBy}
       onFocus={() => setIsEditorLoaded(true)}
       onChange={(event) => onChange(event.target.value)}
     />
