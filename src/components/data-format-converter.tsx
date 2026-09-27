@@ -2,6 +2,7 @@
 import Clipboard from "@/components/clipboard";
 import LazyCodeEditor from "@/components/lazy-code-editor";
 import PanelHeader from "@/components/panel-header";
+import ToolError from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import type { Format } from "@/constants/conversions";
 import type { Tool } from "@/constants/tools";
@@ -157,17 +158,14 @@ export default function DataFormatConverter({ tool, from, to, sample, swapHref }
             language={from === "json" ? "javascript" : "json"}
             placeholder={`Paste your ${label(from)} here...`}
             labelledBy="converter-input"
+            errorId={error ? "converter-error" : undefined}
           />
-          {/* w-0 min-w-full: wrap long messages instead of widening the column */}
           {error && (
-            <div role="alert" className="mt-2 w-0 min-w-full text-sm">
-              <p className="text-destructive">{error.message}</p>
-              {error.detail && (
-                <p className="mt-1 font-mono text-xs text-muted-foreground">
-                  {error.detail}
-                </p>
-              )}
-            </div>
+            <ToolError
+              id="converter-error"
+              message={error.message}
+              detail={error.detail}
+            />
           )}
         </div>
         <div className="flex flex-col items-start">

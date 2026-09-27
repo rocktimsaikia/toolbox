@@ -133,6 +133,12 @@
   body {
     @apply bg-background text-foreground;
   }
+  /* Fields flagged by ToolError; the shadcn Input sets its own */
+  textarea[aria-invalid="true"],
+  input[aria-invalid="true"],
+  .cm-editor:has(.cm-content[aria-invalid="true"]) {
+    border-color: var(--destructive);
+  }
   :focus-visible {
     outline: 2px solid var(--foreground);
     outline-offset: 2px;

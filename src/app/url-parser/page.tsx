@@ -1,6 +1,7 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { type Decoded, type ParsedUrl, type QueryParam, parseUrl } from "@/lib/parse-url";
@@ -175,7 +176,9 @@ export default function UrlParser() {
       setParsed(parseUrl(input));
     } catch {
       setParsed(null);
-      setError("That doesn't look like a valid URL");
+      setError(
+        "That doesn't look like a URL. Check for spaces or a missing host, as in example.com/page.",
+      );
     }
   }, [input]);
 
@@ -199,13 +202,14 @@ export default function UrlParser() {
         </PanelHeader>
         <textarea
           id="url-input"
+          {...errorProps("url-parse-error", !!error)}
           className="h-28 w-full resize-y rounded border border-border p-3 font-mono text-sm dark:bg-input/30"
           value={input}
           spellCheck={false}
           placeholder="Paste a URL here…"
           onChange={(e) => setInput(e.target.value)}
         />
-        {error && <p className="mt-2 text-destructive">{error}</p>}
+        {error && <ToolError id="url-parse-error" message={error} />}
       </div>
 
       {parsed && (

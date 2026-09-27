@@ -1,6 +1,7 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
@@ -15,11 +16,27 @@ function encodeBase64(text: string) {
 }
 
 function decodeBase64(base64: string) {
-  // Accept the URL-safe alphabet (- and _) and missing padding too
-  const normalized = base64.trim().replace(/-/g, "+").replace(/_/g, "/");
+  // Accept the URL-safe alphabet (- and _), line breaks, and missing padding too
+  const normalized = base64.replace(/\s/g, "").replace(/-/g, "+").replace(/_/g, "/");
+  const bad = normalized.match(/[^A-Za-z0-9+/=]/)?.[0];
+  if (bad) throw new Error(`Contains "${bad}", which isn't a Base64 character.`);
   const padded = normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
-  const bytes = Uint8Array.from(atob(padded), (char) => char.charCodeAt(0));
-  return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  let binary: string;
+  try {
+    binary = atob(padded);
+  } catch {
+    throw new Error(
+      "This isn't complete Base64. It may be cut off or have a stray = in the middle.",
+    );
+  }
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  } catch {
+    throw new Error(
+      "This decodes to binary data, such as an image or file, not readable text.",
+    );
+  }
 }
 
 export default function Base64Converter() {
@@ -37,13 +54,14 @@ export default function Base64Converter() {
         setOutputString(decodeBase64(inputString));
       }
     } catch (err) {
-      setError(`Invalid ${encode ? "text" : "base64"} input`);
+      setError(err instanceof Error ? err.message : String(err));
       setOutputString("");
     }
   }
 
   function handleConversionSwitch() {
-    setInputString(outputString);
+    // Keep the input when there is no output to carry over, such as after an error
+    if (outputString) setInputString(outputString);
     setEncode(!encode);
   }
 
@@ -64,13 +82,14 @@ export default function Base64Converter() {
           />
           <textarea
             id="base64-input"
+            {...errorProps("base64-error", !!error)}
             className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputString}
             spellCheck={false}
             placeholder="Type your text here…"
             onChange={(e) => setInputString(e.target.value)}
           ></textarea>
-          {error && <p className="text-destructive mt-2">{error}</p>}
+          {error && <ToolError id="base64-error" message={error} />}
         </div>
         <div className="flex flex-col items-start">
           <PanelHeader

@@ -1,6 +1,7 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { type RupeeAmount, rupeesInWords } from "@/lib/rupees.ts";
@@ -32,6 +33,7 @@ export default function RupeesInWords() {
         <PanelHeader htmlFor="amount" label="Amount in rupees" />
         <input
           id="amount"
+          {...errorProps("amount-error", !!error)}
           type="text"
           inputMode="decimal"
           autoComplete="off"
@@ -40,11 +42,7 @@ export default function RupeesInWords() {
           placeholder="12,50,000.75"
           onChange={(e) => setInput(e.target.value)}
         />
-        {error && (
-          <p role="alert" className="mt-2 text-sm text-destructive">
-            {error}
-          </p>
-        )}
+        {error && <ToolError id="amount-error" message={error} />}
       </div>
 
       {amount && (

@@ -25,6 +25,8 @@ type Props = {
   placeholder: string;
   // id of the visible panel label, so screen readers name the editor
   labelledBy?: string;
+  // id of the ToolError describing the current error, if any
+  errorId?: string;
 };
 export default function TextAreaCodeEditor({
   value,
@@ -32,11 +34,15 @@ export default function TextAreaCodeEditor({
   language,
   placeholder,
   labelledBy,
+  errorId,
 }: Props) {
   const extension = languageMap.get(language);
-  const attributes = labelledBy
-    ? [EditorView.contentAttributes.of({ "aria-labelledby": labelledBy })]
-    : [];
+  const attributes = [
+    EditorView.contentAttributes.of({
+      ...(labelledBy && { "aria-labelledby": labelledBy }),
+      ...(errorId && { "aria-invalid": "true", "aria-describedby": errorId }),
+    }),
+  ];
   const theme = useTheme();
   return (
     <CodeMirror

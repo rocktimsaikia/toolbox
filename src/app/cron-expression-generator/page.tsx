@@ -1,16 +1,20 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { Input } from "@/components/ui/input";
 import { TOOLS } from "@/constants/tools";
 import { useEffect, useState } from "react";
 
+// Errors are thrown so the page can show them as errors, not as a description
 function parseCronExpression(cron: string): string {
   const parts = cron.trim().split(/\s+/);
 
   if (parts.length !== 5) {
-    return "Invalid cron expression. Must have 5 parts: minute hour day-of-month month day-of-week";
+    throw new Error(
+      `A cron expression has 5 fields separated by spaces: minute, hour, day of month, month, and day of week. This has ${parts.length}.`,
+    );
   }
 
   const [minute, hour, dayOfMonth, month, dayOfWeek] = parts;
@@ -22,8 +26,10 @@ function parseCronExpression(cron: string): string {
     const monthDesc = parseMonth(month);
 
     return `${minuteDesc} ${hourDesc} ${dayDesc} ${monthDesc}`.trim();
-  } catch (error) {
-    return "Invalid cron expression format";
+  } catch {
+    throw new Error(
+      "One of the fields can't be read. Check each one against the format below.",
+    );
   }
 }
 
@@ -218,15 +224,21 @@ const commonExamples = [
 export default function CronExpressionGenerator() {
   const [cronExpression, setCronExpression] = useState("*/5 * * * *");
   const [humanReadable, setHumanReadable] = useState("");
+  const [error, setError] = useState("");
   const [selectedExample, setSelectedExample] = useState("Daily at midnight");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (cronExpression.trim()) {
-      const readable = parseCronExpression(cronExpression);
-      setHumanReadable(readable);
-    } else {
+    setError("");
+    if (!cronExpression.trim()) {
       setHumanReadable("");
+      return;
+    }
+    try {
+      setHumanReadable(parseCronExpression(cronExpression));
+    } catch (e) {
+      setHumanReadable("");
+      setError(e instanceof Error ? e.message : String(e));
     }
   }, [cronExpression]);
 
@@ -246,6 +258,7 @@ export default function CronExpressionGenerator() {
             </PanelHeader>
             <Input
               id="cron-input"
+              {...errorProps("cron-error", !!error)}
               type="text"
               value={cronExpression}
               onChange={(e) => setCronExpression(e.target.value)}
@@ -260,6 +273,7 @@ export default function CronExpressionGenerator() {
               | <code className="bg-muted px-1 rounded text-foreground">month</code> |{" "}
               <code className="bg-muted px-1 rounded text-foreground">day-of-week</code>
             </div>
+            {error && <ToolError id="cron-error" message={error} />}
           </div>
 
           <div className="w-full relative">

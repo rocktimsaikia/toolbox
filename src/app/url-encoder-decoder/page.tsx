@@ -1,11 +1,21 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { Switch } from "@/components/ui/switch";
 import { TOOLS } from "@/constants/tools";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+
+// decodeURIComponent only says "URI malformed", so find the sequence it choked on
+function urlDecodeError(input: string) {
+  const bad = input.match(/%(?![0-9A-Fa-f]{2}).{0,2}/)?.[0];
+  if (bad) {
+    return `"${bad}" isn't a valid escape. A % must be followed by two hex digits, like %20.`;
+  }
+  return "Contains % escapes that don't form valid text, such as a multi-byte character cut short.";
+}
 
 export default function UrlEncoder() {
   const [inputString, setInputString] = useState("");
@@ -21,14 +31,19 @@ export default function UrlEncoder() {
       } else {
         setOutputString(decodeURIComponent(inputString));
       }
-    } catch (err) {
-      setError(`Invalid ${encode ? "text" : "encoded URL"} input`);
+    } catch {
+      setError(
+        encode
+          ? "Contains a broken character, such as half of an emoji, that can't be encoded."
+          : urlDecodeError(inputString),
+      );
       setOutputString("");
     }
   }
 
   function handleConversionSwitch() {
-    setInputString(outputString);
+    // Keep the input when there is no output to carry over, such as after an error
+    if (outputString) setInputString(outputString);
     setEncode(!encode);
   }
 
@@ -49,13 +64,14 @@ export default function UrlEncoder() {
           />
           <textarea
             id="url-input"
+            {...errorProps("url-error", !!error)}
             className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             spellCheck={false}
             value={inputString}
             placeholder={`Add your${encode ? "" : " encoded"} URL here...`}
             onChange={(e) => setInputString(e.target.value)}
           ></textarea>
-          {error && <p className="text-destructive mt-2">{error}</p>}
+          {error && <ToolError id="url-error" message={error} />}
         </div>
         <div className="flex flex-col items-start">
           <PanelHeader

@@ -2,6 +2,7 @@
 
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS, type Tool } from "@/constants/tools";
 import { ArrowLeftIcon, ArrowUpIcon } from "@radix-ui/react-icons";
@@ -379,7 +380,7 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
         break;
     }
   } catch {
-    error = `Invalid ${shouldEscape ? "text" : "HTML"} input`;
+    error = `Couldn't ${shouldEscape ? "escape" : "unescape"} this text. Check for a broken character or entity.`;
     outputString = "";
   }
   if (!inputString) status = "";
@@ -530,6 +531,7 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
             <PanelHeader htmlFor="text-input" label={modeConfig.inputLabel} />
             <textarea
               id="text-input"
+              {...errorProps("text-error", !!error)}
               ref={inputRef}
               className={clsx(fieldClass, "h-32 resize-y lg:h-[160px]")}
               value={inputString}
@@ -541,7 +543,7 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
               }
               onChange={(e) => setInputString(e.target.value)}
             />
-            {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
+            {error && <ToolError id="text-error" message={error} />}
           </div>
 
           <div className="flex w-full flex-col lg:w-auto">

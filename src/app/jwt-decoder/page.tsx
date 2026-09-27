@@ -1,6 +1,7 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { type DecodedJwt, TIME_CLAIMS, decodeJwt, expiryStatus } from "@/lib/jwt.ts";
@@ -69,17 +70,14 @@ export default function JwtDecoder() {
         <PanelHeader htmlFor="jwt-input" label="Token" />
         <textarea
           id="jwt-input"
+          {...errorProps("jwt-error", !!error)}
           className="h-32 w-full resize-y break-all rounded border border-border p-3 font-mono text-sm dark:bg-input/30"
           value={input}
           spellCheck={false}
           placeholder="Paste a JWT (eyJ…), with or without the Bearer prefix"
           onChange={(e) => setInput(e.target.value)}
         />
-        {error && (
-          <p role="alert" className="mt-2 text-sm text-destructive">
-            {error}
-          </p>
-        )}
+        {error && <ToolError id="jwt-error" message={error} />}
       </div>
 
       {jwt && status && (

@@ -1,5 +1,7 @@
 "use client";
 import Clipboard from "@/components/clipboard";
+import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { colord, extend } from "colord";
@@ -33,7 +35,9 @@ export default function ColorConverter() {
       const color = colord(input.trim());
 
       if (!color.isValid()) {
-        setError("Invalid color format. Please enter a valid HEX, RGB, or HSL color.");
+        setError(
+          "Enter a color name, HEX, RGB, or HSL value, such as blue, #1e90ff, or rgb(30, 144, 255).",
+        );
         setHexOutput("");
         setRgbOutput("");
         setHslOutput("");
@@ -55,7 +59,9 @@ export default function ColorConverter() {
       setRgbaOutput(`rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`);
       setPreviewColor(hex);
     } catch (err) {
-      setError("Failed to parse color. Please enter a valid color format.");
+      setError(
+        "Enter a color name, HEX, RGB, or HSL value, such as blue, #1e90ff, or rgb(30, 144, 255).",
+      );
       setHexOutput("");
       setRgbOutput("");
       setHslOutput("");
@@ -74,8 +80,10 @@ export default function ColorConverter() {
       <div className="flex flex-col items-center">
         <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center w-full">
           <div className="flex flex-col items-start w-full">
-            <p className="mb-2 lg:text-lg font-semibold">Input Color</p>
+            <PanelHeader htmlFor="color-input" label="Color" />
             <input
+              id="color-input"
+              {...errorProps("color-error", !!error)}
               type="text"
               className="w-full lg:w-[530px] h-12 border border-border rounded px-3 font-mono text-sm"
               value={inputColor}
@@ -83,7 +91,7 @@ export default function ColorConverter() {
               placeholder="Enter color (e.g., #3b82f6, rgb(59, 130, 246), blue)"
               onChange={(e) => setInputColor(e.target.value)}
             />
-            {error && <p className="text-destructive text-sm mt-2">{error}</p>}
+            {error && <ToolError id="color-error" message={error} />}
           </div>
         </div>
 

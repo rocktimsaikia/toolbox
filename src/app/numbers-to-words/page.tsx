@@ -1,6 +1,7 @@
 "use client";
 import Clipboard from "@/components/clipboard";
 import PanelHeader from "@/components/panel-header";
+import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { LANGUAGE_OPTIONS, TOOLS } from "@/constants/tools";
 import { useEffect, useState } from "react";
@@ -36,7 +37,9 @@ export default function NumbersToWords() {
     const { sanitized, hasInvalidChars } = sanitizeNumber(numbers);
 
     if (hasInvalidChars) {
-      setError("Invalid characters in number");
+      setError(
+        "Use digits only, with commas, one decimal point, and a minus sign at the start if needed.",
+      );
       setWords("");
       return;
     }
@@ -45,7 +48,7 @@ export default function NumbersToWords() {
       const valueAsNumber = Number.parseFloat(sanitized);
 
       if (Number.isNaN(valueAsNumber)) {
-        setError("Invalid number");
+        setError("Enter a number, such as 12345 or 99.5.");
         setWords("");
         return;
       }
@@ -56,12 +59,12 @@ export default function NumbersToWords() {
           setError("");
         })
         .catch(() => {
-          setError("Invalid number format");
+          setError("This number can't be spelled out. Try a smaller number.");
           setWords("");
         });
       setError("");
     } catch (err) {
-      setError("Invalid number format");
+      setError("This number can't be spelled out. Try a smaller number.");
       setWords("");
     }
   }, [numbers, localeCode, currency]);
@@ -102,7 +105,9 @@ export default function NumbersToWords() {
     const { sanitized, hasInvalidChars } = sanitizeNumber(value);
 
     if (hasInvalidChars) {
-      setError("Invalid characters in number");
+      setError(
+        "Use digits only, with commas, one decimal point, and a minus sign at the start if needed.",
+      );
       setWords("");
       return;
     }
@@ -110,7 +115,7 @@ export default function NumbersToWords() {
     try {
       const valueAsNumber = Number.parseFloat(sanitized);
       if (Number.isNaN(valueAsNumber)) {
-        setError("Invalid number");
+        setError("Enter a number, such as 12345 or 99.5.");
         setWords("");
         return;
       }
@@ -121,12 +126,12 @@ export default function NumbersToWords() {
           setError("");
         })
         .catch(() => {
-          setError("Invalid number format");
+          setError("This number can't be spelled out. Try a smaller number.");
           setWords("");
         });
       setError("");
     } catch (err) {
-      setError("Invalid number format");
+      setError("This number can't be spelled out. Try a smaller number.");
       setWords("");
     }
   };
@@ -168,13 +173,14 @@ export default function NumbersToWords() {
           <PanelHeader htmlFor="numbers-input" label="Number" />
           <textarea
             id="numbers-input"
+            {...errorProps("numbers-error", !!error)}
             className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             onChange={handleOnChange}
             value={numbers}
             spellCheck={false}
             placeholder="Add numbers here…"
           />
-          {error && <p className="text-destructive mt-2">{error}</p>}
+          {error && <ToolError id="numbers-error" message={error} />}
         </div>
         <div className="flex w-full flex-col items-start lg:w-auto">
           <PanelHeader id="words-output" label="In words">

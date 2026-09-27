@@ -21,6 +21,7 @@ type Props = {
   language: "javascript" | "json";
   placeholder: string;
   labelledBy?: string;
+  errorId?: string;
 };
 
 export default function LazyCodeEditor({
@@ -29,6 +30,7 @@ export default function LazyCodeEditor({
   language,
   placeholder,
   labelledBy,
+  errorId,
 }: Props) {
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
 
@@ -40,6 +42,7 @@ export default function LazyCodeEditor({
         language={language}
         placeholder={placeholder}
         labelledBy={labelledBy}
+        errorId={errorId}
       />
     );
   }
@@ -51,6 +54,8 @@ export default function LazyCodeEditor({
       spellCheck={false}
       placeholder={placeholder}
       aria-labelledby={labelledBy}
+      aria-invalid={errorId ? true : undefined}
+      aria-describedby={errorId}
       onFocus={() => setIsEditorLoaded(true)}
       onChange={(event) => onChange(event.target.value)}
     />

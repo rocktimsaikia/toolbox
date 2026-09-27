@@ -2,6 +2,7 @@
 import Clipboard from "@/components/clipboard";
 import LazyCodeEditor from "@/components/lazy-code-editor";
 import PanelHeader from "@/components/panel-header";
+import ToolError from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { TOOLS } from "@/constants/tools";
 import { useEffect, useState } from "react";
@@ -27,14 +28,14 @@ const defaultObject = `const User = {
 export default function JsonToTypes() {
   const [inputString, setInputString] = useState(defaultObject);
   const [outputString, setOutputString] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<{ message: string; detail: string } | null>(null);
 
   useEffect(() => {
     let isCurrent = true;
 
     if (!inputString.trim()) {
       setOutputString("");
-      setError("");
+      setError(null);
       return () => {
         isCurrent = false;
       };
@@ -65,16 +66,23 @@ export default function JsonToTypes() {
             rootName: variableName,
           });
           setOutputString(tsTypes.join("\n\n"));
-          setError("");
+          setError(null);
         })
         .catch((err) => {
           if (!isCurrent) return;
-          setOutputString(String(err));
-          setError("Invalid JavaScript object syntax");
+          setOutputString("");
+          setError({
+            message: "Couldn't build types from this value. Paste an object or array.",
+            detail: String(err),
+          });
         });
     } catch (err) {
-      setOutputString(String(err));
-      setError("Invalid JavaScript object syntax");
+      setOutputString("");
+      setError({
+        message:
+          "This isn't a valid JavaScript object or JSON. Check for a missing comma or bracket.",
+        detail: String(err),
+      });
     }
 
     return () => {
@@ -95,8 +103,11 @@ export default function JsonToTypes() {
             language="javascript"
             placeholder="Paste your JavaScript object here…"
             labelledBy="js-input"
+            errorId={error ? "js-error" : undefined}
           />
-          {error && <p className="text-destructive mt-2">{error}</p>}
+          {error && (
+            <ToolError id="js-error" message={error.message} detail={error.detail} />
+          )}
         </div>
         <div className="flex flex-col items-start">
           <PanelHeader id="ts-output" label="Output" format="TypeScript">

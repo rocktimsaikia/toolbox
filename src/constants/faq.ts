@@ -481,9 +481,9 @@ export const Faqs: Record<Slug, Faq[]> = {
   ],
   "json-to-csv": [
     {
-      question: 'Why do I get "CSV output requires array data"?',
+      question: 'Why does it say "CSV needs a list of records"?',
       answer:
-        'CSV is a list of rows, so the input must be a JSON array. If your records are inside a field, such as { "users": [...] }, paste just the array.',
+        'CSV is a list of rows, so the input must be a JSON array. If your records are inside a field, such as { "users": [...] }, paste just the array. For a single object, wrap it in [ ] to get one row.',
     },
     {
       question: "Why is a column missing?",
