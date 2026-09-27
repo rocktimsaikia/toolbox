@@ -5,197 +5,130 @@ import ToolError, { errorProps } from "@/components/tool-error";
 import ToolsHeader from "@/components/tools-header";
 import { Input } from "@/components/ui/input";
 import { TOOLS } from "@/constants/tools";
-import { useEffect, useState } from "react";
+import cronstrue from "cronstrue";
+import { useState } from "react";
+
+type Option = { value: string; label: string };
+
+const range = (from: number, to: number, label: (n: number) => string): Option[] =>
+  Array.from({ length: to - from + 1 }, (_, i) => ({
+    value: String(from + i),
+    label: label(from + i),
+  }));
+
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const DAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+// The builder: one picker per field, in cron order. Values outside these lists still
+// work; the picker shows them as Custom.
+const FIELDS: { name: string; options: Option[] }[] = [
+  {
+    name: "Minute",
+    options: [
+      { value: "*", label: "Every minute" },
+      ...[5, 10, 15, 30].map((n) => ({ value: `*/${n}`, label: `Every ${n} min` })),
+      ...[0, 15, 30, 45].map((n) => ({
+        value: String(n),
+        label: `At :${String(n).padStart(2, "0")}`,
+      })),
+    ],
+  },
+  {
+    name: "Hour",
+    options: [
+      { value: "*", label: "Every hour" },
+      ...[2, 3, 4, 6, 12].map((n) => ({ value: `*/${n}`, label: `Every ${n} hours` })),
+      ...range(0, 23, (h) => `${String(h).padStart(2, "0")}:00`),
+    ],
+  },
+  {
+    name: "Day of month",
+    options: [
+      { value: "*", label: "Every day" },
+      ...range(1, 31, (d) => `Day ${d}`),
+      { value: "L", label: "Last day" },
+    ],
+  },
+  {
+    name: "Month",
+    options: [
+      { value: "*", label: "Every month" },
+      { value: "*/3", label: "Quarterly" },
+      { value: "*/6", label: "Twice a year" },
+      ...range(1, 12, (m) => MONTHS[m - 1]),
+    ],
+  },
+  {
+    name: "Day of week",
+    options: [
+      { value: "*", label: "Any day" },
+      { value: "1-5", label: "Weekdays" },
+      { value: "0,6", label: "Weekends" },
+      ...range(0, 6, (d) => DAYS[d]),
+    ],
+  },
+];
+
+const RANGE_FIELD: Record<string, string> = {
+  minutes: "minute",
+  hours: "hour",
+  DOM: "day of month",
+  month: "month",
+  DOW: "day of week",
+};
 
 // Errors are thrown so the page can show them as errors, not as a description
-function parseCronExpression(cron: string): string {
+function describeCron(cron: string): string {
   const parts = cron.trim().split(/\s+/);
-
   if (parts.length !== 5) {
     throw new Error(
       `A cron expression has 5 fields separated by spaces: minute, hour, day of month, month, and day of week. This has ${parts.length}.`,
     );
   }
-
-  const [minute, hour, dayOfMonth, month, dayOfWeek] = parts;
-
+  if (parts.some((part) => /\/0+$/.test(part))) {
+    throw new Error("A step can't be 0. Use */1, or * for every value.");
+  }
   try {
-    const minuteDesc = parseMinute(minute);
-    const hourDesc = parseHour(hour);
-    const dayDesc = parseDay(dayOfMonth, dayOfWeek);
-    const monthDesc = parseMonth(month);
-
-    return `${minuteDesc} ${hourDesc} ${dayDesc} ${monthDesc}`.trim();
-  } catch {
-    throw new Error(
-      "One of the fields can't be read. Check each one against the format below.",
-    );
-  }
-}
-
-function parseMinute(minute: string): string {
-  if (minute === "*") return "every minute";
-  if (minute === "0") return "at minute 0";
-  if (minute.includes("/")) {
-    const [start, step] = minute.split("/");
-    if (start === "*") {
-      return `every ${step} minutes`;
-    }
-    return `every ${step} minutes starting at minute ${start}`;
-  }
-  if (minute.includes(",")) {
-    const minutes = minute.split(",");
-    return `at minutes ${minutes.join(", ")}`;
-  }
-  if (minute.includes("-")) {
-    const [start, end] = minute.split("-");
-    return `from minute ${start} to ${end}`;
-  }
-  return `at minute ${minute}`;
-}
-
-function parseHour(hour: string): string {
-  if (hour === "*") return "";
-  if (hour === "0") return "at midnight";
-  if (hour === "12") return "at noon";
-  if (hour.includes("/")) {
-    const [start, step] = hour.split("/");
-    if (start === "*") {
-      return `every ${step} hours`;
-    }
-    return `every ${step} hours starting at hour ${start}`;
-  }
-  if (hour.includes(",")) {
-    const hours = hour.split(",").map((h) => {
-      const num = parseInt(h);
-      if (num === 0) return "midnight";
-      if (num === 12) return "noon";
-      if (num < 12) return `${num}AM`;
-      return `${num - 12}PM`;
+    return cronstrue.toString(parts.join(" "), {
+      throwExceptionOnParseError: true,
+      use24HourTimeFormat: false,
     });
-    return `at ${hours.join(", ")}`;
+  } catch (e) {
+    const raw = String(e).replace(/^Error:\s*/, "");
+    const outOfRange = raw.match(/^(\w+) part must be >= (\d+) and <= (\d+)/);
+    if (outOfRange) {
+      const field = RANGE_FIELD[outOfRange[1]] ?? outOfRange[1];
+      throw new Error(`The ${field} must be from ${outOfRange[2]} to ${outOfRange[3]}.`);
+    }
+    const invalid = raw.match(/invalid values: '(.+)'/);
+    if (invalid) {
+      throw new Error(
+        `"${invalid[1]}" isn't a value cron understands. Check it against the pickers below.`,
+      );
+    }
+    throw new Error(raw);
   }
-  if (hour.includes("-")) {
-    const [start, end] = hour.split("-");
-    const startTime = parseInt(start) < 12 ? `${start}AM` : `${parseInt(start) - 12}PM`;
-    const endTime = parseInt(end) < 12 ? `${end}AM` : `${parseInt(end) - 12}PM`;
-    return `from ${startTime} to ${endTime}`;
-  }
-  const num = parseInt(hour);
-  if (num === 0) return "at midnight";
-  if (num === 12) return "at noon";
-  if (num < 12) return `at ${num}AM`;
-  return `at ${num - 12}PM`;
-}
-
-function parseDay(dayOfMonth: string, dayOfWeek: string): string {
-  const dayNames = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  if (dayOfMonth === "*" && dayOfWeek === "*") {
-    return "every day";
-  }
-
-  if (dayOfMonth !== "*" && dayOfWeek === "*") {
-    if (dayOfMonth === "L") {
-      return "on the last day of the month";
-    }
-    if (dayOfMonth.includes("L")) {
-      // Handle patterns like "L-3" (3 days before last day)
-      const match = dayOfMonth.match(/^L-(\d+)$/);
-      if (match) {
-        const offset = match[1];
-        return `${offset} days before the last day of the month`;
-      }
-    }
-    if (dayOfMonth.includes("/")) {
-      const [start, step] = dayOfMonth.split("/");
-      return `every ${step} days${start !== "*" ? ` starting on day ${start}` : ""}`;
-    }
-    if (dayOfMonth.includes(",")) {
-      const days = dayOfMonth.split(",");
-      return `on days ${days.join(", ")} of the month`;
-    }
-    if (dayOfMonth.includes("-")) {
-      const [start, end] = dayOfMonth.split("-");
-      return `from day ${start} to ${end} of the month`;
-    }
-    return `on day ${dayOfMonth} of the month`;
-  }
-
-  if (dayOfMonth === "*" && dayOfWeek !== "*") {
-    if (dayOfWeek.includes("L")) {
-      // Handle patterns like "5L" (last Friday of the month)
-      const match = dayOfWeek.match(/^(\d)L$/);
-      if (match) {
-        const dayNum = parseInt(match[1]);
-        const dayName = dayNames[dayNum] || dayNum;
-        return `on the last ${dayName} of the month`;
-      }
-    }
-    if (dayOfWeek.includes("/")) {
-      const [start, step] = dayOfWeek.split("/");
-      const startDay = start === "*" ? "" : dayNames[parseInt(start)] || start;
-      return `every ${step} days${startDay ? ` starting on ${startDay}` : ""}`;
-    }
-    if (dayOfWeek.includes(",")) {
-      const days = dayOfWeek.split(",").map((d) => dayNames[parseInt(d)] || d);
-      return `on ${days.join(", ")}`;
-    }
-    if (dayOfWeek.includes("-")) {
-      const [start, end] = dayOfWeek.split("-");
-      const startDay = dayNames[parseInt(start)] || start;
-      const endDay = dayNames[parseInt(end)] || end;
-      return `from ${startDay} to ${endDay}`;
-    }
-    const dayName = dayNames[parseInt(dayOfWeek)] || dayOfWeek;
-    return `on ${dayName}`;
-  }
-
-  return `on day ${dayOfMonth} of the month and on ${dayNames[parseInt(dayOfWeek)] || dayOfWeek}`;
-}
-
-function parseMonth(month: string): string {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  if (month === "*") return "";
-
-  if (month.includes("/")) {
-    const [start, step] = month.split("/");
-    return `every ${step} months${start !== "*" ? ` starting in ${monthNames[parseInt(start) - 1] || start}` : ""}`;
-  }
-  if (month.includes(",")) {
-    const months = month.split(",").map((m) => monthNames[parseInt(m) - 1] || m);
-    return `in ${months.join(", ")}`;
-  }
-  if (month.includes("-")) {
-    const [start, end] = month.split("-");
-    const startMonth = monthNames[parseInt(start) - 1] || start;
-    const endMonth = monthNames[parseInt(end) - 1] || end;
-    return `from ${startMonth} to ${endMonth}`;
-  }
-  const monthName = monthNames[parseInt(month) - 1] || month;
-  return `in ${monthName}`;
 }
 
 const commonExamples = [
@@ -221,116 +154,124 @@ const commonExamples = [
   { title: "Twice daily (9 AM and 6 PM)", expression: "0 9,18 * * *" },
 ];
 
+const CUSTOM = "custom";
+
 export default function CronExpressionGenerator() {
   const [cronExpression, setCronExpression] = useState("*/5 * * * *");
-  const [humanReadable, setHumanReadable] = useState("");
-  const [error, setError] = useState("");
-  const [selectedExample, setSelectedExample] = useState("Daily at midnight");
-  const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    setError("");
-    if (!cronExpression.trim()) {
-      setHumanReadable("");
-      return;
-    }
+  // Everything is derived from the expression, so the pickers, the preset, and the
+  // description can never disagree with what is in the input
+  let description = "";
+  let error = "";
+  if (cronExpression.trim()) {
     try {
-      setHumanReadable(parseCronExpression(cronExpression));
+      description = describeCron(cronExpression);
     } catch (e) {
-      setHumanReadable("");
-      setError(e instanceof Error ? e.message : String(e));
+      error = e instanceof Error ? e.message : String(e);
     }
-  }, [cronExpression]);
+  }
+  const parts = cronExpression.trim().split(/\s+/);
+  const hasFiveParts = parts.length === 5;
+  const normalized = parts.join(" ");
+  const preset = commonExamples.find((example) => example.expression === normalized);
 
-  const handleExampleClick = (expression: string, title: string) => {
-    setCronExpression(expression);
-    setSelectedExample(title);
+  const setPart = (index: number, value: string) => {
+    const next = hasFiveParts ? [...parts] : ["*", "*", "*", "*", "*"];
+    next[index] = value;
+    setCronExpression(next.join(" "));
   };
+
+  const selectClass =
+    "h-11 w-full rounded border border-border bg-background px-2 text-sm hover:bg-muted lg:h-9";
 
   return (
     <div>
       <ToolsHeader tool={TOOLS["cron-expression-generator"]} />
-      <div className="flex gap-x-6 justify-center">
-        <div className="flex flex-col items-start w-full max-w-2xl">
-          <div className="w-full mb-6 relative">
-            <PanelHeader htmlFor="cron-input" label="Cron expression">
-              <Clipboard text={cronExpression} />
-            </PanelHeader>
-            <Input
-              id="cron-input"
-              {...errorProps("cron-error", !!error)}
-              type="text"
-              value={cronExpression}
-              onChange={(e) => setCronExpression(e.target.value)}
-              placeholder="Enter cron expression (e.g., */5 * * * *)"
-              className="w-full font-mono"
-            />
-            <div className="text-xs text-muted-foreground mt-1">
-              Format:{" "}
-              <code className="bg-muted px-1 rounded text-foreground">minute</code> |{" "}
-              <code className="bg-muted px-1 rounded text-foreground">hour</code> |{" "}
-              <code className="bg-muted px-1 rounded text-foreground">day-of-month</code>{" "}
-              | <code className="bg-muted px-1 rounded text-foreground">month</code> |{" "}
-              <code className="bg-muted px-1 rounded text-foreground">day-of-week</code>
-            </div>
-            {error && <ToolError id="cron-error" message={error} />}
-          </div>
+      <div className="flex justify-center">
+        <div className="flex w-full max-w-2xl flex-col">
+          <PanelHeader htmlFor="cron-input" label="Cron expression">
+            <Clipboard text={cronExpression} />
+          </PanelHeader>
+          <Input
+            id="cron-input"
+            {...errorProps("cron-error", !!error)}
+            type="text"
+            value={cronExpression}
+            onChange={(e) => setCronExpression(e.target.value)}
+            placeholder="*/5 * * * *"
+            spellCheck={false}
+            autoComplete="off"
+            className="h-11 w-full font-mono lg:h-9"
+          />
+          {error && <ToolError id="cron-error" message={error} />}
 
-          <div className="w-full relative">
-            <textarea
-              className="w-full h-20 border border-border rounded p-3 resize-none bg-muted text-foreground cursor-default text-sm"
-              value={humanReadable}
-              readOnly
-              placeholder="Human-readable description will appear here…"
-            />
-          </div>
-
-          <div className="mt-6 w-full">
-            <h3 className="text-sm font-medium text-foreground mb-2">Common Examples</h3>
-            <select
-              value={selectedExample}
-              onChange={(event) => {
-                const example = commonExamples.find(
-                  (item) => item.title === event.target.value,
+          <fieldset className="mt-6">
+            <legend className="mb-2 text-sm text-muted-foreground">
+              Or build it field by field
+            </legend>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+              {FIELDS.map((field, index) => {
+                const current = hasFiveParts ? parts[index] : "";
+                const known = field.options.some((option) => option.value === current);
+                return (
+                  <label key={field.name} className="flex flex-col gap-1 text-sm">
+                    <span className="font-medium">{field.name}</span>
+                    <select
+                      value={known ? current : CUSTOM}
+                      onChange={(e) => setPart(index, e.target.value)}
+                      className={selectClass}
+                    >
+                      {!known && (
+                        <option value={CUSTOM} disabled>
+                          {current ? `Custom: ${current}` : "Custom"}
+                        </option>
+                      )}
+                      {field.options.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
                 );
-                if (example) {
-                  handleExampleClick(example.expression, example.title);
-                }
-              }}
-              className="w-full rounded border border-border bg-background px-3 py-2 text-sm"
+              })}
+            </div>
+          </fieldset>
+
+          <div className="mt-6">
+            <PanelHeader id="cron-description" label="In plain English" />
+            <p
+              aria-labelledby="cron-description"
+              aria-live="polite"
+              className="min-h-11 rounded border border-border bg-muted p-3 text-sm text-foreground"
             >
+              {description || (
+                <span className="text-muted-foreground">
+                  The schedule will be described here.
+                </span>
+              )}
+            </p>
+          </div>
+
+          <label className="mt-6 flex flex-col gap-1 text-sm">
+            <span className="font-medium">Common schedules</span>
+            <select
+              value={preset?.expression ?? CUSTOM}
+              onChange={(e) => setCronExpression(e.target.value)}
+              className={selectClass}
+            >
+              {!preset && (
+                <option value={CUSTOM} disabled>
+                  Custom schedule
+                </option>
+              )}
               {commonExamples.map((example) => (
-                <option key={example.title} value={example.title}>
+                <option key={example.title} value={example.expression}>
                   {example.title}
                 </option>
               ))}
             </select>
-            <div className="text-xs text-muted-foreground mt-2 flex items-center gap-2">
-              <span>Expression:</span>
-              <code
-                className="bg-muted px-1 rounded text-foreground cursor-pointer hover:bg-border transition-colors font-semibold"
-                onClick={() => {
-                  const selectedExampleData = commonExamples.find(
-                    (ex) => ex.title === selectedExample,
-                  );
-                  if (selectedExampleData) {
-                    navigator.clipboard.writeText(selectedExampleData.expression);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                  }
-                }}
-                title="Click to copy"
-              >
-                {commonExamples.find((ex) => ex.title === selectedExample)?.expression ||
-                  "*/5 * * * *"}
-              </code>
-              {copied && (
-                <span className="text-success text-xs font-medium animate-fade-in">
-                  Copied!
-                </span>
-              )}
-            </div>
-          </div>
+          </label>
         </div>
       </div>
     </div>

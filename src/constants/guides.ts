@@ -484,7 +484,7 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
   },
   "cron-expression-generator": {
     intro:
-      "Cron is the scheduler behind countless background jobs, from nightly backups to hourly reports. Its five-field syntax is compact but hard to read at a glance. This tool explains any cron expression in plain English and includes a list of common schedules to start from.",
+      "Cron is the scheduler behind countless background jobs, from nightly backups to hourly reports. Its five-field syntax is compact but hard to read at a glance. This tool builds an expression field by field, explains any expression in plain English, and includes common schedules to start from.",
     sections: [
       {
         heading: "The five fields",
@@ -521,7 +521,7 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       {
         heading: "Example",
         paragraphs: ["Every 15 minutes during office hours on weekdays:"],
-        code: "*/15 9-17 * * 1-5\n\n// every 15 minutes from 9AM to 5PM from Monday to Friday",
+        code: "*/15 9-17 * * 1-5\n\n// Every 15 minutes, between 09:00 AM and 05:59 PM, Monday through Friday",
       },
       {
         heading: "Common mistakes",

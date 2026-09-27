@@ -285,7 +285,12 @@ const CRON_EXPRESSION_GENERATOR_FAQ: Faq[] = [
   {
     question: "How can I validate my cron expression?",
     answer:
-      "Enter your expression in the tool above to see its human-readable translation. This helps verify the schedule matches your intended timing before implementation.",
+      "Paste it into the tool. It checks that there are five fields and that every value is in range, then describes the schedule in plain English, so you can confirm the timing before you deploy it.",
+  },
+  {
+    question: "Can I build an expression without knowing the syntax?",
+    answer:
+      "Yes. Pick a value for each field, such as Every 15 min, 09:00, and Weekdays, and the expression is written for you. You can also start from one of the common schedules and adjust it.",
   },
 ];
 

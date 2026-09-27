@@ -56,6 +56,9 @@ importers:
       colord:
         specifier: ^2.9.3
         version: 2.9.3
+      cronstrue:
+        specifier: ^3.27.0
+        version: 3.27.0
       csv:
         specifier: ^6.3.11
         version: 6.3.11
@@ -2623,6 +2626,10 @@ packages:
 
   crelt@1.0.6:
     resolution: {integrity: sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g==}
+
+  cronstrue@3.27.0:
+    resolution: {integrity: sha512-AKhV4ilvx73NmicrZCGASdszUIf2ew0A/6jQQTh4pu3lIUzgWOGjT3Gv3CGIcTQ/p8Qy/tZuCmlaOftj8PXaNg==}
+    hasBin: true
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -7018,6 +7025,8 @@ snapshots:
   cookie@1.1.1: {}
 
   crelt@1.0.6: {}
+
+  cronstrue@3.27.0: {}
 
   cross-spawn@7.0.6:
     dependencies:
