@@ -1,4 +1,7 @@
-import type { Slug } from "@/constants/tools";
+import { type Slug, tools } from "@/constants/tools";
+
+// Built from TOOLS so the answer never goes stale when a tool is added
+const visibleTools = tools.filter((tool) => !("hide" in tool));
 
 export type Faq = {
   question: string;
@@ -289,8 +292,9 @@ const CRON_EXPRESSION_GENERATOR_FAQ: Faq[] = [
 export const HOME_PAGE_FAQ: Faq[] = [
   {
     question: "What tools are available on Toolbelt?",
-    answer:
-      "Toolbelt offers essential tools like JavaScript/JSON to TypeScript Types, Numbers to Words, Password Generator, Base64 Converter, URL Encoder/Decoder, HTML Escape, and What's My IP for various tasks.",
+    answer: `Toolbelt has ${visibleTools.length} free tools: ${new Intl.ListFormat("en", {
+      type: "conjunction",
+    }).format(visibleTools.map((tool) => tool.name))}.`,
   },
   {
     question: "How can Toolbelt make my life easier?",
