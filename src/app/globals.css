@@ -154,6 +154,15 @@
     outline: 2px solid var(--brand);
     outline-offset: 2px;
   }
+  /* An invalid field keeps reading as invalid while you type in it */
+  [aria-invalid="true"]:focus-visible {
+    outline-color: var(--destructive);
+  }
+  /* Tailwind's default is the text color at 50%, which is 3.7:1 in light mode */
+  ::placeholder {
+    color: var(--muted-foreground);
+    opacity: 1;
+  }
   ::selection {
     background: color-mix(in oklch, var(--brand) 30%, transparent);
   }
