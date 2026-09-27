@@ -638,4 +638,31 @@ export const Faqs: Record<Slug, Faq[]> = {
         "The status uses your device's clock. If the clock is off, or the issuer's clock was, the result can differ by that amount.",
     },
   ],
+  "rupees-in-words": [
+    {
+      question: "How do I write 1,50,000 in words on a cheque?",
+      answer:
+        'Write Rupees One Lakh Fifty Thousand Only. Starting with "Rupees" and ending with "Only" leaves no room for anyone to add words before or after the amount.',
+    },
+    {
+      question: 'Why add "Only" at the end?',
+      answer:
+        "It marks the end of the amount, so nothing can be added after it. Banks expect it on cheques.",
+    },
+    {
+      question: "How are paise written?",
+      answer:
+        'After the rupees, joined with "and": Rupees Forty Five and Fifty Paise Only for ₹45.50. If there are no rupees, just the paise are written, such as Fifty Paise Only.',
+    },
+    {
+      question: "Can I type the amount with commas or a ₹ sign?",
+      answer:
+        "Yes. Indian or Western commas, spaces, and a leading ₹, Rs, or INR are all ignored.",
+    },
+    {
+      question: "What is the largest amount it converts?",
+      answer:
+        "Anything below ₹1,00,000 crore (one lakh crore), which covers any amount you would write on a cheque.",
+    },
+  ],
 };

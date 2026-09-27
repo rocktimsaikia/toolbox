@@ -46,6 +46,16 @@ export const TOOLS = {
     category: "Convert",
     icon: "hash",
   },
+  "rupees-in-words": {
+    name: "Rupees in Words",
+    seoTitle: "Rupees in Words: Amount in Words for Cheques",
+    description: "Write a rupee amount in words, cheque style",
+    seoDescription:
+      "Convert an amount in Indian rupees to words for cheques, invoices, and forms, with lakh and crore, paise, and cheque-style wording. Free and instant.",
+    slug: "rupees-in-words",
+    category: "Convert",
+    icon: "rupee",
+  },
   "password-generator": {
     name: "Password Generator",
     seoTitle: "Strong Random Password Generator",

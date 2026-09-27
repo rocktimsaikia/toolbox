@@ -1032,4 +1032,39 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
+  "rupees-in-words": {
+    intro:
+      "Cheques, invoices, and many bank and government forms ask for the amount in words as well as in figures, so the two can be checked against each other. Type an amount in rupees and get the words in the Indian numbering system, with lakh and crore, ready to copy.",
+    sections: [
+      {
+        heading: "What you get",
+        list: [
+          {
+            term: "In words.",
+            text: 'Starts with "Rupees" and ends with "Only", the way the amount line on an Indian cheque is written, such as Rupees Twelve Lakh Fifty Thousand Only. Invoices and receipts use the same wording.',
+          },
+          {
+            term: "In figures.",
+            text: "The amount with Indian digit grouping, such as ₹12,50,000.75, for the figures box.",
+          },
+        ],
+      },
+      {
+        heading: "Lakh and crore",
+        paragraphs: [
+          "Indian numbering groups digits in twos after the first thousand: 1,00,000 is one lakh and 1,00,00,000 is one crore. You can type the amount with Indian commas, Western commas, or none at all, and with or without ₹, Rs, or INR in front.",
+        ],
+      },
+      {
+        heading: "Paise",
+        paragraphs: [
+          "Up to two decimal places are read as paise, so 45.5 becomes Rupees Forty Five and Fifty Paise Only. Amounts with more decimal places are rejected rather than rounded, because a rounded cheque amount would not match the one you meant to write.",
+        ],
+      },
+      {
+        heading: "Example",
+        code: "12,50,000.75\n\n// in words\n\nRupees Twelve Lakh Fifty Thousand and Seventy Five Paise Only",
+      },
+    ],
+  },
 };

@@ -31,6 +31,7 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [Password Generator](https://toolbelt.fyi/password-generator) | Create strong random passwords |
 | [Word Counter](https://toolbelt.fyi/word-counter) | Count words, characters, sentences, paragraphs, and reading time |
 | [Numbers to Words](https://toolbelt.fyi/numbers-to-words) | Spell out numbers in words, with optional currency and locale |
+| [Rupees in Words](https://toolbelt.fyi/rupees-in-words) | Write a rupee amount in words for cheques, with lakh, crore, and paise |
 | [Lorem Ipsum Generator](https://toolbelt.fyi/lorem-ipsum) | Generate placeholder text |
 | [Blank Character Copy](https://toolbelt.fyi/blank-character) | Copy invisible blank characters |
 | [What's My IP](https://toolbelt.fyi/whats-my-ip) | Show your public IP address |
