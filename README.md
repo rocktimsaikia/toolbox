@@ -13,7 +13,7 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [HTML Escape](https://toolbelt.fyi/html-escape) | Escape and unescape HTML entities |
 | [URL Parser](https://toolbelt.fyi/url-parser) | Break a messy URL into host, path segments, and every query param, with base64 and JWT values decoded |
 | [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Generate TypeScript types from a JavaScript object or JSON |
-| [Data Format Converter](https://toolbelt.fyi/yamlc) | Convert between JSON, YAML, TOML, XML, and CSV |
+| [Data Format Converter](https://toolbelt.fyi/data-format-converter) | Convert between JSON, YAML, TOML, XML, and CSV |
 | [Base64 Converter](https://toolbelt.fyi/base64-converter) | Encode and decode Base64 strings |
 | [URL Encoder/Decoder](https://toolbelt.fyi/url-encoder-decoder) | Percent-encode and decode URL components |
 | [Cron Expression Generator](https://toolbelt.fyi/cron-expression-generator) | Build cron expressions and read them in plain English |

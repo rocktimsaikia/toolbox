@@ -469,7 +469,7 @@ export const Faqs: Record<Slug, Faq[]> = {
   "lorem-ipsum": LOREM_IPSUM_FAQ,
   "blank-character": BLANK_CHARACTER_FAQ,
   "cron-expression-generator": CRON_EXPRESSION_GENERATOR_FAQ,
-  yamlc: YAMLC_FAQ,
+  "data-format-converter": YAMLC_FAQ,
   "text-trimmer": TEXT_TRIMMER_FAQ,
   "find-replace": FIND_REPLACE_FAQ,
   "case-converter": CASE_CONVERTER_FAQ,

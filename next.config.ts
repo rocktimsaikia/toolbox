@@ -12,8 +12,12 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
-    // The combined text page was split into one page per tool
-    return [{ source: "/text-tools", destination: "/case-converter", permanent: true }];
+    return [
+      // The combined text page was split into one page per tool
+      { source: "/text-tools", destination: "/case-converter", permanent: true },
+      // Renamed to a slug that matches what people search for
+      { source: "/yamlc", destination: "/data-format-converter", permanent: true },
+    ];
   },
 };
 

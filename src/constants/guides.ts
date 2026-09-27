@@ -539,7 +539,7 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
-  yamlc: {
+  "data-format-converter": {
     intro:
       "Config files, APIs, and spreadsheets all use different formats. This converter turns data in JSON, YAML, TOML, XML, or CSV into any of the others, in your browser, so you can move a config between tools or turn an API response into a spreadsheet.",
     sections: [

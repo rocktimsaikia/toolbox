@@ -6,7 +6,7 @@ import { Faqs } from "@/constants/faq";
 import { TOOLS } from "@/constants/tools";
 import { generateSeo } from "@/lib/seo";
 
-const slug = "yamlc";
+const slug = "data-format-converter";
 
 const tool = TOOLS[slug];
 const faq = Faqs[slug];

@@ -120,7 +120,7 @@ export default function Yamlc() {
 
   return (
     <div className="flex flex-col space-y-10">
-      <ToolsHeader tool={TOOLS.yamlc} />
+      <ToolsHeader tool={TOOLS["data-format-converter"]} />
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
         <div className="flex flex-col lg:items-start">
           <div className="flex justify-between w-full">

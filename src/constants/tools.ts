@@ -146,13 +146,13 @@ export const TOOLS = {
     category: "Generate",
     icon: "clock",
   },
-  yamlc: {
+  "data-format-converter": {
     name: "Data Format Converter",
     seoTitle: "JSON, YAML, TOML, XML and CSV Converter Online",
     description: "Convert between JSON, YAML, TOML, XML, and CSV",
     seoDescription:
       "Convert data between JSON, YAML, TOML, XML, and CSV in your browser. Paste one format and pick another to convert instantly. Free and private.",
-    slug: "yamlc",
+    slug: "data-format-converter",
     category: "Convert",
     icon: "arrowUpDown",
   },
