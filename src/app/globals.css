@@ -26,6 +26,8 @@
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-success: var(--success);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -64,11 +66,14 @@
   --secondary: oklch(0.97 0.006 255);
   --secondary-foreground: oklch(0.205 0.006 255);
   --muted: oklch(0.97 0.006 255);
-  --muted-foreground: oklch(0.556 0.006 255);
+  --muted-foreground: oklch(0.52 0.006 255);
   --accent: oklch(0.97 0.006 255);
   --accent-foreground: oklch(0.205 0.006 255);
   --destructive: oklch(0.577 0.245 27.325);
   --success: oklch(0.52 0.14 150);
+  /* Logo orange, darkened for 5.2:1 with white text. Selection and focus only, so it stays rare */
+  --brand: oklch(0.55 0.16 40);
+  --brand-foreground: oklch(1 0 0);
   --border: oklch(0.922 0.006 255);
   --input: oklch(0.922 0.006 255);
   --ring: oklch(0.708 0.006 255);
@@ -104,7 +109,10 @@
   --accent-foreground: oklch(0.985 0.006 255);
   --destructive: oklch(0.704 0.191 22.216);
   --success: oklch(0.76 0.16 150);
-  --border: oklch(1 0 0 / 10%);
+  /* Lighter logo orange: 7.6:1 with the dark background as its text */
+  --brand: oklch(0.72 0.15 45);
+  --brand-foreground: oklch(0.145 0.006 255);
+  --border: oklch(1 0 0 / 16%);
   --input: oklch(1 0 0 / 24%);
   --ring: oklch(0.556 0.006 255);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -139,9 +147,20 @@
   .cm-editor:has(.cm-content[aria-invalid="true"]) {
     border-color: var(--destructive);
   }
+  :root {
+    /* Native checkboxes, radios, and range inputs */
+    accent-color: var(--brand);
+  }
   :focus-visible {
-    outline: 2px solid var(--foreground);
+    outline: 2px solid var(--brand);
     outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--brand) 30%, transparent);
+  }
+  textarea,
+  input {
+    caret-color: var(--brand);
   }
 }
 

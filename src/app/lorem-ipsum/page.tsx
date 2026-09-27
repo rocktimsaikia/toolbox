@@ -267,7 +267,7 @@ export default function LoremIpsumGenerator() {
                 id="startWithLorem"
                 checked={startWithLorem}
                 onChange={(event) => setStartWithLorem(event.target.checked)}
-                className="cursor-pointer accent-primary"
+                className="cursor-pointer accent-brand"
               />
               <label htmlFor="startWithLorem" className="text-sm">
                 Start with "Lorem ipsum"

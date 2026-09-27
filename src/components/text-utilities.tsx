@@ -241,9 +241,9 @@ function SegmentedControl<T extends string>({
           <label
             key={option.value}
             className={clsx(
-              "inline-flex h-10 cursor-pointer items-center rounded-sm px-4 text-sm font-medium transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-foreground lg:h-8",
+              "inline-flex h-10 cursor-pointer items-center rounded-sm px-4 text-sm font-medium transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand lg:h-8",
               value === option.value
-                ? "bg-primary text-primary-foreground"
+                ? "bg-brand text-brand-foreground"
                 : "text-muted-foreground hover:text-foreground",
             )}
           >
@@ -278,7 +278,7 @@ function Checkbox({
         type="checkbox"
         checked={checked}
         onChange={(event) => onChange(event.target.checked)}
-        className="h-4 w-4 cursor-pointer accent-primary"
+        className="h-4 w-4 cursor-pointer accent-brand"
       />
       {children}
     </label>
@@ -403,7 +403,7 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
                 className={clsx(
                   "inline-flex h-11 items-center whitespace-nowrap rounded border px-4 text-sm font-medium transition-colors lg:h-9",
                   mode === utilityMode
-                    ? "border-primary bg-primary text-primary-foreground"
+                    ? "border-brand bg-brand text-brand-foreground"
                     : "border-border bg-card text-foreground hover:bg-muted",
                 )}
               >
@@ -436,7 +436,7 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
                     className={clsx(
                       "h-10 rounded border px-3 font-mono text-sm transition-colors lg:h-8",
                       selectedCase === caseType
-                        ? "border-primary bg-primary text-primary-foreground"
+                        ? "border-brand bg-brand text-brand-foreground"
                         : "border-border bg-card text-foreground hover:bg-muted",
                     )}
                   >

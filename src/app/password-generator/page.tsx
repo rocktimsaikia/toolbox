@@ -68,7 +68,7 @@ export default function JSONToJavascript() {
                 type="checkbox"
                 checked={uppercase}
                 onChange={(event) => setUppercase(event.target.checked)}
-                className="cursor-pointer accent-primary"
+                className="cursor-pointer accent-brand"
               />
               <label htmlFor="uppercase">Uppercase</label>
             </div>
@@ -78,7 +78,7 @@ export default function JSONToJavascript() {
                 type="checkbox"
                 checked={lowercase}
                 onChange={(event) => setLowercase(event.target.checked)}
-                className="cursor-pointer accent-primary"
+                className="cursor-pointer accent-brand"
               />
               <label htmlFor="lowercase">Lowercase</label>
             </div>
@@ -88,7 +88,7 @@ export default function JSONToJavascript() {
                 type="checkbox"
                 checked={numbers}
                 onChange={(event) => setNumbers(event.target.checked)}
-                className="cursor-pointer accent-primary"
+                className="cursor-pointer accent-brand"
               />
               <label htmlFor="numbers">Numbers</label>
             </div>
@@ -98,7 +98,7 @@ export default function JSONToJavascript() {
                 type="checkbox"
                 checked={symbols}
                 onChange={(event) => setSymbols(event.target.checked)}
-                className="cursor-pointer accent-primary"
+                className="cursor-pointer accent-brand"
               />
               <label htmlFor="symbols">Symbols</label>
             </div>
