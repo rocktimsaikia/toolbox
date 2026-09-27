@@ -1277,4 +1277,164 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
+  "hash-generator": {
+    intro:
+      "A hash function turns any text or file into a short, fixed-length fingerprint. The same input always gives the same hash, and changing a single byte changes it completely, which makes hashes useful for checking downloads, spotting duplicates, and building cache keys. This tool computes MD5, SHA-1, SHA-256, SHA-384, and SHA-512 at once.",
+    sections: [
+      {
+        heading: "Which algorithm to use",
+        list: [
+          {
+            term: "SHA-256.",
+            text: "The safe default for checksums, signatures, and anything security-related.",
+          },
+          {
+            term: "SHA-512 and SHA-384.",
+            text: "Longer hashes from the same SHA-2 family, often faster than SHA-256 on 64-bit machines.",
+          },
+          {
+            term: "SHA-1.",
+            text: "Broken for security since 2017, but still used for Git commit IDs and older checksums.",
+          },
+          {
+            term: "MD5.",
+            text: "Broken for security since 2004. Fine for spotting accidental corruption or duplicate files, never for passwords or signatures.",
+          },
+        ],
+      },
+      {
+        heading: "Checking a download",
+        paragraphs: [
+          "Click Hash a file and choose the file, then paste the checksum published by the site you downloaded it from into Check against a hash. A match means your copy is identical to the original, byte for byte.",
+        ],
+      },
+      {
+        heading: "Hashing is not encryption",
+        paragraphs: [
+          "A hash can't be turned back into the original text, and there is no key. To store passwords, use a slow password hash such as bcrypt, scrypt, or Argon2, never plain MD5 or SHA, which are fast enough to guess billions of candidates per second.",
+        ],
+      },
+      {
+        heading: "From the command line",
+        code: "# macOS\nshasum -a 256 file.zip\nmd5 file.zip\n\n# Linux\nsha256sum file.zip\n\n# Windows\ncertutil -hashfile file.zip SHA256",
+      },
+    ],
+  },
+  "md5-generator": {
+    intro:
+      "MD5 turns any text or file into a 128-bit hash, written as 32 hex characters. It is fast and everywhere, so it is still common for file checksums, cache keys, and spotting duplicates.",
+    sections: [
+      {
+        heading: "Is MD5 secure?",
+        paragraphs: [
+          "No. Researchers have been able to create two different inputs with the same MD5 hash since 2004, so it must not be used for passwords, signatures, or certificates. It is still fine for catching accidental corruption, where nobody is trying to fake a match.",
+        ],
+      },
+      {
+        heading: "Checking a download",
+        paragraphs: [
+          "Click Hash a file and choose the file, then paste the checksum published by the site you downloaded it from into Check against a hash. A match means your copy is identical to the original, byte for byte.",
+        ],
+      },
+      {
+        heading: "Example",
+        code: "hello\n\n// MD5\n\n5d41402abc4b2a76b9719d911017c592",
+      },
+      {
+        heading: "From the command line",
+        code: "# macOS\nmd5 file.zip\n\n# Linux\nmd5sum file.zip\n\n# Windows\ncertutil -hashfile file.zip MD5",
+      },
+    ],
+  },
+  "sha1-generator": {
+    intro:
+      "SHA-1 produces a 160-bit hash, written as 40 hex characters. It was the standard hash for years and still turns up in Git, older checksums, and legacy systems.",
+    sections: [
+      {
+        heading: "Is SHA-1 still safe?",
+        paragraphs: [
+          "Not for security. In 2017 the SHAttered attack produced two different PDF files with the same SHA-1 hash, and browsers no longer accept SHA-1 certificates. Use SHA-256 for anything new; SHA-1 remains fine for non-security uses such as detecting accidental changes.",
+        ],
+      },
+      {
+        heading: "SHA-1 in Git",
+        paragraphs: [
+          "Git names every commit, file, and tree by the SHA-1 hash of its contents, which is where commit IDs such as a1b2c3d come from. Newer versions of Git can use SHA-256 instead.",
+        ],
+      },
+      {
+        heading: "Checking a download",
+        paragraphs: [
+          "Click Hash a file and choose the file, then paste the checksum published by the site you downloaded it from into Check against a hash. A match means your copy is identical to the original, byte for byte.",
+        ],
+      },
+      {
+        heading: "Example",
+        code: "hello\n\n// SHA-1\n\naaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d",
+      },
+    ],
+  },
+  "sha256-generator": {
+    intro:
+      "SHA-256 is the most widely used hash today: a 256-bit fingerprint written as 64 hex characters. It secures TLS certificates, software downloads, Docker image digests, and Bitcoin, and has no known practical attacks.",
+    sections: [
+      {
+        heading: "Where SHA-256 is used",
+        list: [
+          { text: "Checksums published next to software downloads." },
+          { text: "Docker image digests, such as sha256:2cf24dba…" },
+          {
+            text: "TLS certificates, code signing, and JSON Web Tokens signed with HS256 or RS256.",
+          },
+          { text: "Bitcoin's proof of work and transaction IDs." },
+        ],
+      },
+      {
+        heading: "Checking a download",
+        paragraphs: [
+          "Click Hash a file and choose the file, then paste the checksum published by the site you downloaded it from into Check against a hash. A match means your copy is identical to the original, byte for byte.",
+        ],
+      },
+      {
+        heading: "Example",
+        code: "hello\n\n// SHA-256\n\n2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+      },
+      {
+        heading: "From the command line",
+        code: "# macOS\nshasum -a 256 file.zip\n\n# Linux\nsha256sum file.zip\n\n# Windows (PowerShell)\nGet-FileHash file.zip -Algorithm SHA256",
+      },
+    ],
+  },
+  "sha512-generator": {
+    intro:
+      "SHA-512 is the long member of the SHA-2 family: a 512-bit hash written as 128 hex characters. On 64-bit computers it is often faster than SHA-256, and it is used for npm package integrity, Linux password files, and long-term signatures.",
+    sections: [
+      {
+        heading: "SHA-512 or SHA-256?",
+        paragraphs: [
+          "Both are secure. SHA-512 gives a longer hash and often runs faster on 64-bit CPUs, while SHA-256 is shorter and more widely expected. SHA-384 is SHA-512 with a different starting point, cut to 384 bits.",
+        ],
+      },
+      {
+        heading: "Where SHA-512 is used",
+        list: [
+          { text: "npm lockfiles, whose integrity fields start with sha512-." },
+          {
+            text: "Linux password hashes that begin with $6$, which run SHA-512 many thousands of times.",
+          },
+          { text: "File checksums for large downloads." },
+        ],
+      },
+      {
+        heading: "Checking a download",
+        paragraphs: [
+          "Click Hash a file and choose the file, then paste the checksum published by the site you downloaded it from into Check against a hash. A match means your copy is identical to the original, byte for byte.",
+        ],
+      },
+      {
+        heading: "From the command line",
+        code: "# macOS\nshasum -a 512 file.zip\n\n# Linux\nsha512sum file.zip\n\n# Windows (PowerShell)\nGet-FileHash file.zip -Algorithm SHA512",
+      },
+    ],
+  },
 };

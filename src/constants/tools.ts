@@ -117,6 +117,56 @@ export const TOOLS = {
     category: "Encode & decode",
     icon: "braces",
   },
+  "hash-generator": {
+    name: "Hash Generator",
+    seoTitle: "Hash Generator: MD5, SHA-1, SHA-256, SHA-512 Online",
+    description: "MD5, SHA-1, SHA-256, and SHA-512 of text or files",
+    seoDescription:
+      "Generate MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hashes of text or files at once, and check a download against its checksum. Runs in your browser.",
+    slug: "hash-generator",
+    category: "Encode & decode",
+    icon: "shield",
+  },
+  "md5-generator": {
+    name: "MD5 Generator",
+    seoTitle: "MD5 Hash Generator Online, Text and Files",
+    description: "The MD5 hash of any text or file",
+    seoDescription:
+      "Generate the MD5 hash of text or a file online and verify MD5 checksums of downloads. Free, instant, and private: nothing leaves your browser.",
+    slug: "md5-generator",
+    category: "Encode & decode",
+    icon: "shield",
+  },
+  "sha1-generator": {
+    name: "SHA-1 Generator",
+    seoTitle: "SHA-1 Hash Generator Online, Text and Files",
+    description: "The SHA-1 hash of any text or file",
+    seoDescription:
+      "Generate the SHA-1 hash of text or a file online and verify SHA-1 checksums. Free, instant, and private: files are hashed in your browser, never uploaded.",
+    slug: "sha1-generator",
+    category: "Encode & decode",
+    icon: "shield",
+  },
+  "sha256-generator": {
+    name: "SHA-256 Generator",
+    seoTitle: "SHA-256 Hash Generator Online, Text and Files",
+    description: "The SHA-256 hash of any text or file",
+    seoDescription:
+      "Generate the SHA-256 hash of text or a file online and verify SHA-256 checksums of downloads. Free, instant, and private: nothing leaves your browser.",
+    slug: "sha256-generator",
+    category: "Encode & decode",
+    icon: "shield",
+  },
+  "sha512-generator": {
+    name: "SHA-512 Generator",
+    seoTitle: "SHA-512 Hash Generator Online, Text and Files",
+    description: "The SHA-512 hash of any text or file",
+    seoDescription:
+      "Generate the SHA-512 hash of text or a file online and verify SHA-512 checksums. Free, instant, and private: files are hashed in your browser, never uploaded.",
+    slug: "sha512-generator",
+    category: "Encode & decode",
+    icon: "shield",
+  },
   "html-escape": {
     name: "HTML Escape",
     seoTitle: "HTML Escape and Unescape, HTML Entity Encoder",

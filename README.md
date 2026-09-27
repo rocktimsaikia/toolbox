@@ -11,6 +11,11 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [Find and Replace Text](https://toolbelt.fyi/find-replace) | Find and replace with case sensitivity and whole word options |
 | [Line Break Remover](https://toolbelt.fyi/line-break-remover) | Remove line breaks, optionally keeping paragraphs |
 | [JWT Decoder](https://toolbelt.fyi/jwt-decoder) | Read a JWT header, payload claims, and expiry |
+| [Hash Generator](https://toolbelt.fyi/hash-generator) | MD5, SHA-1, SHA-256, SHA-384, and SHA-512 of text or files |
+| [MD5 Generator](https://toolbelt.fyi/md5-generator) | MD5 hash of text or a file |
+| [SHA-1 Generator](https://toolbelt.fyi/sha1-generator) | SHA-1 hash of text or a file |
+| [SHA-256 Generator](https://toolbelt.fyi/sha256-generator) | SHA-256 hash of text or a file |
+| [SHA-512 Generator](https://toolbelt.fyi/sha512-generator) | SHA-512 hash of text or a file |
 | [HTML Escape](https://toolbelt.fyi/html-escape) | Escape and unescape HTML entities |
 | [URL Parser](https://toolbelt.fyi/url-parser) | Break a messy URL into host, path segments, and every query param, with base64 and JWT values decoded |
 | [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Generate TypeScript types from a JavaScript object or JSON |

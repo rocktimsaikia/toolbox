@@ -794,4 +794,98 @@ export const Faqs: Record<Slug, Faq[]> = {
         "Yes. They come from the browser's cryptographically secure random number generator and are created on your device, never sent anywhere.",
     },
   ],
+  "hash-generator": [
+    {
+      question: "What is a hash generator?",
+      answer:
+        "A tool that computes the hash, or checksum, of text or a file. This one gives MD5, SHA-1, SHA-256, SHA-384, and SHA-512 in one go.",
+    },
+    {
+      question: "Can a hash be reversed?",
+      answer:
+        "No. Hash functions are one-way. Short or common inputs can sometimes be guessed by trying candidates, which is why passwords need a slow hash like bcrypt.",
+    },
+    {
+      question: "Are my files uploaded?",
+      answer:
+        "No. Files are read and hashed in your browser, so they never leave your device, whatever their size.",
+    },
+    {
+      question: "Why does my hash differ from another tool's?",
+      answer:
+        "Usually the input differs: a trailing space or line break, or a different text encoding. This tool hashes text as UTF-8 exactly as typed.",
+    },
+  ],
+  "md5-generator": [
+    {
+      question: "How long is an MD5 hash?",
+      answer: "128 bits, written as 32 hexadecimal characters.",
+    },
+    {
+      question: "Can I decrypt an MD5 hash?",
+      answer:
+        "No. MD5 is a one-way hash, not encryption. Common inputs can be looked up in precomputed tables, which is another reason not to use it for passwords.",
+    },
+    {
+      question: "What should I use instead of MD5?",
+      answer:
+        "SHA-256 for checksums and signatures, and bcrypt, scrypt, or Argon2 for passwords.",
+    },
+    {
+      question: "Is the MD5 of a file uploaded to calculate it?",
+      answer: "No. The file is hashed in your browser and never leaves your device.",
+    },
+  ],
+  "sha1-generator": [
+    {
+      question: "How long is a SHA-1 hash?",
+      answer: "160 bits, written as 40 hexadecimal characters.",
+    },
+    {
+      question: "Why was SHA-1 deprecated?",
+      answer:
+        "Collisions, two inputs with the same hash, became practical to produce in 2017, so it can no longer guarantee that signed data hasn't been swapped.",
+    },
+    {
+      question: "Is my text or file sent anywhere?",
+      answer: "No. Hashing happens in your browser, and nothing is uploaded.",
+    },
+  ],
+  "sha256-generator": [
+    {
+      question: "How long is a SHA-256 hash?",
+      answer: "256 bits, written as 64 hexadecimal characters.",
+    },
+    {
+      question: "Is SHA-256 secure?",
+      answer:
+        "Yes. There are no known practical attacks on SHA-256, and it is the default for checksums and signatures.",
+    },
+    {
+      question: "Should I hash passwords with SHA-256?",
+      answer:
+        "No. SHA-256 is designed to be fast, which helps attackers guess passwords. Use bcrypt, scrypt, or Argon2.",
+    },
+    {
+      question: "How do I check a file's SHA-256 checksum?",
+      answer:
+        "Click Hash a file, then paste the published checksum into Check against a hash. The tool tells you if they match.",
+    },
+  ],
+  "sha512-generator": [
+    {
+      question: "How long is a SHA-512 hash?",
+      answer: "512 bits, written as 128 hexadecimal characters.",
+    },
+    {
+      question: "Is SHA-512 more secure than SHA-256?",
+      answer:
+        "Both have no known practical attacks. SHA-512's longer output gives a larger safety margin, but SHA-256 is strong enough for nearly every use.",
+    },
+    {
+      question: "Why is the npm integrity value different from this hash?",
+      answer:
+        "npm writes the SHA-512 hash in Base64, after sha512-. This tool shows it in hex; the bytes are the same.",
+    },
+  ],
 };
