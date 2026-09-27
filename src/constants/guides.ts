@@ -1192,4 +1192,89 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
+  "uuid-generator": {
+    intro:
+      "A UUID is a 128-bit identifier written as 32 hex digits, like 0192f0c1-7b3a-7cde-8f00-123456789abc. It is unique enough that systems can create IDs on their own, without asking a central database, and never clash. This generator makes version 4 or version 7 UUIDs in your browser, one at a time or up to 1,000 at once.",
+    sections: [
+      {
+        heading: "v4 or v7?",
+        list: [
+          {
+            term: "v4, random.",
+            text: "122 random bits from your browser's cryptographic random number generator. Use it for most IDs and tokens, and wherever the ID shouldn't reveal when it was made.",
+          },
+          {
+            term: "v7, time-ordered.",
+            text: "Starts with the creation time in milliseconds, so IDs sort in the order they were made. That keeps database indexes compact, which makes v7 a good choice for primary keys. It does reveal roughly when each ID was created.",
+          },
+        ],
+      },
+      {
+        heading: "Ordered within the same millisecond",
+        paragraphs: [
+          "Generating many v7 UUIDs at once puts several in the same millisecond. This tool counts up a 12-bit field within each millisecond, as RFC 9562 describes, so a whole batch still sorts in creation order.",
+        ],
+      },
+      {
+        heading: "Format options",
+        list: [
+          {
+            term: "Uppercase.",
+            text: "Some tools, such as SQL Server and Windows utilities, show UUIDs in capitals. The value is the same either way.",
+          },
+          {
+            term: "Hyphens.",
+            text: "Turn them off for the compact 32-character form used in some URLs and file names.",
+          },
+          {
+            term: "Braces { }.",
+            text: "Wraps each UUID in braces, the style of the Windows registry and COM.",
+          },
+        ],
+      },
+      {
+        heading: "Will two UUIDs ever collide?",
+        paragraphs: [
+          "In practice, no. A v4 UUID has 122 random bits, so you would need to generate about 2.7 quintillion of them to reach a 50% chance of a single duplicate.",
+        ],
+      },
+    ],
+  },
+  "guid-generator": {
+    intro:
+      "GUID is Microsoft's name for a UUID: the same 128-bit identifier, used across .NET, SQL Server, COM, and the Windows registry. This generator creates GUIDs in your browser, one at a time or up to 1,000 at once, in the format your code expects.",
+    sections: [
+      {
+        heading: "GUID or UUID?",
+        paragraphs: [
+          "They are the same thing. Guid.NewGuid() in C# returns a random version 4 UUID, and SQL Server's uniqueidentifier stores the same 16 bytes. Any GUID from this page works wherever a UUID is expected, and the other way round. Since .NET 9, Guid.CreateVersion7() makes time-ordered version 7 GUIDs, which the v7 option here also produces.",
+        ],
+      },
+      {
+        heading: "Formats",
+        list: [
+          {
+            term: "Default.",
+            text: "8-4-4-4-12 in lowercase, the same as Guid.ToString().",
+          },
+          {
+            term: "Uppercase.",
+            text: "As SQL Server Management Studio and many Windows tools show them.",
+          },
+          {
+            term: "Braces { }.",
+            text: 'The registry and COM format, and what Guid.ToString("B") returns.',
+          },
+          {
+            term: "No hyphens.",
+            text: '32 digits in a row, as Guid.ToString("N") returns.',
+          },
+        ],
+      },
+      {
+        heading: "Using a GUID in code",
+        code: "// C#\nvar id = Guid.Parse(\"0192f0c1-7b3a-7cde-8f00-123456789abc\");\n\n-- SQL Server\nDECLARE @id uniqueidentifier = '0192F0C1-7B3A-7CDE-8F00-123456789ABC';",
+      },
+    ],
+  },
 };

@@ -740,4 +740,58 @@ export const Faqs: Record<Slug, Faq[]> = {
         "It is smaller, so it transfers faster, especially without gzip or Brotli. Parsing takes about the same time.",
     },
   ],
+  "uuid-generator": [
+    {
+      question: "What is a UUID?",
+      answer:
+        "A universally unique identifier: a 128-bit value written as 32 hex digits in five groups, 8-4-4-4-12. Programs create them independently, without coordinating, and they don't clash.",
+    },
+    {
+      question: "Are these UUIDs random enough to use?",
+      answer:
+        "Yes. v4 UUIDs come from crypto.randomUUID and the random bits of v7 from crypto.getRandomValues, the browser's cryptographically secure random number generators.",
+    },
+    {
+      question: "Should I use UUID v4 or v7 for database keys?",
+      answer:
+        "v7 is usually better for primary keys, because new IDs sort after old ones and keep B-tree indexes compact. Use v4 when the ID shouldn't reveal its creation time.",
+    },
+    {
+      question: "Can I generate UUIDs in bulk?",
+      answer:
+        "Yes. Set How many to any number up to 1,000, then copy the list or download it as a text file with one UUID per line.",
+    },
+    {
+      question: "Are the UUIDs stored or sent anywhere?",
+      answer:
+        "No. They are created in your browser and never sent to a server, so nobody else has seen them.",
+    },
+  ],
+  "guid-generator": [
+    {
+      question: "What is the difference between a GUID and a UUID?",
+      answer:
+        "None in practice. GUID is Microsoft's term and UUID is the standard one, and both name the same 128-bit identifier.",
+    },
+    {
+      question: "How do I generate a GUID in C#?",
+      answer:
+        "Call Guid.NewGuid() for a random GUID, or Guid.CreateVersion7() on .NET 9 and later for a time-ordered one. This page is handy when you need values without writing code, such as for test data or config files.",
+    },
+    {
+      question: "Why does SQL Server show GUIDs in uppercase?",
+      answer:
+        "SQL Server tools display uniqueidentifier values in capitals. Case doesn't change the value, so tick Uppercase if you want them to match.",
+    },
+    {
+      question: "Can I get GUIDs with curly braces?",
+      answer:
+        'Yes. Tick Braces { } to wrap each GUID the way the Windows registry and Guid.ToString("B") write it.',
+    },
+    {
+      question: "Is it safe to use these GUIDs in production?",
+      answer:
+        "Yes. They come from the browser's cryptographically secure random number generator and are created on your device, never sent anywhere.",
+    },
+  ],
 };

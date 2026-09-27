@@ -32,6 +32,8 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [Cron Expression Generator](https://toolbelt.fyi/cron-expression-generator) | Build cron expressions and read them in plain English |
 | [Color Code Converter](https://toolbelt.fyi/color-converter) | Convert colors between HEX, RGB, HSL, and RGBA |
 | [Password Generator](https://toolbelt.fyi/password-generator) | Create strong random passwords |
+| [UUID Generator](https://toolbelt.fyi/uuid-generator) | Random v4 or time-ordered v7 UUIDs, one or up to 1,000 |
+| [GUID Generator](https://toolbelt.fyi/guid-generator) | GUIDs for .NET and SQL Server, with braces or uppercase |
 | [Word Counter](https://toolbelt.fyi/word-counter) | Count words, characters, sentences, paragraphs, and reading time |
 | [Numbers to Words](https://toolbelt.fyi/numbers-to-words) | Spell out numbers in words, with optional currency and locale |
 | [Rupees in Words](https://toolbelt.fyi/rupees-in-words) | Write a rupee amount in words for cheques, with lakh, crore, and paise |

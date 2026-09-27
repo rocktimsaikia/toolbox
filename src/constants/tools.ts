@@ -137,6 +137,26 @@ export const TOOLS = {
     category: "Text",
     icon: "alignLeft",
   },
+  "uuid-generator": {
+    name: "UUID Generator",
+    seoTitle: "UUID Generator: Random v4 and v7 UUIDs Online",
+    description: "Random v4 or time-ordered v7, one or a thousand",
+    seoDescription:
+      "Generate UUIDs online: random v4 or time-ordered v7, one or up to 1,000 at once, uppercase or without hyphens. Created in your browser, free and instant.",
+    slug: "uuid-generator",
+    category: "Generate",
+    icon: "fingerprint",
+  },
+  "guid-generator": {
+    name: "GUID Generator",
+    seoTitle: "GUID Generator: Create GUIDs Online for .NET",
+    description: "Random GUIDs for .NET and SQL Server, in bulk",
+    seoDescription:
+      "Generate GUIDs online for C#, .NET, and SQL Server. Create one or up to 1,000 at once, with braces or uppercase if you need them. Free and in your browser.",
+    slug: "guid-generator",
+    category: "Generate",
+    icon: "fingerprint",
+  },
   "lorem-ipsum": {
     name: "Lorem Ipsum Generator",
     seoTitle: "Lorem Ipsum Generator, Placeholder Text",
