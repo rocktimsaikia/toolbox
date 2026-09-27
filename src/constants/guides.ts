@@ -1437,4 +1437,99 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
+  "unix-timestamp-converter": {
+    intro:
+      "A Unix timestamp counts the seconds since midnight UTC on 1 January 1970. It is how servers, databases, and logs store time, because a single number sorts, compares, and crosses time zones without ambiguity. This converter turns a timestamp into a readable date, and a date back into a timestamp.",
+    sections: [
+      {
+        heading: "Seconds, milliseconds, or more",
+        paragraphs: [
+          "The number of digits usually tells you the unit, and the converter picks it automatically. Choose one under Read as if it guesses wrong.",
+        ],
+        list: [
+          {
+            term: "Seconds, 10 digits.",
+            text: "The classic Unix timestamp, used by most servers, databases, and APIs.",
+          },
+          {
+            term: "Milliseconds, 13 digits.",
+            text: "What JavaScript's Date.now() and Java's System.currentTimeMillis() return.",
+          },
+          {
+            term: "Microseconds, 16 digits.",
+            text: "Common in Python's datetime and in database logs.",
+          },
+          {
+            term: "Nanoseconds, 19 digits.",
+            text: "Used by Go's time.UnixNano(), InfluxDB, and OpenTelemetry traces.",
+          },
+        ],
+      },
+      {
+        heading: "Time zones",
+        paragraphs: [
+          "A timestamp is the same instant everywhere; only its display changes. The results show it in UTC and in your own time zone. When converting a date to a timestamp, choose whether the date you entered is in UTC or in your time zone, since the same wall-clock time is a different instant in each.",
+        ],
+      },
+      {
+        heading: "The year 2038 problem",
+        paragraphs: [
+          "Systems that store timestamps as signed 32-bit integers run out at 2147483647, which is 03:14:07 UTC on 19 January 2038. After that the number wraps to 1901. Modern systems use 64-bit timestamps, which last for billions of years.",
+        ],
+      },
+      {
+        heading: "Getting the current timestamp in code",
+        code: "// JavaScript (milliseconds)\nDate.now()\n\n# Python (seconds)\nimport time; time.time()\n\n# Bash\ndate +%s\n\n-- PostgreSQL\nSELECT EXTRACT(EPOCH FROM now());\n\n-- MySQL\nSELECT UNIX_TIMESTAMP();",
+      },
+    ],
+  },
+  "epoch-converter": {
+    intro:
+      "Epoch time, also called Unix time or POSIX time, is the number of seconds since the Unix epoch: 00:00:00 UTC on 1 January 1970. This epoch converter shows the current epoch time live and turns any epoch value into a human-readable date, or a date into epoch time.",
+    sections: [
+      {
+        heading: "Epoch time in seconds and milliseconds",
+        paragraphs: [
+          "Most systems count in seconds, but JavaScript and Java count in milliseconds, and some tools in microseconds or nanoseconds. Paste any of them; the converter reads the unit from the number of digits.",
+        ],
+        list: [
+          {
+            term: "Seconds, 10 digits.",
+            text: "The classic Unix timestamp, used by most servers, databases, and APIs.",
+          },
+          {
+            term: "Milliseconds, 13 digits.",
+            text: "What JavaScript's Date.now() and Java's System.currentTimeMillis() return.",
+          },
+          {
+            term: "Microseconds, 16 digits.",
+            text: "Common in Python's datetime and in database logs.",
+          },
+          {
+            term: "Nanoseconds, 19 digits.",
+            text: "Used by Go's time.UnixNano(), InfluxDB, and OpenTelemetry traces.",
+          },
+        ],
+      },
+      {
+        heading: "Well-known epoch values",
+        list: [
+          { term: "0.", text: "00:00:00 UTC, 1 January 1970, the epoch itself." },
+          {
+            term: "1000000000.",
+            text: "01:46:40 UTC, 9 September 2001, when epoch time first reached ten digits.",
+          },
+          { term: "1767225600.", text: "Midnight UTC, 1 January 2026." },
+          {
+            term: "2147483647.",
+            text: "03:14:07 UTC, 19 January 2038, the largest value a signed 32-bit integer can hold.",
+          },
+        ],
+      },
+      {
+        heading: "Converting epoch time on the command line",
+        code: "# Linux: epoch to date\ndate -d @1767225600\n\n# macOS: epoch to date\ndate -r 1767225600\n\n# Current epoch time\ndate +%s",
+      },
+    ],
+  },
 };

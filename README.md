@@ -35,6 +35,8 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [Base64 Converter](https://toolbelt.fyi/base64-converter) | Encode and decode Base64 strings |
 | [URL Encoder/Decoder](https://toolbelt.fyi/url-encoder-decoder) | Percent-encode and decode URL components |
 | [Cron Expression Generator](https://toolbelt.fyi/cron-expression-generator) | Build cron expressions and read them in plain English |
+| [Unix Timestamp Converter](https://toolbelt.fyi/unix-timestamp-converter) | Timestamps to dates and back, in seconds, ms, µs, or ns |
+| [Epoch Converter](https://toolbelt.fyi/epoch-converter) | Live epoch time and epoch to human date |
 | [Color Code Converter](https://toolbelt.fyi/color-converter) | Convert colors between HEX, RGB, HSL, and RGBA |
 | [Password Generator](https://toolbelt.fyi/password-generator) | Create strong random passwords |
 | [UUID Generator](https://toolbelt.fyi/uuid-generator) | Random v4 or time-ordered v7 UUIDs, one or up to 1,000 |

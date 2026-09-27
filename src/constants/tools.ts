@@ -267,6 +267,26 @@ export const TOOLS = {
     category: "Text",
     icon: "type",
   },
+  "unix-timestamp-converter": {
+    name: "Unix Timestamp Converter",
+    seoTitle: "Unix Timestamp Converter: Epoch to Date and Back",
+    description: "Timestamps to dates and back, in any unit",
+    seoDescription:
+      "Convert a Unix timestamp to a date in UTC and your time zone, or a date to a timestamp. Reads seconds, milliseconds, microseconds, and nanoseconds.",
+    slug: "unix-timestamp-converter",
+    category: "Convert",
+    icon: "calendar",
+  },
+  "epoch-converter": {
+    name: "Epoch Converter",
+    seoTitle: "Epoch Converter: Epoch Time to Human Date Online",
+    description: "Epoch time to a readable date, and back",
+    seoDescription:
+      "Convert epoch time to a human-readable date and back. See the current epoch time live, in seconds or milliseconds, with UTC and local time side by side.",
+    slug: "epoch-converter",
+    category: "Convert",
+    icon: "calendar",
+  },
   "color-converter": {
     name: "Color Code Converter",
     seoTitle: "Color Converter: HEX to RGB, RGBA and HSL",

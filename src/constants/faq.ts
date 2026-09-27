@@ -888,4 +888,53 @@ export const Faqs: Record<Slug, Faq[]> = {
         "npm writes the SHA-512 hash in Base64, after sha512-. This tool shows it in hex; the bytes are the same.",
     },
   ],
+  "unix-timestamp-converter": [
+    {
+      question: "What is a Unix timestamp?",
+      answer:
+        "The number of seconds since 00:00:00 UTC on 1 January 1970, not counting leap seconds. For example, 1767225600 is midnight UTC on 1 January 2026.",
+    },
+    {
+      question: "How do I convert a timestamp to a date?",
+      answer:
+        "Paste it into the Timestamp box. The date appears in UTC, ISO 8601, and your own time zone, along with how long ago or ahead it is.",
+    },
+    {
+      question: "Is my timestamp in seconds or milliseconds?",
+      answer:
+        "Count the digits. 10 digits is seconds and 13 is milliseconds for dates around today. The converter detects this for you.",
+    },
+    {
+      question: "Can a Unix timestamp be negative?",
+      answer:
+        "Yes. Negative timestamps are dates before 1970; -86400 is 31 December 1969.",
+    },
+    {
+      question: "Do Unix timestamps include leap seconds?",
+      answer:
+        "No. Unix time treats every day as exactly 86,400 seconds, so leap seconds are left out.",
+    },
+  ],
+  "epoch-converter": [
+    {
+      question: "What is epoch time?",
+      answer:
+        "The number of seconds since 00:00:00 UTC on 1 January 1970, the Unix epoch. It is also called Unix time or a Unix timestamp.",
+    },
+    {
+      question: "How do I convert epoch time to a readable date?",
+      answer:
+        "Paste the epoch value into the Timestamp box. You get the date in UTC, in ISO 8601, and in your own time zone.",
+    },
+    {
+      question: "How do I get the current epoch time?",
+      answer:
+        "It is shown live at the top of this page, in seconds and milliseconds. In code, use Date.now() in JavaScript or time.time() in Python.",
+    },
+    {
+      question: "Why is epoch time counted from 1970?",
+      answer:
+        "The early Unix developers chose 1 January 1970 as a convenient, recent round date when they designed the system clock, and it became the standard.",
+    },
+  ],
 };
