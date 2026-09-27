@@ -19,7 +19,7 @@ const SUPPORT_ITEMS = [
 
 export default function SupportPage() {
   return (
-    <main className="max-w-3xl w-full mx-auto px-4 py-12">
+    <div className="max-w-3xl w-full mx-auto px-4 py-12">
       <header className="mb-10">
         <h1 className="text-3xl font-bold tracking-tight mb-3">Support Toolbelt</h1>
         <p className="text-lg text-muted-foreground">
@@ -64,6 +64,6 @@ export default function SupportPage() {
           Back to Tools
         </Link>
       </section>
-    </main>
+    </div>
   );
 }

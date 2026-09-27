@@ -1,9 +1,11 @@
 import type { Faq as FaqType } from "@/constants/faq";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { ChevronDown } from "lucide-react";
 import type { FAQPage, WithContext } from "schema-dts";
 
 type Props = {
   faq: FaqType[];
+  // Tool pages center the FAQ; the homepage aligns it to the tool list
+  className?: string;
 };
 
 function generateFaqSchema(faqs: FaqType[]) {
@@ -24,11 +26,11 @@ function generateFaqSchema(faqs: FaqType[]) {
   return jsonLd;
 }
 
-export default function Faq({ faq }: Props) {
+export default function Faq({ faq, className = "mx-auto" }: Props) {
   const jsonLd = generateFaqSchema(faq);
 
   return (
-    <article className="mx-auto mt-16 w-full max-w-2xl">
+    <article className={`mt-16 w-full max-w-2xl ${className}`}>
       {/* Schema.org FAQ markup */}
       <script
         type="application/ld+json"
@@ -44,8 +46,8 @@ export default function Faq({ faq }: Props) {
           <details key={question} className="group">
             <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-sm font-medium">
               {question}
-              <ChevronDownIcon
-                className="ml-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+              <ChevronDown
+                className="ml-4 h-4 w-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
                 aria-hidden="true"
               />
             </summary>

@@ -1,6 +1,6 @@
 "use client";
 import { setTheme } from "@/lib/theme";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { Moon, Sun } from "lucide-react";
 
 export default function ThemeToggle() {
   const handleClick = () => {
@@ -15,8 +15,8 @@ export default function ThemeToggle() {
       aria-label="Toggle theme"
       className="cursor-pointer flex items-center justify-center h-9 w-9 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
     >
-      <SunIcon className="block dark:hidden h-4 w-4" aria-hidden="true" />
-      <MoonIcon className="hidden dark:block h-4 w-4" aria-hidden="true" />
+      <Sun className="block dark:hidden h-4 w-4" aria-hidden="true" />
+      <Moon className="hidden dark:block h-4 w-4" aria-hidden="true" />
     </button>
   );
 }

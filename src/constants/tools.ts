@@ -2,12 +2,22 @@ import type { Icons } from "@/components/ui/icons";
 
 export type Slug = keyof typeof TOOLS;
 
+// Homepage groups, in display order
+export const CATEGORIES = [
+  "Convert",
+  "Encode & decode",
+  "Text",
+  "Generate",
+  "Web",
+] as const;
+
 export interface Tool {
   name: string;
   description: string;
   // Longer copy for the meta description (aim for 120-155 characters)
   seoDescription: string;
   slug: Slug;
+  category: (typeof CATEGORIES)[number];
   hide?: boolean;
   icon: keyof typeof Icons;
 }
@@ -15,42 +25,47 @@ export interface Tool {
 export const TOOLS = {
   "json-to-ts": {
     name: "JavaScript/JSON to TypeScript Types",
-    description: "Convert JavaScript/JSON to TypeScript types",
+    description: "Paste JSON or a JS object, get TypeScript types",
     seoDescription:
       "Paste a JavaScript object or JSON and get TypeScript types instantly. A free online JSON to TypeScript converter that runs entirely in your browser.",
     slug: "json-to-ts",
+    category: "Convert",
     icon: "json",
   },
   "numbers-to-words": {
     name: "Numbers to Words",
-    description: "Convert numbers to words",
+    description: "Spell out numbers, with currency mode and 23 locales",
     seoDescription:
       "Convert numbers to words online, with optional currency and locale formats for cheques, invoices, and legal documents. Free, fast, and instant.",
     slug: "numbers-to-words",
+    category: "Convert",
     icon: "hash",
   },
   "password-generator": {
     name: "Password Generator",
-    description: "Generate secure passwords",
+    description: "Pick length and character sets, generated on your device",
     seoDescription:
       "Generate strong random passwords in your browser. Pick the length and mix of uppercase, lowercase, numbers, and symbols. Nothing leaves your device.",
     slug: "password-generator",
+    category: "Generate",
     icon: "key",
   },
   "base64-converter": {
     name: "Base64 Converter",
-    description: "Encode and decode Base64 strings",
+    description: "Text to Base64 and back, with UTF-8 and URL-safe input",
     seoDescription:
       "Encode text to Base64 or decode Base64 back to readable text, instantly and in your browser. A free online Base64 encoder and decoder with no sign-up.",
     slug: "base64-converter",
+    category: "Encode & decode",
     icon: "arrowUpDown",
   },
   "url-encoder-decoder": {
     name: "URL Encoder/Decoder",
-    description: "Encode and decode URLs",
+    description: "Percent-encode text for URLs, or decode it back",
     seoDescription:
       "Percent-encode text for safe use in URLs, or decode encoded URL strings back to readable text. A free online URL encoder and decoder with no sign-up.",
     slug: "url-encoder-decoder",
+    category: "Encode & decode",
     icon: "link",
   },
   "url-parser": {
@@ -60,103 +75,115 @@ export const TOOLS = {
     seoDescription:
       "Paste a long or messy URL to see its protocol, host, path segments, and every query parameter decoded, including Base64 and JWT values. Free and private.",
     slug: "url-parser",
+    category: "Web",
     icon: "listTree",
   },
   "whats-my-ip": {
     name: "What's My IP",
-    description: "Get your public IP address",
+    description: "The public address websites see, copied in one click",
     seoDescription:
       "See your public IP address instantly, the same address websites see when you connect. Free, fast, and no sign-up required. Copy it in one click.",
     slug: "whats-my-ip",
+    category: "Web",
     icon: "wifi",
   },
   "html-escape": {
     name: "HTML Escape",
-    description: "Escape HTML entities",
+    description: "Turn <, >, & and quotes into entities, or back",
     seoDescription:
       "Escape special characters like <, >, &, and quotes into HTML entities, or unescape entities back to plain text. A free online HTML escape tool.",
     slug: "html-escape",
+    category: "Encode & decode",
     icon: "code",
   },
   "line-break-remover": {
     name: "Line Break Remover",
-    description: "Remove line breaks from text",
+    description: "Unwrap text from PDFs and emails, keep paragraphs",
     seoDescription:
       "Remove line breaks from text pasted from PDFs, emails, or docs, with an option to keep paragraph breaks. A free online line break remover.",
     slug: "line-break-remover",
+    category: "Text",
     icon: "alignLeft",
   },
   "lorem-ipsum": {
     name: "Lorem Ipsum Generator",
-    description: "Generate Lorem Ipsum placeholder text",
+    description: "Set paragraphs, sentences, and words per sentence",
     seoDescription:
       "Generate Lorem Ipsum placeholder text by paragraphs, sentences, or words for mockups and layouts. Copy it in one click. Free and instant.",
     slug: "lorem-ipsum",
+    category: "Generate",
     icon: "fileText",
   },
   "blank-character": {
     name: "Blank Character Copy",
-    description: "Copy invisible blank characters",
+    description: "Invisible characters for empty names in games and apps",
     seoDescription:
       "Copy invisible blank characters for empty names, messages, and text fields in games and apps. One click to copy, free and instant, no sign-up needed.",
     slug: "blank-character",
+    category: "Text",
     icon: "copy",
   },
   "cron-expression-generator": {
     name: "Cron Expression Generator",
-    description: "Generate and understand cron expressions (the human way)",
+    description: "Build a cron schedule or read one in plain English",
     seoDescription:
       "Build cron expressions and read any cron schedule in plain English. A free online cron expression generator and explainer for developers.",
     slug: "cron-expression-generator",
+    category: "Generate",
     icon: "clock",
   },
   yamlc: {
     name: "Data Format Converter",
-    description:
-      "Convert data between different formats including JSON, YAML, TOML, XML, and CSV",
+    description: "Convert between JSON, YAML, TOML, XML, and CSV",
     seoDescription:
       "Convert data between JSON, YAML, TOML, XML, and CSV in your browser. Paste one format and pick another to convert instantly. Free and private.",
     slug: "yamlc",
+    category: "Convert",
     icon: "arrowUpDown",
   },
   "text-trimmer": {
     name: "Text Trimmer",
-    description: "Remove leading and trailing whitespace from text",
+    description: "Strip leading and trailing whitespace from every line",
     seoDescription:
       "Remove leading and trailing whitespace from every line of text, or from just one side. A free online text trimmer for cleaning pasted text and code.",
     slug: "text-trimmer",
+    category: "Text",
     icon: "scissors",
   },
   "find-replace": {
     name: "Find and Replace Text",
-    description: "Find and replace text with case sensitivity and whole word options",
+    description: "Case-sensitive and whole-word matching",
     seoDescription:
       "Find and replace text online with case-sensitive and whole-word matching. Paste your text, set the search and replacement, and copy the result.",
     slug: "find-replace",
+    category: "Text",
     icon: "search",
   },
   "case-converter": {
     name: "Case Converter",
-    description: "Convert text between different casing formats",
+    description: "camelCase, snake_case, kebab-case, and 6 more",
     seoDescription:
       "Convert text to camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, Title Case, Sentence case, UPPER or lower case. Free and instant.",
     slug: "case-converter",
+    category: "Text",
     icon: "type",
   },
   "color-converter": {
     name: "Color Code Converter",
-    description: "Convert colors between HEX, RGB, HSL, and RGBA formats",
+    description: "HEX, RGB, RGBA, and HSL, with a live preview",
     seoDescription:
       "Convert colors between HEX, RGB, RGBA, and HSL with a live preview. A free online color code converter for designers and developers.",
     slug: "color-converter",
+    category: "Convert",
     icon: "palette",
   },
   "word-counter": {
     name: "Word Counter",
-    description: "Count words, characters, sentences, paragraphs, and reading time",
+    description: "Words, characters, sentences, paragraphs, and reading time",
     seoDescription:
       "Count words, characters, sentences, and paragraphs, and estimate reading time as you type. A free online word counter that runs in your browser.",
     slug: "word-counter",
+    category: "Text",
     icon: "fileText",
   },
 } as const;
