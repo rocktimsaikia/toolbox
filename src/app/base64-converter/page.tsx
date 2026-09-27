@@ -56,10 +56,10 @@ export default function Base64Converter() {
       <ToolsHeader tool={TOOLS["base64-converter"]} />
       <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center mt-20">
         <div className="flex flex-col items-start w-full">
-          <h2 className="mb-2 lg:text-lg font-semibold">
+          <p className="mb-2 lg:text-lg font-semibold">
             Input{" "}
             <span className="text-muted-foreground">({encode ? "Text" : "Base64"})</span>
-          </h2>
+          </p>
           <textarea
             className="w-full h-20 lg:w-[530px] lg:h-[125px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputString}
@@ -71,12 +71,12 @@ export default function Base64Converter() {
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
-            <h2 className="text-lg font-semibold flex gap-x-1">
+            <p className="text-lg font-semibold flex gap-x-1">
               <span>Output</span>
               <span className="text-muted-foreground">
                 ({encode ? "Base64" : "Text"})
               </span>
-            </h2>
+            </p>
             <Clipboard text={outputString} />
           </div>
           <textarea

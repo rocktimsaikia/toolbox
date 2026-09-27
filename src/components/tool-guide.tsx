@@ -8,7 +8,7 @@ export default function ToolGuide({ slug }: { slug: Slug }) {
   return (
     <section className="mx-auto mt-16 w-full max-w-2xl text-sm leading-relaxed">
       <h2 className="mb-3 text-xl font-semibold text-foreground">
-        About the {TOOLS[slug].name}
+        {TOOLS[slug].name} guide
       </h2>
       <p className="text-muted-foreground">{guide.intro}</p>
 

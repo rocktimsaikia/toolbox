@@ -124,7 +124,7 @@ export default function Yamlc() {
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
         <div className="flex flex-col lg:items-start">
           <div className="flex justify-between w-full">
-            <h2 className="mb-2 text-lg font-semibold">Input</h2>
+            <p className="mb-2 text-lg font-semibold">Input</p>
 
             <select
               value={inputFormat}
@@ -148,7 +148,7 @@ export default function Yamlc() {
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
-            <h2 className="text-lg font-semibold">Output</h2>
+            <p className="text-lg font-semibold">Output</p>
             <div className="flex gap-2">
               <select
                 value={outputFormat}

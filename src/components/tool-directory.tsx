@@ -103,12 +103,12 @@ export default function ToolDirectory({ tools }: Props) {
         <div className="flex flex-col gap-10">
           {groups.map(({ category, tools }) => (
             <section key={category}>
-              <h2 className="mb-3 flex items-baseline gap-2 text-sm font-semibold text-foreground">
-                {category}
-                <span className="font-mono text-xs font-normal tabular-nums text-muted-foreground">
+              <div className="mb-3 flex items-baseline gap-2">
+                <h2 className="text-sm font-semibold text-foreground">{category}</h2>
+                <span className="font-mono text-xs tabular-nums text-muted-foreground">
                   {tools.length}
                 </span>
-              </h2>
+              </div>
               <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {tools.map((tool) => (
                   <li key={tool.slug}>

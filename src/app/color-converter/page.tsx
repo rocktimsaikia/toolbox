@@ -74,7 +74,7 @@ export default function ColorConverter() {
       <div className="flex flex-col items-center mt-20">
         <div className="flex lg:flex-row flex-col gap-y-5 lg:gap-y-0 lg:gap-x-6 justify-center w-full">
           <div className="flex flex-col items-start w-full">
-            <h2 className="mb-2 lg:text-lg font-semibold">Input Color</h2>
+            <p className="mb-2 lg:text-lg font-semibold">Input Color</p>
             <input
               type="text"
               className="w-full lg:w-[530px] h-12 border border-border rounded px-3 font-mono text-sm"

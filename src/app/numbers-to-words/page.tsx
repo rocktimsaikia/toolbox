@@ -145,7 +145,7 @@ export default function NumbersToWords() {
       <ToolsHeader tool={TOOLS["numbers-to-words"]} />
       <div className="flex flex-col lg:flex-row gap-x-0 lg:gap-x-6 gap-y-5 justify-end items-end mt-20">
         <div className="flex flex-col items-start w-full">
-          <h2 className="text-lg font-semibold">Numbers</h2>
+          <p className="text-lg font-semibold">Numbers</p>
           <textarea
             className="w-full lg:w-[614px] lg:h-[185px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             onChange={handleOnChange}

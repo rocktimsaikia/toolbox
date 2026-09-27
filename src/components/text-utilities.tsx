@@ -527,9 +527,9 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
         <div className="flex flex-col gap-y-6 lg:flex-row lg:gap-x-6">
           <div className="flex w-full flex-col lg:w-auto">
             <div className="mb-2 flex min-h-11 items-end lg:min-h-9">
-              <h2 className="font-semibold lg:text-lg">
+              <p className="font-semibold lg:text-lg">
                 <label htmlFor="text-input">{modeConfig.inputLabel}</label>
-              </h2>
+              </p>
             </div>
             <textarea
               id="text-input"
@@ -549,9 +549,9 @@ export default function TextUtilities({ initialMode: mode, tool }: Props) {
 
           <div className="flex w-full flex-col lg:w-auto">
             <div className="mb-2 flex min-h-11 flex-wrap items-end justify-between gap-2 lg:min-h-9">
-              <h2 id="output-heading" className="font-semibold lg:text-lg">
+              <p id="output-heading" className="font-semibold lg:text-lg">
                 Output
-              </h2>
+              </p>
               <div className="flex items-center gap-2">
                 <button
                   type="button"

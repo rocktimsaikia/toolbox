@@ -96,7 +96,7 @@ export default function JsonToTypes() {
       <ToolsHeader tool={TOOLS["json-to-ts"]} />
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:gap-x-6 justify-center mt-20">
         <div className="flex flex-col lg:items-start">
-          <h2 className="mb-2 text-lg font-semibold">Object</h2>
+          <p className="mb-2 text-lg font-semibold">Object</p>
           <LazyCodeEditor
             value={inputString}
             onChange={setInputString}
@@ -107,7 +107,7 @@ export default function JsonToTypes() {
         </div>
         <div className="flex flex-col items-start">
           <div className="flex justify-between w-full">
-            <h2 className="text-lg font-semibold">Typescript</h2>
+            <p className="text-lg font-semibold">Typescript</p>
             <button
               type="button"
               onClick={() => {

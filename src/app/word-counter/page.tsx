@@ -80,7 +80,7 @@ export default function WordCounter() {
       <ToolsHeader tool={TOOLS["word-counter"]} />
       <div className="flex flex-col items-center mt-20">
         <div className="flex flex-col items-start w-full max-w-[1100px]">
-          <h2 className="mb-2 lg:text-lg font-semibold">Text</h2>
+          <p className="mb-2 lg:text-lg font-semibold">Text</p>
           <textarea
             className="w-full h-40 lg:h-[200px] border border-border rounded p-3 resize-none dark:bg-input/30 font-mono text-sm"
             value={inputText}
