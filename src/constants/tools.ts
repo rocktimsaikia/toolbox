@@ -308,8 +308,8 @@ export const TOOLS = {
     icon: "fileText",
   },
   "json-formatter": {
-    name: "JSON Formatter",
-    seoTitle: "JSON Formatter and Beautifier, Pretty Print Online",
+    name: "Online JSON Formatter",
+    seoTitle: "Online JSON Formatter and Beautifier",
     description: "Pretty print JSON with the indentation you want",
     seoDescription:
       "Format and beautify JSON online. Paste minified or messy JSON and get readable, indented output, with any error pointed out by line. Free and private.",
