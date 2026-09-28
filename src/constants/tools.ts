@@ -268,8 +268,8 @@ export const TOOLS = {
     icon: "type",
   },
   "unix-timestamp-converter": {
-    name: "Unix Timestamp Converter",
-    seoTitle: "Unix Timestamp Converter: Epoch to Date and Back",
+    name: "Timestamp to Date Converter",
+    seoTitle: "Timestamp to Date Converter: Seconds, ms, µs, ns and Back",
     description: "Timestamps to dates and back, in any unit",
     seoDescription:
       "Convert a Unix timestamp to a date in UTC and your time zone, or a date to a timestamp. Reads seconds, milliseconds, microseconds, and nanoseconds.",
