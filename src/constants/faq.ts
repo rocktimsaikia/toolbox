@@ -245,24 +245,24 @@ const LOREM_IPSUM_FAQ: Faq[] = [
 
 const BLANK_CHARACTER_FAQ: Faq[] = [
   {
-    question: "What are blank characters and why would I need them?",
+    question: "What is this blank character?",
     answer:
-      "Blank characters are invisible Unicode characters used for fine-tuning text spacing, creating invisible separators, or fixing layout issues. They're useful for designers, developers, and content creators who need precise text control.",
+      "It's U+200B, the zero-width space: an invisible Unicode character with no width. Copy it and paste it into a name or message field that won't accept an empty value.",
   },
   {
-    question: "What's the difference between the various space characters?",
+    question: "What do people use it for?",
     answer:
-      "Different spaces have different widths: En Space (width of 'N'), Em Space (width of 'M'), Thin Space (1/6 em), Hair Space (thinnest), Figure Space (width of digits), and Punctuation Space (width of period). Choose based on your spacing needs.",
+      "Mostly for blank names or nicknames in games, apps, and chat platforms whose forms reject an empty string but don't check for invisible characters.",
   },
   {
-    question: "When should I use zero-width characters?",
+    question: "Is it safe to use everywhere?",
     answer:
-      "Zero-width characters are invisible and useful for: Zero Width Space (line break opportunities), Zero Width Non-Joiner (preventing character joining), Zero Width Joiner (forcing character joining), and Word Joiner (invisible non-breaking space).",
+      "Most modern apps handle it fine, but some older or stricter systems may strip invisible characters, or show a visible placeholder instead of true blank. Test it in your target app first.",
   },
   {
-    question: "Are these characters safe to use in all applications?",
+    question: "Will people be able to tell I used it?",
     answer:
-      "Most modern applications support Unicode characters, but some older systems might not display them correctly. Test in your target environment first, especially for zero-width characters which can affect text selection and copying.",
+      "The character itself is invisible, but some platforms flag names with no visible characters, and copy-pasting it can behave oddly in text fields that trim whitespace. Try it before relying on it somewhere important.",
   },
 ];
 
