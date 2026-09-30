@@ -8,10 +8,12 @@ export default function Navbar() {
       <div className="max-w-6xl w-full flex items-center justify-between px-4">
         <Link href="/" className="flex items-center">
           <Image
-            src="/toolbox-v2.png"
+            // Pre-sized for 2x screens; the Workers deploy serves /_next/image unresized
+            src="/toolbox-v2-120.png"
             alt="Toolbelt Logo"
             width={60}
             height={60}
+            unoptimized
             className="inline-block"
           />
           <span className="ml-2 text-lg font-semibold hidden sm:inline-block">
