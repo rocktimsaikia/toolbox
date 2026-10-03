@@ -151,6 +151,29 @@ const URL_PARSER_FAQ: Faq[] = [
   },
 ];
 
+const DATABASE_URL_PARSER_FAQ: Faq[] = [
+  {
+    question: "What does the Database URL Parser do?",
+    answer:
+      "It splits a database connection URL into its parts - scheme, username, password, host, port, database, and options - and explains in plain words what each one does, with a one-line summary of where the URL connects.",
+  },
+  {
+    question: "Which databases does it understand?",
+    answer:
+      'PostgreSQL, MySQL, MariaDB, SQL Server, Oracle, CockroachDB, MongoDB (including mongodb+srv), Redis, and SQLite. It also reads JDBC URLs, SQLAlchemy dialect+driver schemes like postgresql+psycopg2, and a pasted .env line such as DATABASE_URL="...".',
+  },
+  {
+    question: "Why does my connection fail when the password has special characters?",
+    answer:
+      "Characters like @, /, and # have a meaning inside a URL, so a raw @ in the password makes many drivers read the wrong host. Percent-encode them: @ becomes %40, / becomes %2F, and # becomes %23. The parser warns you when it spots one.",
+  },
+  {
+    question: "Is it safe to paste a URL with a real password?",
+    answer:
+      "Parsing happens entirely in your browser and nothing is sent anywhere. The password is hidden on screen until you click Show, so it stays private if you are sharing your screen.",
+  },
+];
+
 const JSON_TO_TYPES_FAQ: Faq[] = [
   {
     question: "What does the JavaScript/JSON to TypeScript Types tool do?",
@@ -441,6 +464,7 @@ export const Faqs: Record<Slug, Faq[]> = {
   "base64-converter": BASE64_CONVERTER_FAQ,
   "url-encoder-decoder": URL_ENCODER_DECODER_FAQ,
   "url-parser": URL_PARSER_FAQ,
+  "database-url-parser": DATABASE_URL_PARSER_FAQ,
   "html-escape": HTML_ESCAPE_FAQ,
   "line-break-remover": LINE_BREAK_REMOVER_FAQ,
   "lorem-ipsum": LOREM_IPSUM_FAQ,

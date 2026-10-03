@@ -79,6 +79,65 @@ export const GUIDES: Partial<Record<Slug, Guide>> = {
       },
     ],
   },
+  "database-url-parser": {
+    intro:
+      "Most apps get their database from a single connection URL, usually in a DATABASE_URL environment variable. That one line packs in the database type, the login, the server, the database name, and a string of driver options. The Database URL Parser splits it into labelled rows and explains each one, so you can check where an app is pointed before it connects.",
+    sections: [
+      {
+        heading: "Example",
+        paragraphs: ["A typical PostgreSQL URL. The next section takes it apart."],
+        code: "postgresql://app_user:s3cret@db.example.com:5432/shop?sslmode=require",
+      },
+      {
+        heading: "What each part means",
+        list: [
+          {
+            term: "Scheme.",
+            text: "postgresql:// names the database engine, which tells the client which protocol to speak. A jdbc: prefix marks a Java URL, and a +driver suffix, as in postgresql+psycopg2, names the library SQLAlchemy should use.",
+          },
+          {
+            term: "Username and password.",
+            text: "app_user and s3cret, the login. The password is hidden on screen until you click Show.",
+          },
+          {
+            term: "Host and port.",
+            text: "db.example.com is the server, and 5432 is the port it listens on. When the URL leaves the port out, the parser shows the engine's default, such as 3306 for MySQL or 6379 for Redis.",
+          },
+          {
+            term: "Database.",
+            text: "shop, the database to open. For Redis it is a number from 0 to 15, and for SQLite the whole URL is a file path.",
+          },
+          {
+            term: "Options.",
+            text: "Everything after the ?. sslmode=require turns on TLS encryption. The parser explains the common options for each driver, such as connect_timeout, authSource, replicaSet, and charset.",
+          },
+        ],
+      },
+      {
+        heading: "Special characters in passwords",
+        paragraphs: [
+          "Inside a URL, @ separates the login from the host, / starts the database name, and # starts a fragment. A password that contains one of these raw breaks the URL for most drivers, often with a confusing error about an unknown host. Percent-encode them: @ becomes %40, / becomes %2F, and # becomes %23. The parser reads the password up to the last @ and warns you when it finds a raw character.",
+        ],
+      },
+      {
+        heading: "When it helps",
+        list: [
+          {
+            text: "Checking that a deploy points at the right database and host before you run a migration.",
+          },
+          {
+            text: "Debugging a connection that fails, by confirming the port, database name, and TLS settings.",
+          },
+          {
+            text: "Reading a MongoDB Atlas or other hosted database string to see which options it sets.",
+          },
+          {
+            text: "Turning a JDBC or SQLAlchemy URL into the plain host, port, and database a GUI client asks for.",
+          },
+        ],
+      },
+    ],
+  },
   "case-converter": {
     intro:
       "Every language and tool has its own naming convention. JavaScript wants camelCase variables, Python wants snake_case, CSS and URLs want kebab-case, and environment variables use CONSTANT_CASE. The Case Converter rewrites a name in any of these styles, so you can move identifiers between codebases without retyping them.",

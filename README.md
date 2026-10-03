@@ -17,6 +17,7 @@ Free, fast developer tools at **[toolbelt.fyi](https://toolbelt.fyi)**. No sign-
 | [SHA-256 Generator](https://toolbelt.fyi/sha256-generator) | SHA-256 hash of text or a file |
 | [SHA-512 Generator](https://toolbelt.fyi/sha512-generator) | SHA-512 hash of text or a file |
 | [HTML Escape](https://toolbelt.fyi/html-escape) | Escape and unescape HTML entities |
+| [Database URL Parser](https://toolbelt.fyi/database-url-parser) | See what every part of a Postgres, MySQL, MongoDB, Redis, or SQLite connection string means |
 | [URL Parser](https://toolbelt.fyi/url-parser) | Break a messy URL into host, path segments, and every query param, with base64 and JWT values decoded |
 | [JSON to TypeScript Types](https://toolbelt.fyi/json-to-ts) | Generate TypeScript types from a JavaScript object or JSON |
 | [JSON Formatter](https://toolbelt.fyi/json-formatter) | Pretty print JSON with 2 spaces, 4 spaces, or tabs |

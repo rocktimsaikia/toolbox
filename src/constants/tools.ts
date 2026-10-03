@@ -97,6 +97,16 @@ export const TOOLS = {
     category: "Web",
     icon: "listTree",
   },
+  "database-url-parser": {
+    name: "Database URL Parser",
+    seoTitle: "Database URL Parser: Read Any Connection String",
+    description: "See what every part of a database connection string means",
+    seoDescription:
+      "Paste a Postgres, MySQL, MongoDB, Redis, or SQLite connection URL to see its user, host, port, database, and options, each explained. Runs in your browser.",
+    slug: "database-url-parser",
+    category: "Web",
+    icon: "database",
+  },
   "whats-my-ip": {
     name: "What's My IP",
     seoTitle: "What's My IP Address? See Your Public IP",
